@@ -1,0 +1,34 @@
+
+<?php
+
+class MessageManager extends AbstractEntityManager
+{
+    public function findAll(): array
+    {
+        $sql = "SELECT * FROM message ORDER BY dateUpdate DESC";
+        $stmt = $this->db->query($sql);
+
+        $messages = [];
+
+        while ($row = $stmt->fetch()) {
+            $messages[] = new Message($row);
+        }
+
+        return $messages;
+    }
+
+    public function add(Message $message): Message
+    {
+        $sql = "INSERT INTO message (title, content)
+                VALUES (:title, :content)";
+
+        $this->db->query($sql, [
+            'title' => $message->getTitle(),
+            'content' => $message->getContent()
+        ]);
+
+        $message->setId((int) $this->db->getPDO()->lastInsertId());
+
+        return $message;
+    }
+}
