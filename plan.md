@@ -15,13 +15,14 @@
 
 Pour la planification du développement, je vois les étapes dans cet ordre :
 
-Création de la base de données.
+Création de la base de données. ______________________ J'ai créé la première base de données message dans la branche message directement rattachée à ma branch main.
+                                                         
 
-Récupération de données depuis la base pour créer les premières routes et vérifier que tout fonctionne.
+Récupération de données depuis la base pour créer les premières routes et vérifier que tout fonctionne. _____________________ok  Pour la branche message('test') à partir de main
 
-Mise en place de la landing page, + header et  footer.
+Mise en place de la landing page, + header et  footer. _____________________  à faire
 
-Implémentation de l’inscription et du login.
+Implémentation de l’inscription et du login. 
 
 Passage à la partie « livres » côté utilisateur :
 
