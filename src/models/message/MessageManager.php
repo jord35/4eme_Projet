@@ -31,4 +31,19 @@ class MessageManager extends AbstractEntityManager
 
         return $message;
     }
+    public function findAfterId(int $afterId): array
+    {
+        $sql = "SELECT * FROM message WHERE id > :afterId ORDER BY id ASC";
+        $stmt = $this->db->query($sql, [
+        'afterId' => $afterId
+        ]);
+
+        $messages = [];
+
+        while ($row = $stmt->fetch()) {
+            $messages[] = new Message($row);
+        }
+
+        return $messages;
+    }
 }

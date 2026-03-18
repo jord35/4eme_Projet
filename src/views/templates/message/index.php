@@ -1,5 +1,4 @@
 
-
 <h1>Test d'insertion de messages</h1>
 
 <div class="message__layout">
@@ -16,27 +15,14 @@
     <aside class="panel right">
         <h2>Liste des messages</h2>
 
-        <?php if (empty($messages)): ?>
-            <p>Aucun message pour le moment.</p>
-        <?php else: ?>
-            <?php foreach ($messages as $message): ?>
-                <article class="message">
-                    <h3 class="message__item--title">
-                        #<?= htmlspecialchars((string) $message->getId()) ?>
-                        - <?= htmlspecialchars($message->getTitle()) ?>
-                    </h3>
-
-                    <p><?= nl2br(htmlspecialchars($message->getContent())) ?></p>
-
-                    <p class="meta">
-                        Date création :
-                        <?= $message->getDateCreation() ? $message->getDateCreation()->format('d/m/Y H:i:s') : 'N/A' ?>
-                        <br>
-                        Date update :
-                        <?= $message->getDateUpdate() ? $message->getDateUpdate()->format('d/m/Y H:i:s') : 'N/A' ?>
-                    </p>
-                </article>
-            <?php endforeach; ?>
-        <?php endif; ?>
+        <div id="messages-list" data-last-id="<?= !empty($messages) ? end($messages)->getId() : 0 ?>">
+            <?php if (empty($messages)): ?>
+                <p id="empty-message">Aucun message pour le moment.</p>
+            <?php else: ?>
+                <?php foreach ($messages as $message): ?>
+                    <?php require __DIR__ . '/_item.php'; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
     </aside>
 </div>
