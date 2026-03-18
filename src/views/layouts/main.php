@@ -13,5 +13,7 @@
     <div class="container">
         <?= $content ?>
     </div>
+    <script src="/js/app.js"></script>
+    <script src="/js/chat.js"></script>
 </body>
 </html>
