@@ -1,6 +1,6 @@
 # Sprint 0 - Structure de base
 
-- [ ] création du squelette du code général routeur et MVC ________________________en cour 
+- [ ] création du squelette du code général routeur et MVC _________________________en cour 
 - [ ] Création des dossiers racine (src, views, etc.)  
 - [ ] Création des fichiers de structure (sprint1, sprint2, sprint3)
 - [ ] Création des fichiers vides pour les DB (db_*.sql)

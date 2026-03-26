@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             emptyMessage.remove();
         }
 
-        messagesList.insertAdjacentHTML('beforeend', data.html);
+        messagesList.insertAdjacentHTML('afterbegin', data.html);
 
         lastId = Number(data.lastId || lastId);
         messagesList.dataset.lastId = String(lastId);

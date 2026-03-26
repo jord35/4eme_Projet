@@ -15,7 +15,7 @@
         <h2>Liste des messages</h2>
 
         <?php
-        $lastId = !empty($messages) ? end($messages)->getId() : 0;
+            $lastId = !empty($messages) ? $messages[0]->getId() : 0;
         ?>
 
         <div id="messages-list" data-last-id="<?= $lastId ?>">

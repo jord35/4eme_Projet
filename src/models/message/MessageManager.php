@@ -1,11 +1,10 @@
-
 <?php
 
 class MessageManager extends AbstractEntityManager
 {
     public function findAll(): array
     {
-        $sql = "SELECT * FROM message ORDER BY dateUpdate DESC";
+        $sql = "SELECT * FROM message ORDER BY id DESC";
         $stmt = $this->db->query($sql);
 
         $messages = [];
@@ -33,9 +32,9 @@ class MessageManager extends AbstractEntityManager
     }
     public function findAfterId(int $afterId): array
     {
-        $sql = "SELECT * FROM message WHERE id > :afterId ORDER BY id ASC";
+        $sql = "SELECT * FROM message WHERE id > :afterId ORDER BY id DESC";
         $stmt = $this->db->query($sql, [
-        'afterId' => $afterId
+            'afterId' => $afterId
         ]);
 
         $messages = [];
