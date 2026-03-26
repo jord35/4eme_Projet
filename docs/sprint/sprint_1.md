@@ -1,6 +1,6 @@
 # Sprint 1 - Proof of Concept global
 
-
+.
 ## Sign-up
 - [ ] Mise en place du routing
 - [ ] Mise en place d'un manager ou d'un appel DB minimal
