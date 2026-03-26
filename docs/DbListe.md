@@ -1,21 +1,100 @@
- Pour ce projet je vais avoir besoin de plusieurs tables.
- Forcément une table book
-  Une table user
- une table message
-  Une table conversation.
+# Base de données du projet
 
-pour book: id/titre /auteure / Description/propriétaire du livre(id) / date d'ajout / url img/ disponibilité
+Pour ce projet, plusieurs tables sont nécessaires afin de gérer les utilisateurs, les livres, les images et la messagerie.
 
-user : id / mail / pseudo /Date d'enregistrement du compte/ mot de passe haché/ url img/ 
+## Tables principales
 
-Message:  Date de création du message/  ID de l'envoyeur /  ID de conversation /  Contenu du Message/   Message reçu lu(oui ou non)
+- `users`
+- `pictures`
+- `books`
+- `conversations`
+- `conversation_participants`
+- `messages`
 
-conversation: id/user1/user2/last_message_id
-___________________________________
- pour récupérer  toutes les conversations d'un utilisateur je map sur conversation avec son id je récupère les id des conversations  L'useur 2  le last message  Je fais un join  pour récupérer les infos   dans la table messages. 
+## users
+Contient les informations des utilisateurs.
 
-  Puis si l'utilisateur clique sur la conversion
-  
-  Je récupère tout à partir de l'ID de conversation. Je trie par date. Je trie pour chaque qui a envoyé. Est-ce que l'ID de l'envoyeur est l'ID de l'utilisateur ? Si oui, alors le message a été envoyé par l'utilisateur, sinon le message a été reçu par l'utilisateur.
-____________________________________
+Champs :
+- `id`
+- `username`
+- `email`
+- `password_hash`
+- `profile_picture_id`
+- `created_at`
+- `updated_at`
 
+## pictures
+Contient les chemins et métadonnées des images.
+
+Champs :
+- `id`
+- `title`
+- `alt_text`
+- `original_path`
+- `webp_path`
+- `webp_320_path`
+- `webp_640_path`
+- `webp_1260_path`
+- `original_filename`
+- `mime_type`
+- `width`
+- `height`
+- `created_at`
+
+## books
+Contient les livres proposés à l’échange.
+
+Champs :
+- `id`
+- `title`
+- `author_name`
+- `description`
+- `owner_user_id`
+- `cover_picture_id`
+- `is_available`
+- `created_at`
+- `updated_at`
+
+## conversations
+Représente une conversation entre utilisateurs.
+
+Champs :
+- `id`
+- `created_at`
+- `updated_at`
+
+## conversation_participants
+Relie les utilisateurs aux conversations.
+
+Champs :
+- `conversation_id`
+- `user_id`
+- `last_read_at`
+- `joined_at`
+
+## messages
+Contient les messages envoyés dans une conversation.
+
+Champs :
+- `id`
+- `conversation_id`
+- `sender_user_id`
+- `content`
+- `created_at`
+
+## Logique générale
+
+- Un utilisateur possède des livres.
+- Un livre appartient à un utilisateur.
+- Un utilisateur peut avoir une image de profil.
+- Un livre peut avoir une image de couverture.
+- Une conversation contient plusieurs messages.
+- Une conversation possède plusieurs participants.
+- Un message appartient à une conversation et possède un expéditeur.
+
+## Notes
+
+- Les images ne sont pas stockées directement dans la base, seulement leurs chemins et métadonnées.
+- Le nombre de livres d’un utilisateur sera calculé à partir de la table `books`.
+- Le "membre depuis X temps" sera calculé à partir de `created_at`.
+- Le non-lu en messagerie sera géré via `conversation_participants.last_read_at`.

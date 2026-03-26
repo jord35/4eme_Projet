@@ -1,37 +1,35 @@
- Pour ce qui est des requêtes, je pense utiliser les mêmes classes que pour le projet précédent.
+# Plan du projet
 
+Pour les requêtes, je pense utiliser la même logique que pour le projet précédent, avec les mêmes types de classes pour garder quelque chose de propre et organisé.
 
+Au début, je pensais ne pas avoir le droit d’utiliser du JavaScript, donc je pensais gérer le rechargement des messages en HTML avec un rafraîchissement régulier.  
+Finalement, j’ai le droit au JavaScript, donc je vais pouvoir l’utiliser pour la messagerie.
 
-  Je ne peux pas mettre de JS, donc je vais devoir gérer le reload des messages via le HTML.
-   avec un timer toutes les x secondes
-    Alors finalement j'ai le droit d'utiliser du JS. 
+Pour la messagerie, je dois encore faire un choix technique important.  
+Soit je fais un système qui interroge régulièrement le serveur toutes les quelques secondes pour vérifier s’il y a de nouveaux messages.  
+Soit je pars sur quelque chose de plus avancé comme le long polling.  
+Pour l’instant, le short polling me semble plus simple, plus propre et plus adapté à un projet en PHP natif.
 
- Alors le petit souci que j'ai maintenant c'est de choisir comment le client va se comporter, ce qui va influencer énormément mon serveur. Soit que je demande toutes les X secondes via du JS une réponse, s'il y a du nouveau par exemple, avec un ID, LastUpdateID par exemple. Si je fais ça, ce ne sera pas tout à fait synchrone, mais par contre ça va être beaucoup plus facile à implémenter d'une part, et de deux, d'un point de vue serveur, en PHP natif, c'est une situation d'un plus d'avenir.
-  Le problème, si je fais quelque chose de long polling, on appelle ça, je risque de saturer mon serveur. Alors, ça va fonctionner, mais conceptuellement, ça ne sera pas bon. donc bah je me demande si je passerai pas plutôt sur un short polling qui est moins techniquement moins intéressant mais plus propre et plus dans l'idée où on est censé faire des projets qui puissent être mis en prode. 
+Le HTML et le CSS ne m’inquiètent pas particulièrement.  
+Je pense aussi utiliser du SCSS si c’est autorisé, puis le compiler en CSS.
 
-  le html et css es simple ça me fait pas trop peur.
-   Est-ce que j'ai le droit au SCSS?
+Pour les images, elles seront stockées directement sur le serveur.  
+La base de données contiendra seulement les chemins ou URLs nécessaires pour les récupérer.
 
- Je vais pouvoir stocker les images directement sur le serveur et les récupérer via la dB avec leur URL.
+## Ordre de développement
 
+Je pense avancer dans cet ordre :
 
-Pour la planification du développement, je vois les étapes dans cet ordre :
+1. créer la base de données ;
+2. récupérer les premières données depuis la base pour tester les routes ;
+3. mettre en place la landing page avec le header et le footer ;
+4. implémenter l’inscription et la connexion ;
+5. développer la partie livres côté utilisateur ;
+6. commencer par les miniatures et la grille ;
+7. faire ensuite la page détaillée d’un livre ;
+8. terminer par la messagerie.
 
-Création de la base de données.
+## Remarque
 
-Récupération de données depuis la base pour créer les premières routes et vérifier que tout fonctionne.
-
-Mise en place de la landing page, + header et  footer.
-
-Implémentation de l’inscription et du login.
-
-Passage à la partie « livres » côté utilisateur :
-
-d’abord les miniatures pour construire la grille et la page de la bibliothèque de l’utilisateur,
-
-puis la page de description détaillée d’un livre.
-
-Enfin, je m’occuperai de la partie messagerie.
-
-
-
+Ce document est surtout là pour garder une trace simple de la manière dont je compte avancer dans le projet.  
+Il pourra évoluer au fur et à mesure du développement.
