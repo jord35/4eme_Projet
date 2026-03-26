@@ -1,6 +1,6 @@
 # Sprint 1 - Proof of Concept global
 
-- [ ] Mise en place du routing pour chaque feature
+- [ ] Mise en place du routing pour chaque feature_______________En cours.
 - [ ] Mise en place d'un manager ou d'un appel DB minimal pour chaque feature
 - [ ] Mise en place d'un contrôleur pour chaque feature
 - [ ] Mise en place d'un rendu HTML minimal pour chaque page
