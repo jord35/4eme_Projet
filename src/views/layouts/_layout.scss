@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f5f5f5;
+    line-height: 1.5;
+}
+
+// Variables globales
+:root {
+    --border-radius: 8px;
+    --border-color: #fd0000;
+    --bg-panel: #fff;
+    --bg-message: #fafafa;
+    --text-muted: #555;
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+}
+
+// Layout flex global (optionnel)
+.layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+// Utilitaires globaux
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
