@@ -6,5 +6,5 @@
 - [x] Création des fichiers vides pour les DB (db_*.sql)
 - [x] Intégration de la base dans XAMPP / phpMyAdmin
 
-Objectif :
+Objectif:
 Poser le socle technique du projet avec une structure MVC minimale, la base documentaire de sprint et l'environnement local prêt à accueillir les premières features.
