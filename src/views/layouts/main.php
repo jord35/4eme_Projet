@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,13 +9,13 @@
     
     
     <!-- CSS global -->
-    <link rel="stylesheet" href="./views/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="container">
         <?= $content ?>
     </div>
     <script src="/js/app.js"></script>
-    <script src="/js/message.js"></script>
+    <script src="/js/message/message.js"></script>
 </body>
 </html>

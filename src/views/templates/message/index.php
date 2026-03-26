@@ -1,11 +1,10 @@
-
 <h1>Test d'insertion de messages</h1>
 
 <div class="message__layout">
     <section class="message__panel">
         <h2>Ajouter un message</h2>
 
-        <form method="POST" action="">
+        <form id="message-form" method="POST" action="">
             <input type="text" name="title" placeholder="Titre" required>
             <textarea name="content" placeholder="Contenu" required></textarea>
             <button type="submit">Envoyer</button>
@@ -15,7 +14,11 @@
     <aside class="panel right">
         <h2>Liste des messages</h2>
 
-        <div id="messages-list" data-last-id="<?= !empty($messages) ? end($messages)->getId() : 0 ?>">
+        <?php
+        $lastId = !empty($messages) ? end($messages)->getId() : 0;
+        ?>
+
+        <div id="messages-list" data-last-id="<?= $lastId ?>">
             <?php if (empty($messages)): ?>
                 <p id="empty-message">Aucun message pour le moment.</p>
             <?php else: ?>
