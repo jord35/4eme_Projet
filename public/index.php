@@ -25,4 +25,4 @@ if ($action === 'authenticate') {
     exit;
 }
 
-require_once ROOT_DIR . 'src/views/login.php';
+require_once ROOT_DIR . 'src/views/templates/login.php';
