@@ -15,16 +15,16 @@
 - [x] Mise en place d'un rendu HTML minimal
 - [x] Vérification que la page répond correctement.
 
-## Image common
-- [ ] Définition du rôle transverse de la gestion d'image
-- [ ] Définition de l'emplacement dans l'architecture (common)
-- [ ] Mise en place d'un service ou manager minimal de traitement d'image
-- [ ] Gestion d'un upload brut minimal
-- [ ] Validation du format de fichier
-- [ ] Définition de la stratégie de nommage et de stockage
-- [ ] Préparation de la conversion WebP
-- [ ] Préparation de la génération des tailles dérivées
-- [ ] Vérification que le composant peut être réutilisé dans plusieurs features
+## Picture common
+- [x] Définition du rôle transverse de la gestion d'image
+- [x] Définition de l'emplacement dans l'architecture (common)
+- [x] Mise en place d'un service ou manager minimal de traitement d'image
+- [x] Gestion d'un upload brut minimal
+- [x] Validation du format de fichier
+- [x] Définition de la stratégie de nommage et de stockage
+- [x] Préparation de la conversion WebP
+- [x] Préparation de la génération des tailles dérivées
+- [x] Vérification que le composant peut être réutilisé dans plusieurs features
 
 ## My account
 - [x] Mise en place du routing
