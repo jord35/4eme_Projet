@@ -26,7 +26,7 @@
 - [x] Préparation de la génération des tailles dérivées
 - [x] Vérification que le composant peut être réutilisé dans plusieurs features
 
-## My account
+## My account_
 - [x] Mise en place du routing
 - [~] Mise en place d'un manager ou d'un appel DB minimal  
 

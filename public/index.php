@@ -42,12 +42,8 @@ require_once ROOT_DIR . 'src/models/login/Login.php';
 require_once ROOT_DIR . 'src/models/login/LoginManager.php';
 require_once ROOT_DIR . 'src/controllers/LoginController.php';
 
-/*
-|--------------------------------------------------------------------------
-| Feature - Test Picture
-|--------------------------------------------------------------------------
-*/
-require_once ROOT_DIR . 'src/controllers/TestPictureController.php';
+
+
 
 $action = $_GET['action'] ?? null;
 
@@ -57,10 +53,6 @@ if ($action === 'authenticate') {
     exit;
 }
 
-if ($action === 'test-picture') {
-    $controller = new TestPictureController();
-    $controller->index();
-    exit;
-}
+
 
 require_once ROOT_DIR . 'src/views/templates/login.php';
