@@ -26,18 +26,6 @@
 - [x] Préparation de la génération des tailles dérivées
 - [x] Vérification que le composant peut être réutilisé dans plusieurs features
 
-## My account_
-- [x] Mise en place du routing
-- [~] Mise en place d'un manager ou d'un appel DB minimal  
-
-  Le manager est cadré, mais il n'est pas encore finalisé. Il dépend encore de composants transverses qui ne sont pas prêts, notamment la stratégie image dans `common` et la feature `Edit book` pour l'affichage réel des livres.  
-  Des solutions temporaires existent pour avancer : utiliser des données moquées, gérer provisoirement l'image brute sans transformation, et tester le cas où l'utilisateur n'a aucun livre.  
-  À ce stade, le projet n'est pas encore assez avancé pour couvrir tous les cas de figure de manière complète et cohérente.
-
-- [~] Mise en place d'un contrôleur
-- [x] Mise en place d'un rendu HTML minimal
-- [ ] Vérification que la page répond correctement
-
 ## Edit book
 - [x] Mise en place du routing
 - [x] Mise en place d'un manager ou d'un appel DB minimal
@@ -54,14 +42,33 @@
 - [x] Mise en place d'un rendu HTML minimal
 - [x] Vérification que la page répond correctement
 
-## Single book
+## My account_
+- [x] Mise en place du routing
+- [~] Mise en place d'un manager ou d'un appel DB minimal  
+  Le manager est cadré, mais il n'est pas encore finalisé. Il dépend encore de composants transverses qui ne sont pas prêts, notamment la stratégie image dans `common` et la feature `Edit book` pour l'affichage réel des livres.  
+  Des solutions temporaires existent pour avancer : utiliser des données moquées, gérer provisoirement l'image brute sans transformation, et tester le cas où l'utilisateur n'a aucun livre.  
+  À ce stade, le projet n'est pas encore assez avancé pour couvrir tous les cas de figure de manière complète et cohérente.
+  _mise à jour: C'est bon, le projet est assez avancé pour pouvoir terminer cette feature. De plus, pour pouvoir enchaîner sur public à compte, il va me falloir ajouter l'image dans my accompte.
+- [~] Mise en place d'un contrôleur
+- [x] Mise en place d'un rendu HTML minimal
+- [ ] Vérification que la page répond correctement
+
+## Public account
 - [ ] Mise en place du routing
 - [ ] Mise en place d'un manager ou d'un appel DB minimal
 - [ ] Mise en place d'un contrôleur
 - [ ] Mise en place d'un rendu HTML minimal
 - [ ] Vérification que la page répond correctement
 
-## Public account
+
+## Home _(en review)_
+- [x] Mise en place du routing
+- [x] Mise en place d'un manager ou d'un appel DB minimal
+- [x] Mise en place d'un contrôleur
+- [x] Mise en place d'un rendu HTML minimal
+- [ ] Vérification que la page répond correctement
+
+## Single book
 - [ ] Mise en place du routing
 - [ ] Mise en place d'un manager ou d'un appel DB minimal
 - [ ] Mise en place d'un contrôleur
@@ -75,12 +82,6 @@
 - [ ] Mise en place d'un rendu HTML minimal
 - [ ] Vérification que la page répond correctement
 
-## Home _(en review)_
-- [x] Mise en place du routing
-- [x] Mise en place d'un manager ou d'un appel DB minimal
-- [x] Mise en place d'un contrôleur
-- [x] Mise en place d'un rendu HTML minimal
-- [ ] Vérification que la page répond correctement
 
 
 ## Objectif
