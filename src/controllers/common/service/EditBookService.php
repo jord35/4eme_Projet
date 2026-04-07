@@ -111,7 +111,9 @@ class EditBookService
             ];
         }
 
-        $coverPictureId = $book->getCoverPictureId();
+        $oldCoverPictureId = $book->getCoverPictureId();
+        $newCoverPictureId = $oldCoverPictureId;
+        $newUploadedPictureId = null;
 
         if (!empty($files['picture']) && !empty($files['picture']['tmp_name'])) {
             $pictureResult = $this->pictureHelper->savePicture($files['picture'], [
@@ -124,20 +126,39 @@ class EditBookService
             }
 
             $pictureData = $pictureResult['data'];
-            $coverPictureId = $pictureData['picture_id'] ?? $coverPictureId;
+            $newUploadedPictureId = $pictureData['picture_id'] ?? null;
+            $newCoverPictureId = $newUploadedPictureId ?? $newCoverPictureId;
         }
 
         $book->setOwnerUserId($ownerUserId);
         $book->setTitle($title);
         $book->setAuthorName($authorName);
         $book->setDescription($description !== '' ? $description : null);
-        $book->setCoverPictureId($coverPictureId);
+        $book->setCoverPictureId($newCoverPictureId);
         $book->setIsAvailable($isAvailable);
 
         if ($bookId > 0) {
-            return $this->bookHelper->saveBook($book);
+            $saveResult = $this->bookHelper->saveBook($book);
+        } else {
+            $saveResult = $this->bookHelper->createBook($book);
         }
 
-        return $this->bookHelper->createBook($book);
+        if ($saveResult['success'] === false) {
+            if ($newUploadedPictureId !== null) {
+                $this->pictureHelper->deletePicturePackageIfUnused($newUploadedPictureId);
+            }
+
+            return $saveResult;
+        }
+
+        if (
+            $oldCoverPictureId !== null &&
+            $newCoverPictureId !== null &&
+            $oldCoverPictureId !== $newCoverPictureId
+        ) {
+            $this->pictureHelper->deletePicturePackageIfUnused($oldCoverPictureId);
+        }
+
+        return $saveResult;
     }
 }

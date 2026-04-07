@@ -35,6 +35,28 @@ class BookManager extends AbstractEntityManager
         return new Book($data);
     }
 
+    public function findAllForGrid(): array
+    {
+        $sql = '
+            SELECT
+                b.id,
+                b.title,
+                b.author_name,
+                b.owner_user_id,
+                u.username AS owner_username,
+                b.cover_picture_id,
+                b.is_available
+            FROM books b
+            INNER JOIN users u ON u.id = b.owner_user_id
+            ORDER BY b.created_at DESC
+        ';
+
+        $stmt = $this->db->query($sql);
+        $rows = $stmt->fetchAll();
+
+        return $rows ?: [];
+    }
+
     public function insert(Book $book): int
     {
         $sql = '

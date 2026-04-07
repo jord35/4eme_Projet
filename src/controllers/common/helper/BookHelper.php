@@ -44,6 +44,37 @@ class BookHelper
         ];
     }
 
+    public function getBooksForGrid(): array
+    {
+        $books = $this->bookManager->findAllForGrid();
+
+        if (empty($books)) {
+            return [
+                'success' => true,
+                'error' => null,
+                'data' => []
+            ];
+        }
+
+        $normalizedBooks = array_map(function (array $book): array {
+            return [
+                'id' => (int) $book['id'],
+                'title' => (string) $book['title'],
+                'author_name' => (string) $book['author_name'],
+                'owner_user_id' => (int) $book['owner_user_id'],
+                'owner_username' => (string) $book['owner_username'],
+                'cover_picture_id' => isset($book['cover_picture_id']) ? (int) $book['cover_picture_id'] : null,
+                'is_available' => (bool) $book['is_available'],
+            ];
+        }, $books);
+
+        return [
+            'success' => true,
+            'error' => null,
+            'data' => $normalizedBooks
+        ];
+    }
+
     public function createBook(Book $book): array
     {
         if ($book->getOwnerUserId() <= 0) {

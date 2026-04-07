@@ -75,6 +75,13 @@ require_once ROOT_DIR . 'src/controllers/LoginController.php';
 */
 require_once ROOT_DIR . 'src/controllers/EditBookController.php';
 
+/*
+|--------------------------------------------------------------------------
+| Feature - Books
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/controllers/BooksController.php';
+
 $action = $_GET['action'] ?? null;
 
 if ($action === 'authenticate') {
@@ -85,6 +92,12 @@ if ($action === 'authenticate') {
 
 if ($action === 'edit-book') {
     $controller = new EditBookController();
+    $controller->execute();
+    exit;
+}
+
+if ($action === 'books') {
+    $controller = new BooksController();
     $controller->execute();
     exit;
 }
