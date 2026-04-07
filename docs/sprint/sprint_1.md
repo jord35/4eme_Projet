@@ -47,7 +47,7 @@
 - [x] Mise en place d'un rendu HTML minimal
 - [x] Vérification que la page répond correctement
 
-## Books
+## Books_
 - [ ] Mise en place du routing
 - [ ] Mise en place d'un manager ou d'un appel DB minimal
 - [ ] Mise en place d'un contrôleur
