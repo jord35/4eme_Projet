@@ -39,11 +39,13 @@
 - [ ] Vérification que la page répond correctement
 
 ## Edit book
-- [ ] Mise en place du routing
-- [ ] Mise en place d'un manager ou d'un appel DB minimal
-- [ ] Mise en place d'un contrôleur
-- [ ] Mise en place d'un rendu HTML minimal
-- [ ] Vérification que la page répond correctement
+- [x] Mise en place du routing
+- [x] Mise en place d'un manager ou d'un appel DB minimal
+  Comme pour picture, j'ai dû créer un modèle partagé afin de pouvoir par la suite réutiliser ces classes dans d'autres features telles que book, single book,
+- [x] Mise en place d'un contrôleur
+   J'ai dû modifier en profondeur la logique des contrôleurs en passant par un service qui lui utilisait les helpers. ainsi qu'une solution pour vérifier si l'utilisateur était bien connecté. Cette solution permettra d'être réutilisée dans d'autres features.
+- [x] Mise en place d'un rendu HTML minimal
+- [x] Vérification que la page répond correctement
 
 ## Books
 - [ ] Mise en place du routing

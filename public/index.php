@@ -7,6 +7,15 @@ require_once ROOT_DIR . 'src/config/config.php';
 
 /*
 |--------------------------------------------------------------------------
+| Session
+|--------------------------------------------------------------------------
+*/
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+/*
+|--------------------------------------------------------------------------
 | Common - Models
 |--------------------------------------------------------------------------
 */
@@ -35,6 +44,23 @@ require_once ROOT_DIR . 'src/controllers/common/helper/PictureHelper.php';
 
 /*
 |--------------------------------------------------------------------------
+| Shared - Book
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/models/common/shared/book/Book.php';
+require_once ROOT_DIR . 'src/models/common/shared/book/BookManager.php';
+require_once ROOT_DIR . 'src/controllers/common/helper/BookHelper.php';
+
+/*
+|--------------------------------------------------------------------------
+| Services
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/controllers/common/service/AuthenticationService.php';
+require_once ROOT_DIR . 'src/controllers/common/service/EditBookService.php';
+
+/*
+|--------------------------------------------------------------------------
 | Feature - Login
 |--------------------------------------------------------------------------
 */
@@ -42,8 +68,12 @@ require_once ROOT_DIR . 'src/models/login/Login.php';
 require_once ROOT_DIR . 'src/models/login/LoginManager.php';
 require_once ROOT_DIR . 'src/controllers/LoginController.php';
 
-
-
+/*
+|--------------------------------------------------------------------------
+| Feature - Edit-Book
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/controllers/EditBookController.php';
 
 $action = $_GET['action'] ?? null;
 
@@ -53,6 +83,10 @@ if ($action === 'authenticate') {
     exit;
 }
 
-
+if ($action === 'edit-book') {
+    $controller = new EditBookController();
+    $controller->execute();
+    exit;
+}
 
 require_once ROOT_DIR . 'src/views/templates/login.php';
