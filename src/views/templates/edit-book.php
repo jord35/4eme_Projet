@@ -1,5 +1,15 @@
 <section class="book-form-section">
-    <h1><?= $book->getId() > 0 ? 'Modifier un livre' : 'Créer un livre' ?></h1>
+    <div class="book-form-header">
+        <div>
+            <h1><?= $book->getId() > 0 ? 'Modifier un livre' : 'Créer un livre' ?></h1>
+        </div>
+
+        <?php if ($book->getId() > 0): ?>
+            <a class="button-secondary" href="/?action=edit-book">
+                Créer un nouveau livre
+            </a>
+        <?php endif; ?>
+    </div>
 
     <div
         id="book-form-message"
@@ -37,7 +47,7 @@
             <p>Aperçu</p>
 
             <?php if (!empty($coverPicture)): ?>
-               <img
+                <img
                     id="picture-preview"
                     src="<?= htmlspecialchars($coverPicture['src'], ENT_QUOTES, 'UTF-8') ?>"
                     <?php if (!empty($coverPicture['srcset'])): ?>
@@ -125,5 +135,4 @@
     </form>
 </section>
 
-<script src="/js/app.js" defer></script>
 <script src="/js/editbook.js" defer></script>

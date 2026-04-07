@@ -3,11 +3,13 @@
 class PictureManager extends AbstractEntityManager
 {
     private PictureVariantManager $pictureVariantManager;
+    private PictureStorage $pictureStorage;
 
     public function __construct()
     {
         parent::__construct();
         $this->pictureVariantManager = new PictureVariantManager();
+        $this->pictureStorage = new PictureStorage();
     }
 
     /**
@@ -139,7 +141,32 @@ class PictureManager extends AbstractEntityManager
 
         return new Picture($result);
     }
+    public function deletePicturePackageIfUnused(int $pictureId): void
+    {
+        if ($pictureId <= 0) {
+            return;
+        }
 
+        if ($this->isStillReferenced($pictureId)) {
+            return;
+        }
+
+        $picture = $this->findById($pictureId);
+
+        if (!$picture instanceof Picture) {
+            return;
+        }
+
+        $this->pictureVariantManager->deleteByPictureId($pictureId);
+        $this->pictureStorage->deleteRelativePath($picture->getOriginalPath());
+
+        $sql = 'DELETE FROM pictures WHERE id = :id';
+        $this->db->query($sql, [
+            'id' => $pictureId
+        ]);
+    }
+
+    
     /**
      * Insère une image dans la table pictures.
      *
@@ -277,5 +304,19 @@ class PictureManager extends AbstractEntityManager
             'cover' => '(max-width: 768px) 375px, 1042px',
             default => '100vw',
         };
+    }
+    private function isStillReferenced(int $pictureId): bool
+    {
+        $bookCount = (int) $this->db->query(
+            'SELECT COUNT(*) AS total FROM books WHERE cover_picture_id = :id',
+            ['id' => $pictureId]
+        )->fetch()['total'];
+
+        $userCount = (int) $this->db->query(
+            'SELECT COUNT(*) AS total FROM users WHERE profile_picture_id = :id',
+            ['id' => $pictureId]
+        )->fetch()['total'];
+
+        return $bookCount > 0 || $userCount > 0;
     }
 }

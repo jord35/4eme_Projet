@@ -78,4 +78,8 @@ class PictureHelper
             'data' => $result['data'] ?? $result
         ];
     }
+    public function deletePicturePackageIfUnused(int $pictureId): void
+    {
+        $this->pictureManager->deletePicturePackageIfUnused($pictureId);
+    }
 }

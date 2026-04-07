@@ -2,12 +2,16 @@
 
 require_once __DIR__ . '/../../AbstractEntityManager.php';
 require_once __DIR__ . '/PictureVariant.php';
+require_once __DIR__ . '/PictureStorage.php';
 
 class PictureVariantManager extends AbstractEntityManager
 {
+    private PictureStorage $pictureStorage;
+
     public function __construct()
     {
         parent::__construct();
+        $this->pictureStorage = new PictureStorage();
     }
 
     /**
@@ -39,6 +43,64 @@ class PictureVariantManager extends AbstractEntityManager
         }
 
         return $variants;
+    }
+
+    /**
+     * Récupère toutes les variantes liées à une image.
+     *
+     * @param int $pictureId
+     * @return array
+     */
+    public function findByPictureId(int $pictureId): array
+    {
+        $sql = '
+            SELECT *
+            FROM picture_variant
+            WHERE picture_id = :picture_id
+            ORDER BY width ASC
+        ';
+
+        $rows = $this->db->query($sql, [
+            'picture_id' => $pictureId
+
+            
+        ])->fetchAll();
+
+        $variants = [];
+
+        foreach ($rows as $row) {
+            $variants[] = new PictureVariant($row);
+        }
+
+        return $variants;
+    }
+
+    /**
+     * Supprime toutes les variantes d'une image, en base et sur disque.
+     *
+     * @param int $pictureId
+     * @return void
+     */
+    public function deleteByPictureId(int $pictureId): void
+    {
+        if ($pictureId <= 0) {
+            return;
+        }
+
+        $variants = $this->findByPictureId($pictureId);
+
+        foreach ($variants as $variant) {
+            $this->pictureStorage->deleteRelativePath($variant->getPath());
+        }
+
+        $sql = '
+            DELETE FROM picture_variant
+            WHERE picture_id = :picture_id
+        ';
+
+        $this->db->query($sql, [
+            'picture_id' => $pictureId
+        ]);
     }
 
     /**
