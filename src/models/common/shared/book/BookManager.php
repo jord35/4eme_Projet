@@ -150,4 +150,51 @@ class BookManager extends AbstractEntityManager
 
         return $stmt->fetchAll() ?: [];
     }
+    public function findBookDetailsById(int $bookId): ?array
+    {
+        if ($bookId <= 0) {
+            return null;
+        }
+
+        $sql = '
+            SELECT
+                b.id,
+                b.title,
+                b.author_name,
+                b.description,
+                b.owner_user_id,
+                u.username AS owner_username,
+                b.cover_picture_id,
+                b.is_available,
+                b.created_at,
+                b.updated_at
+            FROM books b
+            INNER JOIN users u ON u.id = b.owner_user_id
+            WHERE b.id = :id
+            LIMIT 1
+        ';
+
+        $stmt = $this->db->query($sql, [
+            'id' => $bookId
+        ]);
+
+        $data = $stmt->fetch();
+
+        if (!$data) {
+            return null;
+        }
+
+        return [
+            'id' => (int) $data['id'],
+            'title' => (string) $data['title'],
+            'author_name' => (string) $data['author_name'],
+            'description' => $data['description'] !== null ? (string) $data['description'] : null,
+            'owner_user_id' => (int) $data['owner_user_id'],
+            'owner_username' => (string) $data['owner_username'],
+            'cover_picture_id' => isset($data['cover_picture_id']) ? (int) $data['cover_picture_id'] : null,
+            'is_available' => (bool) $data['is_available'],
+            'created_at' => $data['created_at'] !== null ? (string) $data['created_at'] : null,
+            'updated_at' => $data['updated_at'] !== null ? (string) $data['updated_at'] : null,
+        ];
+    }
 }

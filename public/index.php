@@ -92,6 +92,13 @@ require_once ROOT_DIR . 'src/models/myaccount/MyAccount.php';
 require_once ROOT_DIR . 'src/models/myaccount/MyAccountManager.php';
 require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
 
+/*
+|--------------------------------------------------------------------------
+| Feature - Single Book
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/controllers/SingleBookController.php';
+
 
 $action = $_GET['action'] ?? null;
 
@@ -115,6 +122,12 @@ if ($action === 'books') {
 
 if ($action === 'my-account') {
     $controller = new MyAccountController();
+    $controller->execute();
+    exit;
+}
+
+if ($action === 'single-book') {
+    $controller = new SingleBookController();
     $controller->execute();
     exit;
 }
