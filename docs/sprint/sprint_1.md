@@ -15,30 +15,6 @@
 - [x] Mise en place d'un rendu HTML minimal
 - [x] Vérification que la page répond correctement.
 
-<<<<<<< HEAD
-## Image common
-- [ ] Définition du rôle transverse de la gestion d'image
-- [ ] Définition de l'emplacement dans l'architecture (common)
-- [ ] Mise en place d'un service ou manager minimal de traitement d'image
-- [ ] Gestion d'un upload brut minimal
-- [ ] Validation du format de fichier
-- [ ] Définition de la stratégie de nommage et de stockage
-- [ ] Préparation de la conversion WebP
-- [ ] Préparation de la génération des tailles dérivées
-- [ ] Vérification que le composant peut être réutilisé dans plusieurs features
-
-## My account
-- [x] Mise en place du routing
-- [~] Mise en place d'un manager ou d'un appel DB minimal  
-
-  Le manager est cadré, mais il n'est pas encore finalisé. Il dépend encore de composants transverses qui ne sont pas prêts, notamment la stratégie image dans `common` et la feature `Edit book` pour l'affichage réel des livres.  
-  Des solutions temporaires existent pour avancer : utiliser des données moquées, gérer provisoirement l'image brute sans transformation, et tester le cas où l'utilisateur n'a aucun livre.  
-  À ce stade, le projet n'est pas encore assez avancé pour couvrir tous les cas de figure de manière complète et cohérente.
-
-- [~] Mise en place d'un contrôleur
-- [x] Mise en place d'un rendu HTML minimal
-- [ ] Vérification que la page répond correctement
-=======
 ## Picture common
 - [x] Définition du rôle transverse de la gestion d'image
 - [x] Définition de l'emplacement dans l'architecture (common)
@@ -49,7 +25,6 @@
 - [x] Préparation de la conversion WebP
 - [x] Préparation de la génération des tailles dérivées
 - [x] Vérification que le composant peut être réutilisé dans plusieurs features
->>>>>>> develop
 
 ## Edit book
 - [x] Mise en place du routing
@@ -69,14 +44,17 @@
 
 ## My account_
 - [x] Mise en place du routing
-- [~] Mise en place d'un manager ou d'un appel DB minimal  
-  Le manager est cadré, mais il n'est pas encore finalisé. Il dépend encore de composants transverses qui ne sont pas prêts, notamment la stratégie image dans `common` et la feature `Edit book` pour l'affichage réel des livres.  
-  Des solutions temporaires existent pour avancer : utiliser des données moquées, gérer provisoirement l'image brute sans transformation, et tester le cas où l'utilisateur n'a aucun livre.  
-  À ce stade, le projet n'est pas encore assez avancé pour couvrir tous les cas de figure de manière complète et cohérente.
-  _mise à jour: C'est bon, le projet est assez avancé pour pouvoir terminer cette feature. De plus, pour pouvoir enchaîner sur public à compte, il va me falloir ajouter l'image dans my accompte.
+- [x] Mise en place d'un manager ou d'un appel DB minimal  
 - [~] Mise en place d'un contrôleur
+  Tout comme EditBook, My Account Service, étant donné qu'elle demande d'utiliser plusieurs helpers ainsi que la sécurité côté authentification, j'ai fait le choix de passer par un service.
+  afin d'alléger le contrôleur pour qu'il ne pointe que vers la vue.
+  Cela permet de faciliter la maintenance à l'avenir.
+
+  Note importante.   ::::: A l'heure actuelle, nous utilisons My Account Manager pour gérer l'update d'adresse email, mot de passe, pseudo et user id image .
+  Cela fonctionne mais n'est pas optimal. Lors de la merge de toutes les features sur develop, il sera judicieux de créer un helper user afin qu'il puisse être utilisé dans my account sign up et login.
+  Cette configuration actuelle est donc délibérément une dette technique. Cependant elle reste utile pour permettre au projet d'avancer. J'estime qu'à l'heure actuelle c'est pas le bon moment pour faire les modifications.
 - [x] Mise en place d'un rendu HTML minimal
-- [ ] Vérification que la page répond correctement
+- [x] Vérification que la page répond correctement
 
 ## Public account
 - [ ] Mise en place du routing

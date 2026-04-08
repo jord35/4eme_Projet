@@ -170,4 +170,34 @@ class BookHelper
             'data' => $book
         ];
     }
+    public function getOwnedBooksForLibrary(int $ownerUserId): array
+    {
+        if ($ownerUserId <= 0) {
+            return [
+                'success' => false,
+                'error' => 'Invalid owner user id.',
+                'data' => null
+            ];
+        }
+
+        $books = $this->bookManager->findOwnedBooksByUserId($ownerUserId);
+
+        $normalizedBooks = array_map(function (array $book): array {
+            return [
+                'id' => (int) $book['id'],
+                'title' => (string) $book['title'],
+                'author_name' => (string) $book['author_name'],
+                'description' => $book['description'] !== null ? (string) $book['description'] : null,
+                'owner_user_id' => (int) $book['owner_user_id'],
+                'cover_picture_id' => isset($book['cover_picture_id']) ? (int) $book['cover_picture_id'] : null,
+                'is_available' => (bool) $book['is_available'],
+            ];
+        }, $books);
+
+        return [
+            'success' => true,
+            'error' => null,
+            'data' => $normalizedBooks
+        ];
+    }
 }

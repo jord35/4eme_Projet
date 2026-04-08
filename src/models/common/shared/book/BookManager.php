@@ -126,4 +126,28 @@ class BookManager extends AbstractEntityManager
 
         return $existingBook instanceof Book;
     }
+    public function findOwnedBooksByUserId(int $ownerUserId): array
+    {
+        $sql = '
+            SELECT
+                id,
+                title,
+                author_name,
+                description,
+                owner_user_id,
+                cover_picture_id,
+                is_available,
+                created_at,
+                updated_at
+            FROM books
+            WHERE owner_user_id = :owner_user_id
+            ORDER BY created_at DESC
+        ';
+
+        $stmt = $this->db->query($sql, [
+            'owner_user_id' => $ownerUserId
+        ]);
+
+        return $stmt->fetchAll() ?: [];
+    }
 }

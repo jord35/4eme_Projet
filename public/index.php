@@ -58,7 +58,7 @@ require_once ROOT_DIR . 'src/controllers/common/helper/BookHelper.php';
 */
 require_once ROOT_DIR . 'src/controllers/common/service/AuthenticationService.php';
 require_once ROOT_DIR . 'src/controllers/common/service/EditBookService.php';
-
+require_once ROOT_DIR . 'src/controllers/common/service/MyAccountService.php';
 /*
 |--------------------------------------------------------------------------
 | Feature - Login
@@ -66,15 +66,8 @@ require_once ROOT_DIR . 'src/controllers/common/service/EditBookService.php';
 */
 require_once ROOT_DIR . 'src/models/login/Login.php';
 require_once ROOT_DIR . 'src/models/login/LoginManager.php';
-<<<<<<< HEAD
-require_once ROOT_DIR . 'src/models/myaccount/MyAccount.php';
-require_once ROOT_DIR . 'src/models/myaccount/MyAccountManager.php';
-
-=======
->>>>>>> develop
 require_once ROOT_DIR . 'src/controllers/LoginController.php';
-require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
-require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
+
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +83,16 @@ require_once ROOT_DIR . 'src/controllers/EditBookController.php';
 */
 require_once ROOT_DIR . 'src/controllers/BooksController.php';
 
+/*
+|--------------------------------------------------------------------------
+| Feature - My Account
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/models/myaccount/MyAccount.php';
+require_once ROOT_DIR . 'src/models/myaccount/MyAccountManager.php';
+require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
+
+
 $action = $_GET['action'] ?? null;
 
 if ($action === 'authenticate') {
@@ -98,24 +101,6 @@ if ($action === 'authenticate') {
     exit;
 }
 
-<<<<<<< HEAD
-if ($action === 'myAccount') {
-    $controller = new MyAccountController();
-    $controller->show();
-    exit;
-}
-
-if ($action === 'updateMyAccount') {
-    $controller = new MyAccountController();
-    $controller->update();
-    exit;
-}
-
-require_once ROOT_DIR . 'src/views/templates/login.php';
-
-
-
-=======
 if ($action === 'edit-book') {
     $controller = new EditBookController();
     $controller->execute();
@@ -128,5 +113,9 @@ if ($action === 'books') {
     exit;
 }
 
+if ($action === 'my-account') {
+    $controller = new MyAccountController();
+    $controller->execute();
+    exit;
+}
 require_once ROOT_DIR . 'src/views/templates/login.php';
->>>>>>> develop
