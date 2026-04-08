@@ -92,6 +92,13 @@ require_once ROOT_DIR . 'src/models/myaccount/MyAccount.php';
 require_once ROOT_DIR . 'src/models/myaccount/MyAccountManager.php';
 require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
 
+/*
+|--------------------------------------------------------------------------
+| Feature - Home
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/controllers/HomeController.php';
+
 
 $action = $_GET['action'] ?? null;
 
@@ -112,10 +119,16 @@ if ($action === 'books') {
     $controller->execute();
     exit;
 }
+if ($action === 'home') {
+    $controller = new HomeController();
+    $controller->execute();
+    exit;
+}
 
 if ($action === 'my-account') {
     $controller = new MyAccountController();
     $controller->execute();
     exit;
 }
+
 require_once ROOT_DIR . 'src/views/templates/login.php';

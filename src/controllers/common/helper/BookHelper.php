@@ -48,6 +48,26 @@ class BookHelper
     {
         $books = $this->bookManager->findAllForGrid();
 
+        return $this->buildGridBooksResponse($books);
+    }
+
+    public function getRecentBooksForGrid(int $limit): array
+    {
+        if ($limit <= 0) {
+            return [
+                'success' => false,
+                'error' => 'Invalid books limit.',
+                'data' => null
+            ];
+        }
+
+        $books = $this->bookManager->findRecentBooksForGrid($limit);
+
+        return $this->buildGridBooksResponse($books);
+    }
+
+    private function buildGridBooksResponse(array $books): array
+    {
         if (empty($books)) {
             return [
                 'success' => true,
