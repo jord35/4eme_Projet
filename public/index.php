@@ -94,10 +94,10 @@ require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
 
 /*
 |--------------------------------------------------------------------------
-| Feature - Home
+| Feature - Single Book
 |--------------------------------------------------------------------------
 */
-require_once ROOT_DIR . 'src/controllers/HomeController.php';
+require_once ROOT_DIR . 'src/controllers/SingleBookController.php';
 
 
 $action = $_GET['action'] ?? null;
@@ -131,4 +131,9 @@ if ($action === 'my-account') {
     exit;
 }
 
+if ($action === 'single-book') {
+    $controller = new SingleBookController();
+    $controller->execute();
+    exit;
+}
 require_once ROOT_DIR . 'src/views/templates/login.php';

@@ -220,4 +220,30 @@ class BookHelper
             'data' => $normalizedBooks
         ];
     }
+    public function getBookDetails(int $bookId): array
+    {
+        if ($bookId <= 0) {
+            return [
+                'success' => false,
+                'error' => 'Invalid book id.',
+                'data' => null
+            ];
+        }
+
+        $book = $this->bookManager->findBookDetailsById($bookId);
+
+        if ($book === null) {
+            return [
+                'success' => false,
+                'error' => 'Book not found.',
+                'data' => null
+            ];
+        }
+
+        return [
+            'success' => true,
+            'error' => null,
+            'data' => $book
+        ];
+    }
 }
