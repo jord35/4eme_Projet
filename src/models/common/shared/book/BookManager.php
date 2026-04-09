@@ -34,8 +34,7 @@ class BookManager extends AbstractEntityManager
 
         return new Book($data);
     }
-
-    public function findAllForGrid(): array
+    private function findForGrid(?int $limit = null): array
     {
         $sql = '
             SELECT
@@ -51,11 +50,30 @@ class BookManager extends AbstractEntityManager
             ORDER BY b.created_at DESC
         ';
 
+        if ($limit !== null) {
+            $sql .= ' LIMIT ' . (int) $limit;
+        }
+
         $stmt = $this->db->query($sql);
         $rows = $stmt->fetchAll();
 
         return $rows ?: [];
     }
+
+    public function findAllForGrid(): array
+    {
+        return $this->findForGrid();
+    }
+
+    public function findRecentBooksForGrid(int $limit): array
+    {
+        if ($limit <= 0) {
+            return [];
+        }
+
+        return $this->findForGrid($limit);
+    }
+
 
     public function insert(Book $book): int
     {

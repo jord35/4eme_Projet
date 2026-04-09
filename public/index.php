@@ -94,11 +94,10 @@ require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
 
 /*
 |--------------------------------------------------------------------------
-| Feature - Public Account
+| Feature - Home
 |--------------------------------------------------------------------------
 */
-require_once ROOT_DIR . 'src/models/publicaccount/PublicAccountManager.php';
-require_once ROOT_DIR . 'src/controllers/PublicAccountController.php';
+require_once ROOT_DIR . 'src/controllers/HomeController.php';
 
 
 $action = $_GET['action'] ?? null;
@@ -120,6 +119,11 @@ if ($action === 'books') {
     $controller->execute();
     exit;
 }
+if ($action === 'home') {
+    $controller = new HomeController();
+    $controller->execute();
+    exit;
+}
 
 if ($action === 'my-account') {
     $controller = new MyAccountController();
@@ -127,9 +131,4 @@ if ($action === 'my-account') {
     exit;
 }
 
-if ($action === 'user') {
-    $controller = new PublicAccountController();
-    $controller->execute();
-    exit;
-}
 require_once ROOT_DIR . 'src/views/templates/login.php';
