@@ -87,6 +87,6 @@
 
 
 
-## Objectif
+## Objectif-
 
 Valider l’architecture globale du projet avec un site fonctionnel de bout en bout, encore brut visuellement, mais complet dans son enchaînement route, données, contrôleur et rendu.

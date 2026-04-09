@@ -1,4 +1,3 @@
-
 async function poll({
     url,
     onSuccess = () => { },
@@ -16,7 +15,8 @@ async function poll({
     try {
         const response = await fetch(url, {
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
             }
         });
 
@@ -84,11 +84,10 @@ function createPoller({
     };
 }
 
-function initFormAjax({
+function initFormAjax(
     formId,
-    onSuccess = () => { },
-    onError = (error) => console.error(error)
-}) {
+    onSuccess,
+    onError = (error) => console.error(error)) {
     const form = document.getElementById(formId);
 
     if (!form) {
@@ -103,7 +102,8 @@ function initFormAjax({
                 method: form.method || 'POST',
                 body: new FormData(form),
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 }
             });
 
@@ -112,9 +112,10 @@ function initFormAjax({
             }
 
             const data = await response.json();
-            onSuccess({ data, form, response });
+            onSuccess(data, form, response);
         } catch (error) {
-            onError(error);
+            onError(error, form);
         }
     });
 }
+
