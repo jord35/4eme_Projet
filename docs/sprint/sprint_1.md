@@ -56,7 +56,7 @@
 - [x] Mise en place d'un rendu HTML minimal
 - [x] Vérification que la page répond correctement
 
-## Public account
+## Public account_
 - [x] Mise en place du routing
 - [x] Mise en place d'un manager ou d'un appel DB minimal
 - [x] Mise en place d'un contrôleur
