@@ -57,11 +57,11 @@
 - [x] Vérification que la page répond correctement
 
 ## Public account
-- [ ] Mise en place du routing
-- [ ] Mise en place d'un manager ou d'un appel DB minimal
-- [ ] Mise en place d'un contrôleur
-- [ ] Mise en place d'un rendu HTML minimal
-- [ ] Vérification que la page répond correctement
+- [x] Mise en place du routing
+- [x] Mise en place d'un manager ou d'un appel DB minimal
+- [x] Mise en place d'un contrôleur
+- [x] Mise en place d'un rendu HTML minimal
+- [x] Vérification que la page répond correctement
 
 
 ## Home _(en review)_

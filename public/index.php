@@ -92,6 +92,14 @@ require_once ROOT_DIR . 'src/models/myaccount/MyAccount.php';
 require_once ROOT_DIR . 'src/models/myaccount/MyAccountManager.php';
 require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
 
+/*
+|--------------------------------------------------------------------------
+| Feature - Public Account
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/models/publicaccount/PublicAccountManager.php';
+require_once ROOT_DIR . 'src/controllers/PublicAccountController.php';
+
 
 $action = $_GET['action'] ?? null;
 
@@ -115,6 +123,12 @@ if ($action === 'books') {
 
 if ($action === 'my-account') {
     $controller = new MyAccountController();
+    $controller->execute();
+    exit;
+}
+
+if ($action === 'user') {
+    $controller = new PublicAccountController();
     $controller->execute();
     exit;
 }
