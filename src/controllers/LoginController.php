@@ -2,8 +2,12 @@
 
 class LoginController extends AbstractController
 {
-    public function authenticate(): void
+    public function execute(): void
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            require_once ROOT_DIR . 'src/views/templates/login.php';
+            return;
+        }
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);

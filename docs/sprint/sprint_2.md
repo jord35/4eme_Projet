@@ -6,5 +6,8 @@
 - [ ] Ajout des interactions JavaScript nécessaires
 - [ ] Nettoyage du code
 
+1/ Adaptation de home et son intégration dans la nouvelle architecture.
+
+
 Objectif :
 Consolider la logique métier et organiser proprement le code afin de transformer la preuve de concept en architecture stable, maintenable et exploitable.

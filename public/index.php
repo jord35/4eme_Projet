@@ -59,6 +59,13 @@ require_once ROOT_DIR . 'src/controllers/common/helper/BookHelper.php';
 require_once ROOT_DIR . 'src/controllers/common/service/AuthenticationService.php';
 require_once ROOT_DIR . 'src/controllers/common/service/EditBookService.php';
 require_once ROOT_DIR . 'src/controllers/common/service/MyAccountService.php';
+
+/*
+|--------------------------------------------------------------------------
+| Feature - Home
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/controllers/HomeController.php';
 /*
 |--------------------------------------------------------------------------
 | Feature - Login
@@ -102,9 +109,9 @@ require_once ROOT_DIR . 'src/controllers/SingleBookController.php';
 
 $action = $_GET['action'] ?? null;
 
-if ($action === 'authenticate') {
+if ($action === 'login') {
     $controller = new LoginController();
-    $controller->authenticate();
+    $controller->execute();
     exit;
 }
 
@@ -119,7 +126,7 @@ if ($action === 'books') {
     $controller->execute();
     exit;
 }
-if ($action === 'home') {
+if ($action === 'home' || $action === null) {
     $controller = new HomeController();
     $controller->execute();
     exit;
@@ -136,4 +143,4 @@ if ($action === 'single-book') {
     $controller->execute();
     exit;
 }
-require_once ROOT_DIR . 'src/views/templates/login.php';
+
