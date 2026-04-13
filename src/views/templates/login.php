@@ -8,5 +8,5 @@
 <p id="login-message"></p>
 <a href="/?action=my-account">Mon compte</a>
 
-<script src="js/common/app.js" defer></script>
-<script src="js/login.js" defer></script>
+<script src="/Js/common/app.js" defer></script>
+<script src="/Js/login.js" defer></script>

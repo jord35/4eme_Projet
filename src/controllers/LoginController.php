@@ -18,7 +18,7 @@ class LoginController extends AbstractController
             return;
         }
 
-        $manager = new LoginManager();
+        $manager = new UserManager();
         $user = $manager->checkCredentials($_POST);
 
         if ($user) {

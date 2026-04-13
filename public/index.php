@@ -53,6 +53,13 @@ require_once ROOT_DIR . 'src/controllers/common/helper/BookHelper.php';
 
 /*
 |--------------------------------------------------------------------------
+| Shared - User
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/models/common/shared/user/UserManager.php';
+
+/*
+|--------------------------------------------------------------------------
 | Services
 |--------------------------------------------------------------------------
 */
@@ -66,15 +73,23 @@ require_once ROOT_DIR . 'src/controllers/common/service/MyAccountService.php';
 |--------------------------------------------------------------------------
 */
 require_once ROOT_DIR . 'src/controllers/HomeController.php';
+
+/*
+|--------------------------------------------------------------------------
+| Feature - Signup
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/models/signup/Signup.php';
+require_once ROOT_DIR . 'src/models/signup/SignupManager.php';
+require_once ROOT_DIR . 'src/controllers/SignupController.php';
+
 /*
 |--------------------------------------------------------------------------
 | Feature - Login
 |--------------------------------------------------------------------------
 */
 require_once ROOT_DIR . 'src/models/login/Login.php';
-require_once ROOT_DIR . 'src/models/login/LoginManager.php';
 require_once ROOT_DIR . 'src/controllers/LoginController.php';
-
 
 /*
 |--------------------------------------------------------------------------
@@ -101,17 +116,46 @@ require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
 
 /*
 |--------------------------------------------------------------------------
+| Feature - Public Account
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/controllers/PublicAccountController.php';
+
+/*
+|--------------------------------------------------------------------------
 | Feature - Single Book
 |--------------------------------------------------------------------------
 */
 require_once ROOT_DIR . 'src/controllers/SingleBookController.php';
-
 
 $action = $_GET['action'] ?? null;
 
 if ($action === 'login') {
     $controller = new LoginController();
     $controller->execute();
+    exit;
+}
+
+if ($action === 'signup') {
+    require_once ROOT_DIR . 'src/views/templates/signup.php';
+    exit;
+}
+
+if ($action === 'signup-check-username') {
+    $controller = new SignupController();
+    $controller->checkUsername();
+    exit;
+}
+
+if ($action === 'signup-check-email') {
+    $controller = new SignupController();
+    $controller->checkEmail();
+    exit;
+}
+
+if ($action === 'signup-register') {
+    $controller = new SignupController();
+    $controller->register();
     exit;
 }
 
@@ -126,6 +170,7 @@ if ($action === 'books') {
     $controller->execute();
     exit;
 }
+
 if ($action === 'home' || $action === null) {
     $controller = new HomeController();
     $controller->execute();
@@ -138,9 +183,17 @@ if ($action === 'my-account') {
     exit;
 }
 
+if ($action === 'public-account') {
+    $controller = new PublicAccountController();
+    $controller->execute();
+    exit;
+}
+
 if ($action === 'single-book') {
     $controller = new SingleBookController();
     $controller->execute();
     exit;
 }
 
+http_response_code(404);
+echo 'Page non trouvee.';

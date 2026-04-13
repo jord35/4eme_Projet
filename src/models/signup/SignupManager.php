@@ -2,23 +2,15 @@
 
 class SignupManager extends AbstractEntityManager
 {
-    public function usernameExists(string $username): bool
+    
+    private UserManager $userManager;
+
+    public function __construct()
     {
-        $sql = "SELECT id FROM users WHERE username = :username LIMIT 1";
-        $stmt = $this->db->query($sql, ['username' => $username]);
-
-        return (bool) $stmt->fetch();
+        parent::__construct();
+        $this->userManager = new UserManager();
     }
-
-    public function emailExists(string $email): bool
-    {
-        $sql = "SELECT id FROM users WHERE email = :email LIMIT 1";
-        $stmt = $this->db->query($sql, ['email' => $email]);
-
-        return (bool) $stmt->fetch();
-    }
-
-    public function create(Signup $signup): bool
+    private function create(Signup $signup): bool
     {
         $sql = "INSERT INTO users (username, email, password_hash, created_at)
                 VALUES (:username, :email, :password_hash, NOW())";
@@ -44,7 +36,7 @@ class SignupManager extends AbstractEntityManager
             ];
         }
 
-        $exists = $this->usernameExists($username);
+        $exists = $this->userManager->usernameExists($username);
 
         return [
             'success' => true,
@@ -71,7 +63,7 @@ class SignupManager extends AbstractEntityManager
             ];
         }
 
-        $exists = $this->emailExists($email);
+        $exists = $this->userManager->emailExists($email);
 
         return [
             'success' => true,
@@ -104,11 +96,11 @@ class SignupManager extends AbstractEntityManager
             $errors['password'] = 'Mot de passe trop court.';
         }
 
-        if ($username !== '' && $this->usernameExists($username)) {
+        if ($username !== '' && $this->userManager->usernameExists($username)) {
             $errors['username'] = 'pardon , pseudo deja pris .';
         }
 
-        if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL) && $this->emailExists($email)) {
+        if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL) && $this->userManager->emailExists($email)) {
             $errors['email'] = 'cette email es deja ratacher as un compte .';
         }
 

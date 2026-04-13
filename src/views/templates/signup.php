@@ -1,4 +1,4 @@
-<form id="signup-form" action="/signup/register" method="post">
+<form id="signup-form" action="/?action=signup-register" method="post">
     <input type="text" name="username" id="username" placeholder="Pseudo">
     <small id="username-message"></small>
 
@@ -11,6 +11,5 @@
     <button type="submit">S'inscrire</button>
 </form>
 
-
-<script src="/js/app.js"></script>
-<script src="/js/signup/index.js"></script>
+<script src="/Js/common/app.js"></script>
+<script src="/Js/signup.js"></script>

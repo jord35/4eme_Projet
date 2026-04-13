@@ -2,13 +2,13 @@
 
 class PublicAccountController extends AbstractController
 {
-    private PublicAccountManager $publicAccountManager;
+    private UserManager $userManager;
     private BookHelper $bookHelper;
     private PictureHelper $pictureHelper;
 
     public function __construct()
     {
-        $this->publicAccountManager = new PublicAccountManager();
+        $this->userManager = new UserManager();
         $this->bookHelper = new BookHelper();
         $this->pictureHelper = new PictureHelper();
     }
@@ -45,7 +45,7 @@ class PublicAccountController extends AbstractController
             return;
         }
 
-        $profile = $this->publicAccountManager->findProfileByUsername($username);
+        $profile = $this->userManager->findPublicProfileByUsername($username);
 
         if ($profile === null) {
             http_response_code(404);

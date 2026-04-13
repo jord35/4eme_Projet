@@ -81,6 +81,8 @@
  le projet rencontre un petit blocage sur message cette feature est beaucoup trop imposante pour être faite à l'heure actuelle afin d'y voir plus clair je pense merger sur développe toutes les features déjà créé puis les brancher les unes aux autres et des bogey quelques petits soucis liés à l'architecture qui a évolué pendant le développement.
 
 
+J'ai modifié toute l'architecture autour de users afin que User Manager soit utilisé dans les contrôleurs le nécessitant. Cette réorganisation va me permettre normalement de pouvoir créer la section message plus facilement.
+
 ## Messages
 - [ ] Mise en place du routing
 - [ ] Mise en place d'un manager ou d'un appel DB minimal

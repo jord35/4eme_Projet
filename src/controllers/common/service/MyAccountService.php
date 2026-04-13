@@ -3,6 +3,7 @@
 class MyAccountService
 {
     private AuthenticationService $authenticationService;
+    private UserManager $userManager;
     private MyAccountManager $myAccountManager;
     private BookHelper $bookHelper;
     private PictureHelper $pictureHelper;
@@ -10,6 +11,7 @@ class MyAccountService
     public function __construct()
     {
         $this->authenticationService = new AuthenticationService();
+        $this->userManager = new UserManager();
         $this->myAccountManager = new MyAccountManager();
         $this->bookHelper = new BookHelper();
         $this->pictureHelper = new PictureHelper();
@@ -25,7 +27,7 @@ class MyAccountService
 
         $userId = $authResult['data']['user_id'];
 
-        $profileResult = $this->myAccountManager->findProfileByUserId($userId);
+        $profileResult = $this->userManager->findProfileByUserId($userId);
 
         if ($profileResult === null) {
             return [
@@ -104,7 +106,7 @@ class MyAccountService
         }
 
         $userId = $authResult['data']['user_id'];
-        $currentProfile = $this->myAccountManager->findProfileByUserId($userId);
+        $currentProfile = $this->userManager->findProfileByUserId($userId);
 
         if ($currentProfile === null) {
             return [
