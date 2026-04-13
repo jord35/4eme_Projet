@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const usernameInput = document.getElementById('username');
     const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-
     const usernameMsg = document.getElementById('username-message');
     const emailMsg = document.getElementById('email-message');
     const passwordMsg = document.getElementById('password-message');
@@ -16,12 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`/signup/check-username?username=${encodeURIComponent(username)}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
+            const response = await fetch(
+                `/?action=signup-check-username&username=${encodeURIComponent(username)}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
                 }
-            });
+            );
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
 
             const data = await response.json();
             usernameMsg.textContent = data.message || '';
@@ -39,12 +45,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`/signup/check-email?email=${encodeURIComponent(email)}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
+            const response = await fetch(
+                `/?action=signup-check-email&email=${encodeURIComponent(email)}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
                 }
-            });
+            );
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
 
             const data = await response.json();
             emailMsg.textContent = data.message || '';
@@ -81,5 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.message) {
             console.error(data.message);
         }
+    }, (error) => {
+        console.error('Erreur AJAX signup :', error);
     });
 });

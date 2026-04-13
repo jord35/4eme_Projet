@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    initFormAjax({
-        formId: 'edit-book-form',
-        onSuccess: ({ data, form }) => {
+    initFormAjax(
+        'edit-book-form',
+        (data, form) => {
             if (!data || data.success === false) {
                 showMessage(data?.error || 'Une erreur est survenue.', 'error');
                 return;
@@ -114,8 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             showMessage(data.data?.message || 'Livre enregistré avec succès.', 'success');
         },
-        onError: (error) => {
+        (error) => {
             showMessage(error.message || 'Erreur réseau.', 'error');
         }
-    });
+    );
 });

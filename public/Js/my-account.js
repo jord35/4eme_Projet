@@ -22,10 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    initFormAjax({
-        formId: 'my-account-form',
-
-        onSuccess: ({ data }) => {
+    initFormAjax(
+        'my-account-form',
+        (data) => {
             if (messageBox) {
                 messageBox.textContent = '';
                 messageBox.className = '';
@@ -45,8 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 messageBox.className = 'error-message';
             }
         },
-
-        onError: (error) => {
+        (error) => {
             console.error('Erreur AJAX My Account :', error);
 
             if (messageBox) {
@@ -54,5 +52,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 messageBox.className = 'error-message';
             }
         }
-    });
+    )
 });

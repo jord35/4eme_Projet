@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    initFormAjax({
-        formId: 'login-form',
-
-        onSuccess: ({ data, form, response }) => {
+    initFormAjax(
+        'login-form',
+        (data, form, response) => {
             console.log('Réponse login OK :', data);
             console.log('HTTP status :', response.status);
 
@@ -29,8 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Connexion refusée');
             }
         },
-
-        onError: (error) => {
+        (error) => {
             console.error('Erreur AJAX login :', error);
 
             const messageBox = document.getElementById('login-message');
@@ -40,5 +38,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 messageBox.className = 'error-message';
             }
         }
-    });
+    );
 });
