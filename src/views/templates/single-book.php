@@ -12,7 +12,12 @@
 
         <h1><?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?></h1>
         <p><strong>Auteur :</strong> <?= htmlspecialchars((string) $book['author_name'], ENT_QUOTES, 'UTF-8') ?></p>
-        <p><strong>Proposé par :</strong> <?= htmlspecialchars((string) $book['owner_username'], ENT_QUOTES, 'UTF-8') ?></p>
+        <p>
+            <strong>Proposé par :</strong>
+            <a href="/?action=public-account&username=<?= htmlspecialchars((string) $book['owner_username'], ENT_QUOTES, 'UTF-8') ?>">
+                <?= htmlspecialchars((string) $book['owner_username'], ENT_QUOTES, 'UTF-8') ?>
+            </a>
+        </p>
         <p><strong>Disponibilité :</strong> <?= !empty($book['is_available']) ? 'Disponible' : 'Indisponible' ?></p>
 
         <?php if (!empty($coverPicture)): ?>

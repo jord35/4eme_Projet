@@ -11,5 +11,7 @@
     <button type="submit">S'inscrire</button>
 </form>
 
-<script src="/Js/common/app.js"></script>
-<script src="/Js/signup.js"></script>
+<p><a href="/?action=login">Déjà un compte ? Se connecter</a></p>
+
+<script src="/js/common/app.js"></script>
+<script src="/js/signup.js"></script>

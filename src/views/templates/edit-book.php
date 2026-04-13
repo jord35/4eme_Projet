@@ -2,6 +2,7 @@
     <div class="book-form-header">
         <div>
             <h1><?= $book->getId() > 0 ? 'Modifier un livre' : 'Créer un livre' ?></h1>
+            <p><a href="/?action=books">Voir tous les livres</a></p>
         </div>
 
         <?php if ($book->getId() > 0): ?>

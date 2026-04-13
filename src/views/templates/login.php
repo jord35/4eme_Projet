@@ -6,7 +6,8 @@
 </form>
 
 <p id="login-message"></p>
+<p><a href="/?action=signup">Pas encore de compte ? S'inscrire</a></p>
 <a href="/?action=my-account">Mon compte</a>
 
-<script src="/Js/common/app.js" defer></script>
-<script src="/Js/login.js" defer></script>
+<script src="/js/common/app.js" defer></script>
+<script src="/js/login.js" defer></script>

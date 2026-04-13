@@ -7,6 +7,8 @@
 </head>
 <body>
 
+    <p><a href="/?action=books">Retour aux livres</a></p>
+
     <?php if ($userNotFound): ?>
         <h1>Utilisateur introuvable</h1>
         <p>Le profil demandé n'existe pas.</p>

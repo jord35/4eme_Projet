@@ -9,6 +9,11 @@
 <body>
 
     <h1>Mon compte</h1>
+    <p>
+        <a href="/?action=edit-book">Ajouter ou modifier un livre</a>
+        |
+        <a href="/?action=books">Voir tous les livres</a>
+    </p>
 
     <section>
         <div>
@@ -104,6 +109,11 @@
         <?php else: ?>
             <?php foreach ($libraryBooks as $book): ?>
                 <article>
+                        <p>
+                            <a href="/?action=single-book&id=<?= htmlspecialchars((string) $book['id'], ENT_QUOTES, 'UTF-8') ?>">
+                                Voir la fiche du livre
+                            </a>
+                        </p>
                     <?php if (!empty($book['cover']['src'])): ?>
                         <img
                             src="<?= htmlspecialchars((string) $book['cover']['src'], ENT_QUOTES, 'UTF-8') ?>"
@@ -129,7 +139,7 @@
         <?php endif; ?>
     </section>
 
-    <script src="js/common/app.js"></script>
-    <script src="js/my-account.js"></script>
+    <script src="/js/common/app.js"></script>
+    <script src="/js/my-account.js"></script>
 </body>
 </html>
