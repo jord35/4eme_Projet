@@ -1,12 +1,4 @@
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon compte</title>
-</head>
-<body>
 
     <h1>Mon compte</h1>
     <p>
@@ -141,5 +133,3 @@
 
     <script src="/js/common/app.js"></script>
     <script src="/js/my-account.js"></script>
-</body>
-</html>
