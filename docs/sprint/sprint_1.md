@@ -86,10 +86,10 @@ J'ai modifié toute l'architecture autour de users afin que User Manager soit ut
 ça y est j'ai fait le gros des changements et j'ai mis des liens pour naviguer sur l'ensemble du site je vais pour m'attaquer a message
 _
 ## Messages
-- [ ] Mise en place du routing
-- [ ] Mise en place d'un manager ou d'un appel DB minimal
-- [ ] Mise en place d'un contrôleur
-- [ ] Mise en place d'un rendu HTML minimal
+- [x] Mise en place du routing
+- [x] Mise en place d'un manager ou d'un appel DB minimal
+- [x] Mise en place d'un contrôleur
+- [x] Mise en place d'un rendu HTML minimal
 - [ ] Vérification que la page répond correctement
 
 

@@ -66,6 +66,7 @@ require_once ROOT_DIR . 'src/models/common/shared/user/UserManager.php';
 require_once ROOT_DIR . 'src/controllers/common/service/AuthenticationService.php';
 require_once ROOT_DIR . 'src/controllers/common/service/EditBookService.php';
 require_once ROOT_DIR . 'src/controllers/common/service/MyAccountService.php';
+require_once ROOT_DIR . 'src/controllers/common/service/MessagePageService.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -127,6 +128,16 @@ require_once ROOT_DIR . 'src/controllers/PublicAccountController.php';
 |--------------------------------------------------------------------------
 */
 require_once ROOT_DIR . 'src/controllers/SingleBookController.php';
+
+/*
+|--------------------------------------------------------------------------
+| Feature - Message
+|--------------------------------------------------------------------------
+*/
+require_once ROOT_DIR . 'src/models/message/ConversationManager.php';
+require_once ROOT_DIR . 'src/models/message/MessageManager.php';
+require_once ROOT_DIR . 'src/models/common/service/MessagingService.php';
+require_once ROOT_DIR . 'src/controllers/MessagesController.php';
 
 $action = $_GET['action'] ?? null;
 
@@ -191,6 +202,12 @@ if ($action === 'public-account') {
 
 if ($action === 'single-book') {
     $controller = new SingleBookController();
+    $controller->execute();
+    exit;
+}
+
+if ($action === 'messages') {
+    $controller = new MessagesController();
     $controller->execute();
     exit;
 }
