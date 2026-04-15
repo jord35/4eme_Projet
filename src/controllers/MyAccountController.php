@@ -37,7 +37,17 @@ class MyAccountController extends AbstractController
                 }
             }
 
-            require_once ROOT_DIR . 'src/views/templates/MyAccount.php';
+            $view = new View('Mon compte');
+            $view->render('MyAccount', [
+                'profile' => $profile,
+                'profilePicture' => $profilePicture,
+                'libraryBooks' => $libraryBooks,
+                'username' => $username,
+                'email' => $email,
+                'createdAt' => $createdAt,
+                'booksCount' => $booksCount,
+                'memberSince' => $memberSince
+            ]);
             return;
         }
 

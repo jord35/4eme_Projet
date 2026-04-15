@@ -62,6 +62,10 @@ class SingleBookController extends AbstractController
             }
         }
 
-        require_once ROOT_DIR . 'src/views/templates/single-book.php';
+        $view = new View((string) $book['title']);
+        $view->render('single-book', [
+            'book' => $book,
+            'coverPicture' => $coverPicture
+        ]);
     }
 }

@@ -5,7 +5,8 @@ class LoginController extends AbstractController
     public function execute(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            require_once ROOT_DIR . 'src/views/templates/login.php';
+            $view = new View('Connexion');
+            $view->render('login');
             return;
         }
 

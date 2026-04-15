@@ -74,6 +74,9 @@ class BooksController extends AbstractController
             ];
         }, $books);
 
-        require_once ROOT_DIR . 'src/views/templates/books.php';
+        $view = new View('Livres');
+        $view->render('books', [
+            'bookCards' => $bookCards
+        ]);
     }
 }

@@ -41,7 +41,14 @@ class PublicAccountController extends AbstractController
         if ($username === '') {
             http_response_code(404);
             $userNotFound = true;
-            require_once ROOT_DIR . 'src/views/templates/public-account.php';
+            $view = new View('Profil public');
+            $view->render('public-account', [
+                'userNotFound' => $userNotFound,
+                'profile' => $profile,
+                'profilePicture' => $profilePicture,
+                'libraryBooks' => $libraryBooks,
+                'memberSince' => $memberSince
+            ]);
             return;
         }
 
@@ -50,7 +57,14 @@ class PublicAccountController extends AbstractController
         if ($profile === null) {
             http_response_code(404);
             $userNotFound = true;
-            require_once ROOT_DIR . 'src/views/templates/public-account.php';
+            $view = new View('Profil public');
+            $view->render('public-account', [
+                'userNotFound' => $userNotFound,
+                'profile' => $profile,
+                'profilePicture' => $profilePicture,
+                'libraryBooks' => $libraryBooks,
+                'memberSince' => $memberSince
+            ]);
             return;
         }
 
@@ -116,6 +130,13 @@ class PublicAccountController extends AbstractController
             }
         }
 
-        require_once ROOT_DIR . 'src/views/templates/public-account.php';
+        $view = new View('Profil de ' . (string) ($profile['username'] ?? 'utilisateur'));
+        $view->render('public-account', [
+            'userNotFound' => $userNotFound,
+            'profile' => $profile,
+            'profilePicture' => $profilePicture,
+            'libraryBooks' => $libraryBooks,
+            'memberSince' => $memberSince
+        ]);
     }
 }

@@ -74,6 +74,9 @@ class HomeController extends AbstractController
             ];
         }, $books);
 
-        require_once ROOT_DIR . 'src/views/templates/home.php';
+        $view = new View('Accueil');
+        $view->render('home', [
+            'bookCards' => $bookCards
+        ]);
     }
 }

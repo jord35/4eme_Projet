@@ -25,7 +25,11 @@ class EditBookController extends AbstractController
             $book = $formResult['data']['book'];
             $coverPicture = $formResult['data']['coverPicture'] ?? null;
 
-            require_once ROOT_DIR . 'src/views/templates/edit-book.php';
+            $view = new View($bookId > 0 ? 'Modifier un livre' : 'Ajouter un livre');
+            $view->render('edit-book', [
+                'book' => $book,
+                'coverPicture' => $coverPicture
+            ]);
             return;
         }
 

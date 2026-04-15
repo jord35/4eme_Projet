@@ -84,7 +84,7 @@
 J'ai modifié toute l'architecture autour de users afin que User Manager soit utilisé dans les contrôleurs le nécessitant. Cette réorganisation va me permettre normalement de pouvoir créer la section message plus facilement..
 
 ça y est j'ai fait le gros des changements et j'ai mis des liens pour naviguer sur l'ensemble du site je vais pour m'attaquer a message
-
+_
 ## Messages
 - [ ] Mise en place du routing
 - [ ] Mise en place d'un manager ou d'un appel DB minimal
