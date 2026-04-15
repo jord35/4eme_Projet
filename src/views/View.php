@@ -31,7 +31,7 @@ class View
         // On s'occupe de la vue envoyée
         $viewPath = $this->buildViewPath($viewName);
         
-        // Les deux variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
+        // Les trois variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
         $content = $this->_renderViewFromTemplate($viewPath, $params);
         $title = $this->title;
         $globalUnreadMessageCount = $this->resolveGlobalUnreadMessageCount($params);
@@ -75,8 +75,8 @@ class View
             return (int) $params['globalUnreadMessageCount'];
         }
 
-        if (isset($params['unreadConversationCount'])) {
-            return (int) $params['unreadConversationCount'];
+        if (isset($params['unreadMessageCount'])) {
+            return (int) $params['unreadMessageCount'];
         }
 
         if (empty($_SESSION['user_id']) || !class_exists('MessagingService')) {
@@ -85,14 +85,14 @@ class View
 
         try {
             $messagingService = new MessagingService();
-            $result = $messagingService->getUnreadConversationCount((int) $_SESSION['user_id']);
+            $result = $messagingService->getUnreadMessageCount((int) $_SESSION['user_id']);
 
             if (($result['success'] ?? false) !== true) {
                 return 0;
             }
 
             return (int) ($result['data']['count'] ?? 0);
-        } catch (Throwable $throwable) {
+        } catch (Exception $e) {
             return 0;
         }
     }

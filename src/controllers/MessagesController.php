@@ -12,6 +12,11 @@ class MessagesController extends AbstractController
     public function execute(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ($this->isConversationSummariesRequest()) {
+                $this->handleConversationSummariesRequest();
+                return;
+            }
+
             if ($this->isUpdatesRequest()) {
                 $this->handleUpdatesRequest();
                 return;
@@ -60,7 +65,8 @@ class MessagesController extends AbstractController
             'activeConversationId' => $pageData['activeConversationId'] ?? null,
             'conversationSummaries' => $pageData['conversationSummaries'] ?? [],
             'messages' => $pageData['messages'] ?? [],
-            'unreadConversationCount' => (int) ($pageData['unreadConversationCount'] ?? 0)
+            'unreadConversationCount' => (int) ($pageData['unreadConversationCount'] ?? 0),
+            'globalUnreadMessageCount' => (int) ($pageData['unreadMessageCount'] ?? 0)
         ]);
     }
 
@@ -80,6 +86,22 @@ class MessagesController extends AbstractController
             'success' => true,
             'error' => null,
             'data' => $updatesResult['data']
+        ]);
+    }
+
+    private function handleConversationSummariesRequest(): void
+    {
+        $result = $this->messagePageService->getConversationSummariesData();
+
+        if ($result['success'] === false) {
+            $this->handleError($result['error']);
+            return;
+        }
+
+        $this->renderJson([
+            'success' => true,
+            'error' => null,
+            'data' => $result['data']
         ]);
     }
 
@@ -111,6 +133,11 @@ class MessagesController extends AbstractController
     private function isUpdatesRequest(): bool
     {
         return isset($_GET['ajax']) && $_GET['ajax'] === 'updates';
+    }
+
+    private function isConversationSummariesRequest(): bool
+    {
+        return isset($_GET['ajax']) && $_GET['ajax'] === 'conversation-summaries';
     }
 
     private function handleError(?string $error): void

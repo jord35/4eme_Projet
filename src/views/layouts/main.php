@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <?php $globalUnreadMessageCount = (int) ($globalUnreadMessageCount ?? $unreadConversationCount ?? 0); ?>
+    <?php $globalUnreadMessageCount = (int) ($globalUnreadMessageCount ?? 0); ?>
 
     <header class="site-header">
         <nav class="site-nav" aria-label="Navigation principale">

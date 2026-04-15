@@ -78,10 +78,10 @@ class MessagePageService
             $conversationSummaries = $conversationsResult['data'] ?? [];
         }
 
-        $unreadCountResult = $this->messagingService->getUnreadConversationCount($currentUserId);
+        $unreadCountersResult = $this->getUnreadCounters($currentUserId);
 
-        if ($unreadCountResult['success'] === false) {
-            return $unreadCountResult;
+        if ($unreadCountersResult['success'] === false) {
+            return $unreadCountersResult;
         }
 
         return [
@@ -92,7 +92,8 @@ class MessagePageService
                 'activeConversationId' => $activeConversationId,
                 'conversationSummaries' => $conversationSummaries,
                 'messages' => $messages,
-                'unreadConversationCount' => (int) ($unreadCountResult['data']['count'] ?? 0)
+                'unreadConversationCount' => (int) ($unreadCountersResult['data']['unreadConversationCount'] ?? 0),
+                'unreadMessageCount' => (int) ($unreadCountersResult['data']['unreadMessageCount'] ?? 0)
             ]
         ];
     }
@@ -126,10 +127,10 @@ class MessagePageService
             return $markReadResult;
         }
 
-        $unreadCountResult = $this->messagingService->getUnreadConversationCount($currentUserId);
+        $unreadCountersResult = $this->getUnreadCounters($currentUserId);
 
-        if ($unreadCountResult['success'] === false) {
-            return $unreadCountResult;
+        if ($unreadCountersResult['success'] === false) {
+            return $unreadCountersResult;
         }
 
         return [
@@ -137,7 +138,8 @@ class MessagePageService
             'error' => null,
             'data' => [
                 'messages' => $messagesResult['data'] ?? [],
-                'unreadConversationCount' => (int) ($unreadCountResult['data']['count'] ?? 0)
+                'unreadConversationCount' => (int) ($unreadCountersResult['data']['unreadConversationCount'] ?? 0),
+                'unreadMessageCount' => (int) ($unreadCountersResult['data']['unreadMessageCount'] ?? 0)
             ]
         ];
     }
@@ -164,10 +166,10 @@ class MessagePageService
             return $sendResult;
         }
 
-        $unreadCountResult = $this->messagingService->getUnreadConversationCount($currentUserId);
+        $unreadCountersResult = $this->getUnreadCounters($currentUserId);
 
-        if ($unreadCountResult['success'] === false) {
-            return $unreadCountResult;
+        if ($unreadCountersResult['success'] === false) {
+            return $unreadCountersResult;
         }
 
         return [
@@ -175,7 +177,8 @@ class MessagePageService
             'error' => null,
             'data' => [
                 'message' => $sendResult['data'],
-                'unreadConversationCount' => (int) ($unreadCountResult['data']['count'] ?? 0)
+                'unreadConversationCount' => (int) ($unreadCountersResult['data']['unreadConversationCount'] ?? 0),
+                'unreadMessageCount' => (int) ($unreadCountersResult['data']['unreadMessageCount'] ?? 0)
             ]
         ];
     }
@@ -196,6 +199,61 @@ class MessagePageService
 
         $currentUserId = (int) $authResult['data']['user_id'];
 
-        return $this->messagingService->getUnreadConversationCount($currentUserId);
+        return $this->messagingService->getUnreadMessageCount($currentUserId);
+    }
+    private function getUnreadCounters(int $currentUserId): array
+    {
+        $unreadConversationCountResult = $this->messagingService->getUnreadConversationCount($currentUserId);
+
+        if ($unreadConversationCountResult['success'] === false) {
+            return $unreadConversationCountResult;
+        }
+
+        $unreadMessageCountResult = $this->messagingService->getUnreadMessageCount($currentUserId);
+
+        if ($unreadMessageCountResult['success'] === false) {
+            return $unreadMessageCountResult;
+        }
+
+        return [
+            'success' => true,
+            'error' => null,
+            'data' => [
+                'unreadConversationCount' => (int) ($unreadConversationCountResult['data']['count'] ?? 0),
+                'unreadMessageCount' => (int) ($unreadMessageCountResult['data']['count'] ?? 0),
+            ]
+        ];
+    }
+    public function getConversationSummariesData(): array
+    {
+        $authResult = $this->authenticationService->requireUserId();
+
+        if ($authResult['success'] === false) {
+            return $authResult;
+        }
+
+        $currentUserId = (int) $authResult['data']['user_id'];
+
+        $conversationsResult = $this->messagingService->getUserConversationSummaries($currentUserId);
+
+        if ($conversationsResult['success'] === false) {
+            return $conversationsResult;
+        }
+
+        $unreadCountersResult = $this->getUnreadCounters($currentUserId);
+
+        if ($unreadCountersResult['success'] === false) {
+            return $unreadCountersResult;
+        }
+
+        return [
+            'success' => true,
+            'error' => null,
+            'data' => [
+                'conversationSummaries' => $conversationsResult['data'] ?? [],
+                'unreadConversationCount' => (int) ($unreadCountersResult['data']['unreadConversationCount'] ?? 0),
+                'unreadMessageCount' => (int) ($unreadCountersResult['data']['unreadMessageCount'] ?? 0)
+            ]
+        ];
     }
 }

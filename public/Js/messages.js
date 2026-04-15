@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageForm = document.getElementById('message-form');
     const feedback = document.getElementById('message-form-feedback');
     const navbarBadge = document.getElementById('navbar-message-badge');
+    const conversationList = document.getElementById('messages-conversation-list');
+    const unreadConversationCountElement = document.getElementById('unread-conversation-count');
 
     if (!messagesList || !messageForm) {
         return;
@@ -38,6 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
             navbarBadge.classList.add('is-hidden');
             navbarBadge.setAttribute('aria-hidden', 'true');
         }
+    }
+
+    function updateUnreadConversationCount(nextCount) {
+        if (!unreadConversationCountElement) {
+            return;
+        }
+
+        unreadConversationCountElement.textContent = String(Number(nextCount || 0));
     }
 
     function escapeHtml(value) {
@@ -86,6 +96,57 @@ document.addEventListener('DOMContentLoaded', () => {
         messagesList.scrollTop = messagesList.scrollHeight;
     }
 
+    function renderConversationSummaries(conversationSummaries) {
+        if (!conversationList) {
+            return;
+        }
+
+        const activeConversationId = getConversationId();
+
+        if (!Array.isArray(conversationSummaries) || conversationSummaries.length === 0) {
+            conversationList.innerHTML = '';
+            return;
+        }
+
+        conversationList.innerHTML = conversationSummaries.map((conversation) => {
+            const conversationId = Number(conversation.conversation_id || 0);
+            const isActive = conversationId === activeConversationId;
+            const unreadCount = Number(conversation.unread_count || 0);
+            const hasUnread = unreadCount > 0;
+
+            const classes = [
+                'messages-conversation-item',
+                isActive ? 'is-active' : '',
+                hasUnread ? 'has-unread' : ''
+            ].filter(Boolean).join(' ');
+
+            const lastMessageContent = conversation.last_message_content
+                ? escapeHtml(conversation.last_message_content)
+                : 'Aucun message pour le moment.';
+
+            const lastMessageCreatedAt = conversation.last_message_created_at
+                ? `<small>${escapeHtml(conversation.last_message_created_at)}</small>`
+                : '';
+
+            const badge = hasUnread
+                ? `<span class="messages-conversation-badge">${unreadCount}</span>`
+                : '';
+
+            return `
+                <li class="${classes}">
+                    <a href="/?action=messages&conversation_id=${conversationId}">
+                        <div>
+                            <strong>${escapeHtml(conversation.other_username || '')}</strong>
+                        </div>
+                        <p>${lastMessageContent}</p>
+                        ${lastMessageCreatedAt}
+                        ${badge}
+                    </a>
+                </li>
+            `;
+        }).join('');
+    }
+
     const poller = createPoller({
         urlFn: () => {
             const conversationId = getConversationId();
@@ -100,12 +161,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
             appendMessages(response.data?.messages || []);
 
-            if (typeof response.data?.unreadConversationCount !== 'undefined') {
-                updateNavbarBadge(response.data.unreadConversationCount);
+            if (typeof response.data?.unreadMessageCount !== 'undefined') {
+                updateNavbarBadge(response.data.unreadMessageCount);
             }
+
+            if (typeof response.data?.unreadConversationCount !== 'undefined') {
+                updateUnreadConversationCount(response.data.unreadConversationCount);
+            }
+
+            conversationSummariesPoller.runOnce();
         },
         onError: (error) => {
             console.error('Erreur lors du chargement des nouveaux messages :', error);
+        }
+    });
+
+    const conversationSummariesPoller = createPoller({
+        urlFn: () => '/?action=messages&ajax=conversation-summaries',
+        onSuccess: (response) => {
+            if (!response || response.success !== true) {
+                return;
+            }
+
+            renderConversationSummaries(response.data?.conversationSummaries || []);
+
+            if (typeof response.data?.unreadMessageCount !== 'undefined') {
+                updateNavbarBadge(response.data.unreadMessageCount);
+            }
+
+            if (typeof response.data?.unreadConversationCount !== 'undefined') {
+                updateUnreadConversationCount(response.data.unreadConversationCount);
+            }
+        },
+        onError: (error) => {
+            console.error('Erreur lors du chargement des conversations :', error);
         }
     });
 
@@ -143,10 +232,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 feedback.className = 'success-message';
             }
 
-            if (typeof data.data?.unreadConversationCount !== 'undefined') {
-                updateNavbarBadge(data.data.unreadConversationCount);
+            if (typeof data.data?.unreadMessageCount !== 'undefined') {
+                updateNavbarBadge(data.data.unreadMessageCount);
             }
 
+            if (typeof data.data?.unreadConversationCount !== 'undefined') {
+                updateUnreadConversationCount(data.data.unreadConversationCount);
+            }
+
+            conversationSummariesPoller.runOnce();
             poller.runOnce();
         },
         (error) => {
@@ -160,4 +254,5 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     poller.start(3000);
+    conversationSummariesPoller.start(3000);
 });

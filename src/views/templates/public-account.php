@@ -34,13 +34,13 @@
             <p><strong>Membre depuis :</strong> <?= htmlspecialchars($memberSince, ENT_QUOTES, 'UTF-8') ?></p>
             <p><strong>Nombre de livres :</strong> <?= (int) ($profile['books_count'] ?? 0) ?></p>
 
-            <?php if ((int) $publicUserId !== (int) ($_SESSION['user']['id'] ?? 0)): ?>
-                <p>
-                    <a class="btn" href="/?action=messages&user_id=<?= (int) $publicUserId ?>">
-                        Écrire un message
-                    </a>
-                </p>
-            <?php endif; ?>
+            <?php if ((int) ($profile['id'] ?? 0) !== (int) ($_SESSION['user_id'] ?? 0)): ?>
+            <p>
+                <a class="btn" href="/?action=messages&user_id=<?= (int) ($profile['id'] ?? 0) ?>">
+                    Écrire un message
+                </a>
+            </p>
+<?php endif; ?>
         </div>
     </section>
 

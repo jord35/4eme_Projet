@@ -6,7 +6,7 @@
         </div>
 
         <div>
-            <strong>Non lus :</strong> <?= (int) $unreadConversationCount ?>
+            <strong>Non lus :</strong> <span id="unread-conversation-count"><?= (int) $unreadConversationCount ?></span>
         </div>
     </header>
 
@@ -21,7 +21,7 @@
             <?php if (empty($conversationSummaries)): ?>
                 <p>Aucune conversation pour le moment.</p>
             <?php else: ?>
-                <ul class="messages-conversation-list">
+                <ul id="messages-conversation-list" class="messages-conversation-list">
                     <?php foreach ($conversationSummaries as $conversation): ?>
                         <?php
                             $conversationId = (int) $conversation['conversation_id'];
