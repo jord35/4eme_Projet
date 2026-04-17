@@ -45,7 +45,7 @@
 ## My account_
 - [x] Mise en place du routing
 - [x] Mise en place d'un manager ou d'un appel DB minimal  
-- [~] Mise en place d'un contrôleur
+- [x] Mise en place d'un contrôleur.
   Tout comme EditBook, My Account Service, étant donné qu'elle demande d'utiliser plusieurs helpers ainsi que la sécurité côté authentification, j'ai fait le choix de passer par un service.
   afin d'alléger le contrôleur pour qu'il ne pointe que vers la vue.
   Cela permet de faciliter la maintenance à l'avenir.
