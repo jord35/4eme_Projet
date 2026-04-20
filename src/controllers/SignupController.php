@@ -2,6 +2,13 @@
 
 class SignupController extends AbstractController
 {
+    private AuthenticationService $authenticationService;
+
+    public function __construct()
+    {
+        $this->authenticationService = new AuthenticationService();
+    }
+
     public function checkUsername(): void
     {
         if (!$this->isAjaxRequest()) {
@@ -14,8 +21,7 @@ class SignupController extends AbstractController
 
         $username = trim($_GET['username'] ?? '');
 
-        $manager = new SignupManager();
-        $result = $manager->checkUsername($username);
+        $result = $this->authenticationService->checkUsernameAvailability($username);
 
         $this->renderJson($result);
     }
@@ -32,8 +38,7 @@ class SignupController extends AbstractController
 
         $email = trim($_GET['email'] ?? '');
 
-        $manager = new SignupManager();
-        $result = $manager->checkEmail($email);
+        $result = $this->authenticationService->checkEmailAvailability($email);
 
         $this->renderJson($result);
     }
@@ -48,13 +53,16 @@ class SignupController extends AbstractController
             ]);
         }
 
-        $manager = new SignupManager();
-        $result = $manager->register($_POST);
+        $result = $this->authenticationService->register($_POST);
 
-        if (!$result['success'] && isset($result['message']) && $result['message'] === 'Erreur lors de la création du compte.') {
-            http_response_code(500);
+        if (isset($result['status_code'])) {
+            http_response_code((int) $result['status_code']);
         }
 
-        $this->renderJson($result);
+        $this->renderJson([
+            'success' => $result['success'],
+            'message' => $result['data']['message'] ?? $result['error'] ?? null,
+            'errors' => $result['errors'] ?? []
+        ]);
     }
 }

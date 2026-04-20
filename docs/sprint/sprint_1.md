@@ -94,6 +94,17 @@ J'ai modifié toute l'architecture autour de users afin que User Manager soit ut
 
 
 
-## Objectif-
-
+## Objectif
 Valider l’architecture globale du projet avec un site fonctionnel de bout en bout, encore brut visuellement, mais complet dans son enchaînement route, données, contrôleur et rendu.
+
+
+
+
+## notes 
+## Notes
+J'ai dû faire quelques modifications. Lorsque j'ai refondu toute la logique liée aux utilisateurs, je n'ai pas modifié la logique des entités et je ne suis pas allé jusqu'au bout du raisonnement.
+
+Cela a entraîné la conservation de certains managers qui n'avaient plus vraiment lieu d'être, ainsi que quelques erreurs, ou du moins des incohérences de cheminement, entre des éléments pourtant parallèles, notamment pour login et signup.
+
+
+J'ai corrigé cela en créant une entité User et en faisant passer cette logique par AuthenticationService.

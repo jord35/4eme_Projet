@@ -2,17 +2,17 @@
 
 class MyAccountController extends AbstractController
 {
-    private MyAccountService $myAccountService;
+    private AccountService $accountService;
 
     public function __construct()
     {
-        $this->myAccountService = new MyAccountService();
+        $this->accountService = new AccountService();
     }
 
     public function execute(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $pageResult = $this->myAccountService->getPageData();
+            $pageResult = $this->accountService->getPageData();
 
             if ($pageResult['success'] === false) {
                 $this->handleError($pageResult['error']);
@@ -66,7 +66,7 @@ class MyAccountController extends AbstractController
             return;
         }
 
-        $updateResult = $this->myAccountService->updateProfile($_POST, $_FILES);
+        $updateResult = $this->accountService->updateProfile($_POST, $_FILES);
 
         if ($updateResult['success'] === false) {
             $this->handleError($updateResult['error']);

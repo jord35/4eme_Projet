@@ -2,6 +2,13 @@
 
 class LoginController extends AbstractController
 {
+    private AuthenticationService $authenticationService;
+
+    public function __construct()
+    {
+        $this->authenticationService = new AuthenticationService();
+    }
+
     public function execute(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -19,26 +26,20 @@ class LoginController extends AbstractController
             return;
         }
 
-        $manager = new UserManager();
-        $user = $manager->checkCredentials($_POST);
+        $result = $this->authenticationService->login($_POST);
 
-        if ($user) {
-            session_regenerate_id(true);
-
-            $_SESSION['user_id'] = (int) $user['id'];
-            $_SESSION['username'] = $user['username'];
-
+        if ($result['success'] === true) {
             $this->renderJson([
                 'success' => true,
-                'message' => 'Connexion réussie'
+                'message' => $result['data']['message'] ?? 'Connexion réussie'
             ]);
             return;
         }
 
-        http_response_code(401);
+        http_response_code((int) ($result['status_code'] ?? 401));
         $this->renderJson([
             'success' => false,
-            'message' => 'Identifiants invalides'
+            'message' => $result['error'] ?? 'Identifiants invalides'
         ]);
     }
 }

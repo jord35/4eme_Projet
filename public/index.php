@@ -56,6 +56,7 @@ require_once ROOT_DIR . 'src/controllers/common/helper/BookHelper.php';
 | Shared - User
 |--------------------------------------------------------------------------
 */
+require_once ROOT_DIR . 'src/models/common/shared/user/User.php';
 require_once ROOT_DIR . 'src/models/common/shared/user/UserManager.php';
 
 /*
@@ -65,7 +66,7 @@ require_once ROOT_DIR . 'src/models/common/shared/user/UserManager.php';
 */
 require_once ROOT_DIR . 'src/controllers/common/service/AuthenticationService.php';
 require_once ROOT_DIR . 'src/controllers/common/service/EditBookService.php';
-require_once ROOT_DIR . 'src/controllers/common/service/MyAccountService.php';
+require_once ROOT_DIR . 'src/controllers/common/service/AccountService.php';
 require_once ROOT_DIR . 'src/controllers/common/service/MessagePageService.php';
 
 /*
@@ -80,8 +81,6 @@ require_once ROOT_DIR . 'src/controllers/HomeController.php';
 | Feature - Signup
 |--------------------------------------------------------------------------
 */
-require_once ROOT_DIR . 'src/models/signup/Signup.php';
-require_once ROOT_DIR . 'src/models/signup/SignupManager.php';
 require_once ROOT_DIR . 'src/controllers/SignupController.php';
 
 /*
@@ -89,7 +88,6 @@ require_once ROOT_DIR . 'src/controllers/SignupController.php';
 | Feature - Login
 |--------------------------------------------------------------------------
 */
-require_once ROOT_DIR . 'src/models/login/Login.php';
 require_once ROOT_DIR . 'src/controllers/LoginController.php';
 
 /*
@@ -111,8 +109,6 @@ require_once ROOT_DIR . 'src/controllers/BooksController.php';
 | Feature - My Account
 |--------------------------------------------------------------------------
 */
-require_once ROOT_DIR . 'src/models/myaccount/MyAccount.php';
-require_once ROOT_DIR . 'src/models/myaccount/MyAccountManager.php';
 require_once ROOT_DIR . 'src/controllers/MyAccountController.php';
 
 /*

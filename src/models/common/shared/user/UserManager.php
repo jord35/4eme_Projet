@@ -1,25 +1,152 @@
 <?php
 
-class UserManager extends AbstractEntityManager{
-
-
-
-public function usernameExists(string $username): bool
+class UserManager extends AbstractEntityManager
+{
+    public function usernameExists(string $username): bool
     {
+        $username = trim($username);
+
+        if ($username === '') {
+            return false;
+        }
+
         $sql = "SELECT id FROM users WHERE username = :username LIMIT 1";
         $stmt = $this->db->query($sql, ['username' => $username]);
 
         return (bool) $stmt->fetch();
     }
 
-public function emailExists(string $email): bool
+    public function emailExists(string $email): bool
     {
+        $email = trim($email);
+
+        if ($email === '') {
+            return false;
+        }
+
         $sql = "SELECT id FROM users WHERE email = :email LIMIT 1";
         $stmt = $this->db->query($sql, ['email' => $email]);
 
         return (bool) $stmt->fetch();
     }
- 
+
+    public function findById(int $userId): ?User
+    {
+        if ($userId <= 0) {
+            return null;
+        }
+
+        $sql = 'SELECT * FROM users WHERE id = :id LIMIT 1';
+        $stmt = $this->db->query($sql, [
+            'id' => $userId
+        ]);
+
+        $data = $stmt->fetch();
+
+        if (!$data) {
+            return null;
+        }
+
+        return new User($data);
+    }
+
+    public function findByUsername(string $username): ?User
+    {
+        $username = trim($username);
+
+        if ($username === '') {
+            return null;
+        }
+
+        $sql = 'SELECT * FROM users WHERE username = :username LIMIT 1';
+        $stmt = $this->db->query($sql, [
+            'username' => $username
+        ]);
+
+        $data = $stmt->fetch();
+
+        if (!$data) {
+            return null;
+        }
+
+        return new User($data);
+    }
+
+    public function insert(User $user): int
+    {
+        $sql = '
+            INSERT INTO users (
+                username,
+                email,
+                password_hash,
+                profile_picture_id,
+                created_at,
+                updated_at
+            ) VALUES (
+                :username,
+                :email,
+                :password_hash,
+                :profile_picture_id,
+                NOW(),
+                NOW()
+            )
+        ';
+
+        $this->db->query($sql, [
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'password_hash' => $user->getPasswordHash(),
+            'profile_picture_id' => $user->getProfilePictureId()
+        ]);
+
+        return (int) $this->db->getPDO()->lastInsertId();
+    }
+
+    public function updateProfile(int $userId, array $data): bool
+    {
+        if ($userId <= 0) {
+            return false;
+        }
+
+        $fields = [];
+        $params = ['id' => $userId];
+
+        if (array_key_exists('username', $data) && $data['username'] !== '') {
+            $fields[] = 'username = :username';
+            $params['username'] = trim((string) $data['username']);
+        }
+
+        if (array_key_exists('email', $data) && $data['email'] !== '') {
+            $fields[] = 'email = :email';
+            $params['email'] = trim((string) $data['email']);
+        }
+
+        if (array_key_exists('password', $data) && $data['password'] !== '') {
+            $fields[] = 'password_hash = :password_hash';
+            $params['password_hash'] = password_hash((string) $data['password'], PASSWORD_DEFAULT);
+        }
+
+        if (array_key_exists('profile_picture_id', $data)) {
+            $fields[] = 'profile_picture_id = :profile_picture_id';
+            $params['profile_picture_id'] = $data['profile_picture_id'];
+        }
+
+        if (empty($fields)) {
+            return false;
+        }
+
+        $fields[] = 'updated_at = NOW()';
+
+        $sql = '
+            UPDATE users
+            SET ' . implode(', ', $fields) . '
+            WHERE id = :id
+        ';
+
+        $stmt = $this->db->query($sql, $params);
+
+        return $stmt->rowCount() > 0;
+    }
 
     public function findProfileByUserId(int $userId): ?array
     {
@@ -62,24 +189,7 @@ public function emailExists(string $email): bool
             'books_count' => (int) $data['books_count']
         ];
     }
-     public function checkCredentials(array $data): ?array
-    {
-        $login = new Login($data);
 
-        $sql = "SELECT * FROM users WHERE username = :username";
-        $stmt = $this->db->getPDO()->prepare($sql);
-        $stmt->execute([
-            ':username' => $login->getUsername()
-        ]);
-
-        $user = $stmt->fetch();
-
-        if ($user && password_verify($login->getPassword(), $user['password_hash'])) {
-            return $user;
-        }
-
-        return null;
-    }
     public function findPublicProfileByUsername(string $username): ?array
     {
         $username = trim($username);
@@ -124,4 +234,4 @@ public function emailExists(string $email): bool
             'books_count' => (int) $data['books_count']
         ];
     }
-    }
+}

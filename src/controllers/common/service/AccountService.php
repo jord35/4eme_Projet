@@ -1,10 +1,9 @@
 <?php
 
-class MyAccountService
+class AccountService
 {
     private AuthenticationService $authenticationService;
     private UserManager $userManager;
-    private MyAccountManager $myAccountManager;
     private BookHelper $bookHelper;
     private PictureHelper $pictureHelper;
 
@@ -12,7 +11,6 @@ class MyAccountService
     {
         $this->authenticationService = new AuthenticationService();
         $this->userManager = new UserManager();
-        $this->myAccountManager = new MyAccountManager();
         $this->bookHelper = new BookHelper();
         $this->pictureHelper = new PictureHelper();
     }
@@ -158,7 +156,7 @@ class MyAccountService
 
         $payload['profile_picture_id'] = $newProfilePictureId;
 
-        $updateResult = $this->myAccountManager->updateProfile($userId, $payload);
+        $updateResult = $this->userManager->updateProfile($userId, $payload);
 
         if ($updateResult === false) {
             if ($newUploadedPictureId !== null) {
