@@ -113,13 +113,18 @@ class PictureManager extends AbstractEntityManager
             $variantPreset
         );
 
+        $variantErrors = $variantsResult['errors'] ?? [];
+        $variantsComplete = (bool) ($variantsResult['variants_complete'] ?? true);
+
         return [
             'success' => true,
             'error' => null,
             'data' => [
                 'picture_id' => $pictureId,
                 'original_path' => $originalData['relative_path'],
-                'variants' => $variantsResult
+                'variants' => $variantsResult['variants'] ?? [],
+                'variants_complete' => $variantsComplete,
+                'variant_errors' => $variantErrors
             ]
         ];
     }
@@ -166,7 +171,7 @@ class PictureManager extends AbstractEntityManager
         ]);
     }
 
-    
+
     /**
      * Insère une image dans la table pictures.
      *

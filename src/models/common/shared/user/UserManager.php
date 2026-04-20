@@ -145,7 +145,13 @@ class UserManager extends AbstractEntityManager
 
         $stmt = $this->db->query($sql, $params);
 
-        return $stmt->rowCount() > 0;
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+
+        $existingUser = $this->findById($userId);
+
+        return $existingUser instanceof User;
     }
 
     public function findProfileByUserId(int $userId): ?array

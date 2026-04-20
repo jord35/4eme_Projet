@@ -108,3 +108,6 @@ Cela a entraîné la conservation de certains managers qui n'avaient plus vraime
 
 
 J'ai corrigé cela en créant une entité User et en faisant passer cette logique par AuthenticationService.
+
+fixe de quelques petites incohérences entre l'update de user manager et de book manager ainsi que picture manager et picture variant manager au sujet D'erreurs potentiellement silencieuses.
+en cas d'échec D'ajout des variantes d'images.

@@ -63,7 +63,7 @@ class PictureVariantManager extends AbstractEntityManager
         $rows = $this->db->query($sql, [
             'picture_id' => $pictureId
 
-            
+
         ])->fetchAll();
 
         $variants = [];
@@ -115,6 +115,7 @@ class PictureVariantManager extends AbstractEntityManager
     {
         $definitions = $this->getVariantDefinitions($variantType);
         $savedVariants = [];
+        $errors = [];
 
         foreach ($definitions as $definition) {
             $generated = $this->generateVariantFile(
@@ -124,6 +125,12 @@ class PictureVariantManager extends AbstractEntityManager
             );
 
             if ($generated['success'] === false) {
+                $errors[] = [
+                    'device' => $definition['device'],
+                    'width' => (int) $definition['width'],
+                    'format' => (string) $definition['format'],
+                    'error' => $generated['error'] ?? 'Variant generation failed.'
+                ];
                 continue;
             }
 
@@ -143,7 +150,17 @@ class PictureVariantManager extends AbstractEntityManager
             $savedVariants[] = $variant;
         }
 
-        return $savedVariants;
+        $expectedCount = count($definitions);
+        $generatedCount = count($savedVariants);
+
+        return [
+            'success' => $generatedCount === $expectedCount,
+            'variants_complete' => $generatedCount === $expectedCount,
+            'expected_count' => $expectedCount,
+            'generated_count' => $generatedCount,
+            'errors' => $errors,
+            'variants' => $savedVariants
+        ];
     }
 
     /**
@@ -284,10 +301,17 @@ class PictureVariantManager extends AbstractEntityManager
         $fullPath = $absoluteDirectory . $filename;
         $relativePath = $relativeDirectory . $filename;
 
-        imagewebp($targetImage, $fullPath, 85);
+        $saved = imagewebp($targetImage, $fullPath, 85);
 
         imagedestroy($sourceImage);
         imagedestroy($targetImage);
+
+        if ($saved === false) {
+            return [
+                'success' => false,
+                'error' => 'Failed to save generated variant.'
+            ];
+        }
 
         return [
             'success' => true,
