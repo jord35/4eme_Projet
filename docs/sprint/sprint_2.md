@@ -1,4 +1,4 @@
-# Sprint 2 - Consolidation de l'architecture
+# Sprint 2 - Consolidation de l'architecture-
 
 - [ ] Séparation plus propre des responsabilités
 - [ ] Raffinement des vues
@@ -15,3 +15,6 @@ Consolider la logique métier et organiser proprement le code afin de transforme
 
 
 note : J'ai commencé a Pour factoriser tout ça, là j'avais un petit bug, je pense lié aux différentes merges de chaque branche, je me retrouvais avec du JS qui n'était pas en concordance avec app.js.
+
+Démarrage de la checklist consignes.md pour vérifier si toutes les étapes ont bien été faites.
+Plus ajout du readme

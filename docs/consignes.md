@@ -55,11 +55,11 @@ Livrable : Site web.
 - [x] Le projet respecte obligatoirement l’architecture MVC.
 - [x] Un routeur est présent et toutes les pages passent par lui.
 - [x] Un ou plusieurs contrôleurs existent et sont écrits en POO.
-- [ ] Les modèles suivent une architecture entité/manager ou entité/repository en POO.
+- [x] Les modèles suivent une architecture entité/manager ou entité/repository en POO.
 - [x] Un système évite de dupliquer le header et le footer sur chaque page.
 - [x] Aucune librairie PHP interdite n’a été utilisée (Twig, Doctrine, routeur clef en main, etc.).
 - [x] Les outils CSS autorisés peuvent être utilisés (Sass, Less, Bootstrap, Tailwind, etc.).
-- [ ] Un fichier README explique comment déployer le site.
+- [x] Un fichier README explique comment déployer le site.
 
 ### Respect des bonnes pratiques en gestion des données
 
@@ -67,9 +67,9 @@ Livrable : Site web.
 
 ### Ne peuvent pas faire l’objet d’un refus de soutenance
 
-- [ ] L’utilisation ou non d’un autoloader ou des namespaces n’est pas bloquante.
-- [ ] Le fait que le projet soit codé en totalité, partiellement ou pas du tout en anglais n’est pas bloquant.
-- [ ] La présence ou l’absence de commentaires n’est pas bloquante.
+- L’utilisation ou non d’un autoloader ou des namespaces n’est pas bloquante.
+- Le fait que le projet soit codé en totalité, partiellement ou pas du tout en anglais n’est pas bloquant.
+- La présence ou l’absence de commentaires n’est pas bloquante.
 
 ### Notes
 
@@ -126,7 +126,7 @@ Livrable : Site web.
 
 ### Ne peut pas faire l’objet d’un refus de soutenance
 
-- [ ] Le fait que les mots de passe soient visibles dans d’anciens commits n’est pas, à lui seul, un motif de refus.
+- Le fait que les mots de passe soient visibles dans d’anciens commits n’est pas, à lui seul, un motif de refus.
 
 ### Notes
 

@@ -78,13 +78,75 @@ Ce projet a pour but de mettre en pratique :
 
 ---
 
-## Lancement du projet
+## Installation et lancement
 
-Le projet nécessite :
-- un serveur local PHP ;
-- une base MySQL ;
-- phpMyAdmin pour l’import de la base ;
-- la configuration des accès dans le fichier de configuration du projet.
+### Prérequis
+
+Pour lancer le projet en local, il faut disposer de :
+
+- PHP 8.x ;
+- MySQL;
+- un serveur local type XAMPP ;
+- l'extension PDO MySQL activée ;
+- l'extension GD activée pour la gestion des images.
+
+### 1. Cloner ou récupérer le projet
+
+Placez le projet dans le dossier de votre serveur local.
+
+### 2. Créer la base de données
+
+Créez une base de données nommée `tomtroc` dans MySQL.
+
+### 3. Importer la structure SQL
+
+Importez le fichier [docs/sql.sql](docs/sql.sql) dans la base `tomtroc`.
+
+Avec phpMyAdmin :
+
+1. créez la base `tomtroc` ;
+2. ouvrez la base ;
+3. utilisez l'onglet Importer ;
+4. sélectionnez le fichier [docs/sql.sql](docs/sql.sql) ;
+5. lancez l'import.
+
+### 4. Configurer l'accès à la base de données
+
+Modifiez les constantes dans [src/config/config.php](src/config/config.php) selon votre environnement :
+
+- `DB_HOST`
+- `DB_NAME`
+- `DB_USER`
+- `DB_PASS`
+
+Valeurs actuelles du projet :
+
+- `DB_HOST=localhost`
+- `DB_NAME=tomtroc`
+- `DB_USER=root`
+- `DB_PASS=`
+
+### 5. Vérifier le point d'entrée du site
+
+Le front controller du projet est [public/index.php](public/index.php).
+
+Le dossier `public` doit donc être utilisé comme racine web si vous passez par Apache ou un autre serveur local.
+
+
+### 6. Gestion des fichiers uploadés
+
+Le projet stocke les images dans :
+
+- `public/uploads/pictures/original/`
+- `public/uploads/pictures/variants/`
+
+Ces dossiers doivent être accessibles en écriture par le serveur web.
+
+### Remarques
+
+- le routeur passe par le paramètre `action` dans [public/index.php](public/index.php) ;
+- si les images ne se génèrent pas, vérifiez que l'extension GD est bien activée ;
+- si la connexion à la base échoue, vérifiez les identifiants définis dans [src/config/config.php](src/config/config.php).
 
 ---
 
