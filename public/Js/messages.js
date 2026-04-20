@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
         navbarBadge.setAttribute('aria-label', `${count} message${suffix} non lu${suffix}`);
 
         if (count > 0) {
-            navbarBadge.classList.remove('is-hidden');
+            navbarBadge.hidden = false;
             navbarBadge.setAttribute('aria-hidden', 'false');
         } else {
-            navbarBadge.classList.add('is-hidden');
+            navbarBadge.hidden = true;
             navbarBadge.setAttribute('aria-hidden', 'true');
         }
     }
