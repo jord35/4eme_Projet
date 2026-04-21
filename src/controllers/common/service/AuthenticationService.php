@@ -30,10 +30,10 @@ class AuthenticationService
 
     public function login(array $data): array
     {
-        $username = trim((string) ($data['username'] ?? ''));
+        $email = trim((string) ($data['email'] ?? ''));
         $password = (string) ($data['password'] ?? '');
 
-        if ($username === '' || $password === '') {
+        if ($email === '' || $password === '') {
             return [
                 'success' => false,
                 'error' => 'Identifiants invalides',
@@ -42,7 +42,7 @@ class AuthenticationService
             ];
         }
 
-        $user = $this->userManager->findByUsername($username);
+        $user = $this->userManager->findByEmail($email);
 
         if (!$user instanceof User || !password_verify($password, $user->getPasswordHash())) {
             return [

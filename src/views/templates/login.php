@@ -10,7 +10,7 @@
                     name="email"
                     id="email"
                     placeholder="Votre adresse email"
-                    autocomplete="username"
+                    autocomplete="email"
                     required
                     aria-describedby="login-message">
             </div>
@@ -42,5 +42,4 @@
     </div>
 </section>
 
-<script src="/js/common/app.js" defer></script>
 <script src="/js/login.js" defer></script>

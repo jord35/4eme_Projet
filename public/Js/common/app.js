@@ -107,8 +107,14 @@ function initFormAjax(
                 }
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
+            const contentType = response.headers.get('content-type') || '';
+
+            if (!contentType.includes('application/json')) {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                throw new Error('Unexpected non-JSON response');
             }
 
             const data = await response.json();

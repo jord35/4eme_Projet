@@ -72,6 +72,28 @@ class UserManager extends AbstractEntityManager
         return new User($data);
     }
 
+    public function findByEmail(string $email): ?User
+    {
+        $email = trim($email);
+
+        if ($email === '') {
+            return null;
+        }
+
+        $sql = 'SELECT * FROM users WHERE email = :email LIMIT 1';
+        $stmt = $this->db->query($sql, [
+            'email' => $email
+        ]);
+
+        $data = $stmt->fetch();
+
+        if (!$data) {
+            return null;
+        }
+
+        return new User($data);
+    }
+
     public function insert(User $user): int
     {
         $sql = '
