@@ -1,7 +1,7 @@
 # Sprint 2 - Consolidation de l'architecture
 
 - [ ] Séparation plus propre des responsabilités
-- [ ] Raffinement des vues________
+- [ ] Raffinement des vues_________
 - [ ] Gestion des cas limites
 - [ ] Ajout des interactions JavaScript nécessaires
 - [ ] Nettoyage du code

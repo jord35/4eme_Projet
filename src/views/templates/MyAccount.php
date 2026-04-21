@@ -96,7 +96,7 @@ $profileImageAlt = $username !== ''
                     </div>
 
                     <button type="submit">Enregistrer</button>
-                    <p id="my-account-message"></p>
+
                 </div>
             </form>
         </div>
