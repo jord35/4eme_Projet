@@ -118,7 +118,7 @@ class EditBookService
         if (!empty($files['picture']) && !empty($files['picture']['tmp_name'])) {
             $pictureResult = $this->pictureHelper->savePicture($files['picture'], [
                 'context' => 'cover',
-                'variant_type' => 'cover'
+                'variant_types' => ['book_card', 'book_table', 'book_detail', 'cover']
             ]);
 
             if ($pictureResult['success'] === false) {

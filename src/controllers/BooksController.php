@@ -53,7 +53,7 @@ class BooksController extends AbstractController
             if (!empty($book['cover_picture_id'])) {
                 $pictureResult = $this->pictureHelper->getPicturePackage(
                     (int) $book['cover_picture_id'],
-                    'cover'
+                    'book_card'
                 );
 
                 if ($pictureResult['success'] === true) {

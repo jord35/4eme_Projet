@@ -105,16 +105,25 @@ class PictureManager extends AbstractEntityManager
             ];
         }
 
-        $variantPreset = $options['variant_type'] ?? 'generic';
+        $variantTypes = $this->resolveVariantTypes($options);
+        $savedVariants = [];
+        $variantErrors = [];
+        $variantsComplete = true;
 
-        $variantsResult = $this->pictureVariantManager->generateAndSaveVariants(
-            $pictureId,
-            $originalData['full_path'],
-            $variantPreset
-        );
+        foreach ($variantTypes as $variantType) {
+            $variantsResult = $this->pictureVariantManager->generateAndSaveVariants(
+                $pictureId,
+                $originalData['full_path'],
+                $variantType
+            );
 
-        $variantErrors = $variantsResult['errors'] ?? [];
-        $variantsComplete = (bool) ($variantsResult['variants_complete'] ?? true);
+            $savedVariants = array_merge($savedVariants, $variantsResult['variants'] ?? []);
+            $variantErrors = array_merge($variantErrors, $variantsResult['errors'] ?? []);
+
+            if (($variantsResult['variants_complete'] ?? true) === false) {
+                $variantsComplete = false;
+            }
+        }
 
         return [
             'success' => true,
@@ -122,7 +131,7 @@ class PictureManager extends AbstractEntityManager
             'data' => [
                 'picture_id' => $pictureId,
                 'original_path' => $originalData['relative_path'],
-                'variants' => $variantsResult['variants'] ?? [],
+                'variants' => $savedVariants,
                 'variants_complete' => $variantsComplete,
                 'variant_errors' => $variantErrors
             ]
@@ -305,11 +314,33 @@ class PictureManager extends AbstractEntityManager
         return match ($context) {
             'profile' => '(max-width: 768px) 48px, 100px',
             'book_card' => '(max-width: 768px) 160px, 240px',
+            'book_table' => '(max-width: 768px) 78px, 96px',
             'book_detail' => '(max-width: 768px) 320px, 720px',
             'cover' => '(max-width: 768px) 375px, 1042px',
             default => '100vw',
         };
     }
+    private function resolveVariantTypes(array $options): array
+    {
+        $variantTypes = $options['variant_types'] ?? null;
+
+        if (!is_array($variantTypes) || empty($variantTypes)) {
+            $singleVariantType = $options['variant_type'] ?? 'generic';
+            return [(string) $singleVariantType];
+        }
+
+        $normalizedVariantTypes = array_values(array_unique(array_filter(array_map(
+            static fn($variantType): string => trim((string) $variantType),
+            $variantTypes
+        ))));
+
+        if (empty($normalizedVariantTypes)) {
+            return ['generic'];
+        }
+
+        return $normalizedVariantTypes;
+    }
+
     private function isStillReferenced(int $pictureId): bool
     {
         $bookCount = (int) $this->db->query(

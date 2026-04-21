@@ -223,6 +223,10 @@ class PictureVariantManager extends AbstractEntityManager
                 ['width' => 160, 'device' => 'mobile', 'format' => 'webp'],
                 ['width' => 240, 'device' => 'desktop', 'format' => 'webp'],
             ],
+            'book_table' => [
+                ['width' => 78, 'device' => 'mobile', 'format' => 'webp'],
+                ['width' => 96, 'device' => 'desktop', 'format' => 'webp'],
+            ],
             'book_detail' => [
                 ['width' => 320, 'device' => 'mobile', 'format' => 'webp'],
                 ['width' => 720, 'device' => 'desktop', 'format' => 'webp'],

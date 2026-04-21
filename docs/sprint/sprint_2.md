@@ -2,7 +2,7 @@
 
 - [ ] Séparation plus propre des responsabilités
 - [ ] Raffinement des vues_________
-- [ ] Gestion des cas limites
+- [ ] Gestion des cas limites_
 - [ ] Ajout des interactions JavaScript nécessaires
 - [ ] Nettoyage du code
 
