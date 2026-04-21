@@ -40,6 +40,7 @@ require_once ROOT_DIR . 'src/models/common/shared/picture/Picture.php';
 require_once ROOT_DIR . 'src/models/common/shared/picture/PictureVariant.php';
 require_once ROOT_DIR . 'src/models/common/shared/picture/PictureVariantManager.php';
 require_once ROOT_DIR . 'src/models/common/shared/picture/PictureManager.php';
+require_once ROOT_DIR . 'src/controllers/common/helper/DateHelper.php';
 require_once ROOT_DIR . 'src/controllers/common/helper/PictureHelper.php';
 
 /*

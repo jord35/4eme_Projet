@@ -5,12 +5,14 @@ class PublicAccountController extends AbstractController
     private UserManager $userManager;
     private BookHelper $bookHelper;
     private PictureHelper $pictureHelper;
+    private DateHelper $dateHelper;
 
     public function __construct()
     {
         $this->userManager = new UserManager();
         $this->bookHelper = new BookHelper();
         $this->pictureHelper = new PictureHelper();
+        $this->dateHelper = new DateHelper();
     }
 
     public function execute(): void
@@ -121,14 +123,7 @@ class PublicAccountController extends AbstractController
         }, $booksResult['data']);
 
         $createdAt = (string) ($profile['created_at'] ?? '');
-
-        if ($createdAt !== '') {
-            $timestamp = strtotime($createdAt);
-
-            if ($timestamp !== false) {
-                $memberSince = date('d/m/Y', $timestamp);
-            }
-        }
+        $memberSince = $this->dateHelper->formatMemberSince($createdAt);
 
         $view = new View('Profil de ' . (string) ($profile['username'] ?? 'utilisateur'));
         $view->render('public-account', [

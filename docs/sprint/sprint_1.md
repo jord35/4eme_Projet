@@ -113,3 +113,5 @@ fixe de quelques petites incohérences entre l'update de user manager et de book
 en cas d'échec D'ajout des variantes d'images.
 
 J'ai dû faire une modification sur SignUp puisque vu que c'était l'une des premières, voire même la première branche que j'avais mise en place, l'architecture ne passait pas par le layout.
+
+J'ai dû ajouter un nouveau helper pour être utilisé dans la vue. MyAcompte et PublicAcompte. Les deux contrôleur qui s'occupe de ses vues avait besoin d'une méthode pour gérer le phrasé en fonction des dates de création des comptes d'utilisateurs certes ce n'était qu'une seule méthode mais je trouvais ça pas suffisamment propre de copier ces deux méthodes dans les deux contrôleurs. J'ai donc préféré faire un helper qui sont utilisés par ces deux contrôleurs.

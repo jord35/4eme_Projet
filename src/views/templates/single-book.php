@@ -50,18 +50,20 @@ $ownerAvatar = !empty($book['owner_avatar'])
             <div class="single-book-owner">
                 <h2>Propriétaire</h2>
 
-                <div class="user-card">
+                <a
+                    class="user-card"
+                    href="/?action=public-account&username=<?= urlencode($ownerUsername) ?>">
                     <img
                         src="<?= htmlspecialchars($ownerAvatar, ENT_QUOTES, 'UTF-8') ?>"
                         alt="Photo de profil de <?= htmlspecialchars($ownerUsername, ENT_QUOTES, 'UTF-8') ?>"
                         onerror="this.onerror=null;this.src='/assets/Icon-mon-compte.svg';">
                     <p><?= htmlspecialchars($ownerUsername, ENT_QUOTES, 'UTF-8') ?></p>
-                </div>
+                </a>
             </div>
 
             <div class="single-book-actions">
                 <a
-                    class="single-book-message-link"
+                    class="message-link"
                     href="/?action=messages&username=<?= urlencode($ownerUsername) ?>">
                     Envoyer un message
                 </a>

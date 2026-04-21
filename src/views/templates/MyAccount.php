@@ -10,103 +10,98 @@ $profileImageAlt = $username !== ''
 ?>
 
 <section class="my-account-section">
-    <h1>Mon compte</h1>
-
-    <form
-        id="my-account-form"
-        method="post"
-        action="/?action=my-account"
-        enctype="multipart/form-data"
-        novalidate>
-
     <div class="my-account-layout">
-        <div class="my-account-profile-card">
-            <div class="my-account-profile-media">
-                <img
-                    id="profile-image-preview"
-                    src="<?= htmlspecialchars($profileImageSrc, ENT_QUOTES, 'UTF-8') ?>"
-                    <?php if (!empty($profilePicture['srcset']) && $profileImageSrc !== $fallbackProfilePicture): ?>
-                    srcset="<?= htmlspecialchars((string) $profilePicture['srcset'], ENT_QUOTES, 'UTF-8') ?>"
-                    <?php endif; ?>
-                    <?php if (!empty($profilePicture['sizes']) && $profileImageSrc !== $fallbackProfilePicture): ?>
-                    sizes="<?= htmlspecialchars((string) $profilePicture['sizes'], ENT_QUOTES, 'UTF-8') ?>"
-                    <?php endif; ?>
-                    alt="<?= htmlspecialchars($profileImageAlt, ENT_QUOTES, 'UTF-8') ?>"
-                    width="<?= (int) ($profilePicture['width'] ?? 200) ?>"
-                    height="<?= (int) ($profilePicture['height'] ?? 200) ?>"
-                    onerror="this.onerror=null;this.removeAttribute('srcset');this.removeAttribute('sizes');this.src='<?= htmlspecialchars($fallbackProfilePicture, ENT_QUOTES, 'UTF-8') ?>';">
-                <div class="my-account-profile-edit-wrapper">
-                    <label class="my-account-profile-edit" for="profile_image">modifier</label>
-                    <input
-                        class="visually-hidden"
-                        type="file"
-                        id="profile_image"
-                        name="profile_image"
-                        accept="image/*">
-                </div>
-            </div>
-            <h2><?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?></h2>
-            <p>
-                Membre depuis
-                <?= htmlspecialchars($memberSince !== '' ? $memberSince : 'peu de temps', ENT_QUOTES, 'UTF-8') ?>
-            </p>
+        <div class="my-account-edit-panel">
+            <form
+                id="my-account-form"
+                method="post"
+                action="/?action=my-account"
+                enctype="multipart/form-data"
+                novalidate>
+                <div class="my-account-profile-card">
+                    <div class="my-account-profile-media">
+                        <img
+                            id="profile-image-preview"
+                            src="<?= htmlspecialchars($profileImageSrc, ENT_QUOTES, 'UTF-8') ?>"
+                            <?php if (!empty($profilePicture['srcset']) && $profileImageSrc !== $fallbackProfilePicture): ?>
+                            srcset="<?= htmlspecialchars((string) $profilePicture['srcset'], ENT_QUOTES, 'UTF-8') ?>"
+                            <?php endif; ?>
+                            <?php if (!empty($profilePicture['sizes']) && $profileImageSrc !== $fallbackProfilePicture): ?>
+                            sizes="<?= htmlspecialchars((string) $profilePicture['sizes'], ENT_QUOTES, 'UTF-8') ?>"
+                            <?php endif; ?>
+                            alt="<?= htmlspecialchars($profileImageAlt, ENT_QUOTES, 'UTF-8') ?>"
+                            width="<?= (int) ($profilePicture['width'] ?? 200) ?>"
+                            height="<?= (int) ($profilePicture['height'] ?? 200) ?>"
+                            onerror="this.onerror=null;this.removeAttribute('srcset');this.removeAttribute('sizes');this.src='<?= htmlspecialchars($fallbackProfilePicture, ENT_QUOTES, 'UTF-8') ?>';">
 
-            <h3>Bibliothèque</h3>
+                        <div class="my-account-profile-edit-wrapper">
+                            <label class="my-account-profile-edit" for="profile_image">Modifier</label>
+                            <input
+                                class="visually-hidden"
+                                type="file"
+                                id="profile_image"
+                                name="profile_image"
+                                accept="image/*">
+                        </div>
+                    </div>
 
-            <div class="library-summary">
-                <img src="/assets/icon-book.svg" alt="" aria-hidden="true">
-                <p>
-                    <?= (int) $booksCount ?>
-                    <?= (int) $booksCount > 1 ? 'livres' : 'livre' ?>
-                </p>
-            </div>
+                    <h2><?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?></h2>
 
+                    <p>
+                        Membre depuis
+                        <?= htmlspecialchars($memberSince !== '' ? $memberSince : 'peu de temps', ENT_QUOTES, 'UTF-8') ?>
+                    </p>
 
-        </div>
+                    <h3>Bibliothèque</h3>
 
-        <div class="my-account-infos">
-            <h2>Vos informations personnelles</h2>
-
-
-                <div class="my-account-field">
-                    <label for="email">Adresse email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>"
-                        placeholder="Votre adresse email">
+                    <div class="library-summary">
+                        <img src="/assets/icon-book.svg" alt="" aria-hidden="true">
+                        <p>
+                            <?= (int) $booksCount ?>
+                            <?= (int) $booksCount > 1 ? 'livres' : 'livre' ?>
+                        </p>
+                    </div>
                 </div>
 
-                <div class="my-account-field">
-                    <label for="password">Mot de passe</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Nouveau mot de passe">
+                <div class="my-account-infos">
+                    <h2>Vos informations personnelles</h2>
+
+                    <div class="my-account-field">
+                        <label for="email">Adresse email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>"
+                            placeholder="Votre adresse email">
+                    </div>
+
+                    <div class="my-account-field">
+                        <label for="password">Mot de passe</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Nouveau mot de passe">
+                    </div>
+
+                    <div class="my-account-field">
+                        <label for="username">Pseudo</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>"
+                            placeholder="Votre pseudo">
+                    </div>
+
+                    <button type="submit">Enregistrer</button>
+                    <p id="my-account-message"></p>
                 </div>
-
-                <div class="my-account-field">
-                    <label for="username">Pseudo</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>"
-                        placeholder="Votre pseudo">
-                </div>
-
-
-
-                <button type="submit">Enregistrer</button>
-
-            <p id="my-account-message"></p>
+            </form>
         </div>
 
         <div class="my-account-books">
-
-
             <?php if (empty($libraryBooks)): ?>
                 <p>Vous n'avez pas encore ajouté de livre.</p>
             <?php else: ?>
@@ -145,9 +140,7 @@ $profileImageAlt = $username !== ''
                                     </td>
 
                                     <td>
-                                        <a href="/?action=single-book&id=<?= htmlspecialchars((string) $book['id'], ENT_QUOTES, 'UTF-8') ?>">
-                                            <?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?>
-                                        </a>
+                                        <?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?>
                                     </td>
 
                                     <td>
@@ -180,8 +173,6 @@ $profileImageAlt = $username !== ''
             <?php endif; ?>
         </div>
     </div>
-
-    </form>
 </section>
 
 <script src="/js/my-account.js"></script>
