@@ -1,135 +1,187 @@
+<?php
+$fallbackProfilePicture = '/assets/Icon-mon-compte.svg';
+$profileImageSrc = !empty($profilePicture['src'])
+    ? (string) $profilePicture['src']
+    : $fallbackProfilePicture;
 
+$profileImageAlt = $username !== ''
+    ? 'Image de profil de ' . $username
+    : 'Image de profil utilisateur';
+?>
 
+<section class="my-account-section">
     <h1>Mon compte</h1>
-    <p>
-        <a href="/?action=edit-book">Ajouter ou modifier un livre</a>
-        |
-        <a href="/?action=books">Voir tous les livres</a>
-    </p>
-
-    <section>
-        <div>
-            <p><strong>Image de profil</strong></p>
-
-            <img
-                id="profile-image-preview"
-                src="<?= htmlspecialchars((string) ($profilePicture['src'] ?? ''), ENT_QUOTES, 'UTF-8') ?>"
-                <?php if (!empty($profilePicture['srcset'])): ?>
-                    srcset="<?= htmlspecialchars((string) $profilePicture['srcset'], ENT_QUOTES, 'UTF-8') ?>"
-                <?php endif; ?>
-                <?php if (!empty($profilePicture['sizes'])): ?>
-                    sizes="<?= htmlspecialchars((string) $profilePicture['sizes'], ENT_QUOTES, 'UTF-8') ?>"
-                <?php endif; ?>
-                alt="Image de profil"
-                width="<?= (int) ($profilePicture['width'] ?? 200) ?>"
-                height="<?= (int) ($profilePicture['height'] ?? 200) ?>"
-                style="max-width: 200px; display: <?= !empty($profilePicture['src']) ? 'block' : 'none' ?>;"
-            >
-
-            <p id="no-profile-image" style="display: <?= !empty($profilePicture['src']) ? 'none' : 'block' ?>;">
-                Pas d’image
-            </p>
-        </div>
-
-        <div>
-            <p><strong>Pseudo :</strong> <?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?></p>
-            <p><strong>Membre depuis :</strong> <?= htmlspecialchars($memberSince, ENT_QUOTES, 'UTF-8') ?></p>
-            <p><strong>Nombre de livres :</strong> <?= $booksCount ?></p>
-        </div>
-    </section>
-
-    <hr>
 
     <form
         id="my-account-form"
-        method="POST"
+        method="post"
         action="/?action=my-account"
         enctype="multipart/form-data"
-    >
-        <div>
-            <label for="username">Pseudo</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>"
-                placeholder="Votre pseudo"
-            >
-        </div>
+        novalidate>
 
-        <div>
-            <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>"
-                placeholder="Votre email"
-            >
-        </div>
-
-        <div>
-            <label for="password">Nouveau mot de passe</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Nouveau mot de passe"
-            >
-        </div>
-
-        <div>
-            <label for="profile_image">Image de profil</label>
-            <input
-                type="file"
-                id="profile_image"
-                name="profile_image"
-                accept="image/*"
-            >
-        </div>
-
-        <button type="submit">Enregistrer les modifications</button>
-    </form>
-
-    <p id="my-account-message"></p>
-
-    <section>
-        <h2>Mes livres</h2>
-
-        <?php if (empty($libraryBooks)): ?>
-            <p>Vous n'avez pas encore ajouté de livre.</p>
-        <?php else: ?>
-            <?php foreach ($libraryBooks as $book): ?>
-                <article>
-                        <p>
-                            <a href="/?action=single-book&id=<?= htmlspecialchars((string) $book['id'], ENT_QUOTES, 'UTF-8') ?>">
-                                Voir la fiche du livre
-                            </a>
-                        </p>
-                    <?php if (!empty($book['cover']['src'])): ?>
-                        <img
-                            src="<?= htmlspecialchars((string) $book['cover']['src'], ENT_QUOTES, 'UTF-8') ?>"
-                            <?php if (!empty($book['cover']['srcset'])): ?>
-                                srcset="<?= htmlspecialchars((string) $book['cover']['srcset'], ENT_QUOTES, 'UTF-8') ?>"
-                            <?php endif; ?>
-                            <?php if (!empty($book['cover']['sizes'])): ?>
-                                sizes="<?= htmlspecialchars((string) $book['cover']['sizes'], ENT_QUOTES, 'UTF-8') ?>"
-                            <?php endif; ?>
-                            alt="Couverture de <?= htmlspecialchars($book['title'], ENT_QUOTES, 'UTF-8') ?>"
-                            width="<?= (int) ($book['cover']['width'] ?? 160) ?>"
-                            height="<?= (int) ($book['cover']['height'] ?? 220) ?>"
-                            style="max-width: 160px; display: block;"
-                        >
+    <div class="my-account-layout">
+        <div class="my-account-profile-card">
+            <div class="my-account-profile-media">
+                <img
+                    id="profile-image-preview"
+                    src="<?= htmlspecialchars($profileImageSrc, ENT_QUOTES, 'UTF-8') ?>"
+                    <?php if (!empty($profilePicture['srcset']) && $profileImageSrc !== $fallbackProfilePicture): ?>
+                    srcset="<?= htmlspecialchars((string) $profilePicture['srcset'], ENT_QUOTES, 'UTF-8') ?>"
                     <?php endif; ?>
+                    <?php if (!empty($profilePicture['sizes']) && $profileImageSrc !== $fallbackProfilePicture): ?>
+                    sizes="<?= htmlspecialchars((string) $profilePicture['sizes'], ENT_QUOTES, 'UTF-8') ?>"
+                    <?php endif; ?>
+                    alt="<?= htmlspecialchars($profileImageAlt, ENT_QUOTES, 'UTF-8') ?>"
+                    width="<?= (int) ($profilePicture['width'] ?? 200) ?>"
+                    height="<?= (int) ($profilePicture['height'] ?? 200) ?>"
+                    onerror="this.onerror=null;this.removeAttribute('srcset');this.removeAttribute('sizes');this.src='<?= htmlspecialchars($fallbackProfilePicture, ENT_QUOTES, 'UTF-8') ?>';">
+                <div class="my-account-profile-edit-wrapper">
+                    <label class="my-account-profile-edit" for="profile_image">modifier</label>
+                    <input
+                        class="visually-hidden"
+                        type="file"
+                        id="profile_image"
+                        name="profile_image"
+                        accept="image/*">
+                </div>
+            </div>
+            <h2><?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?></h2>
+            <p>
+                Membre depuis
+                <?= htmlspecialchars($memberSince !== '' ? $memberSince : 'peu de temps', ENT_QUOTES, 'UTF-8') ?>
+            </p>
 
-                    <h3><?= htmlspecialchars($book['title'], ENT_QUOTES, 'UTF-8') ?></h3>
-                    <p><?= htmlspecialchars($book['author_name'], ENT_QUOTES, 'UTF-8') ?></p>
-                    <p><?= htmlspecialchars((string) ($book['description'] ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
-                    <p><?= !empty($book['is_available']) ? 'Disponible' : 'Indisponible' ?></p>
-                </article>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </section>
+            <h3>Bibliothèque</h3>
 
-    <script src="/js/common/app.js"></script>
-    <script src="/js/my-account.js"></script>
+            <div class="library-summary">
+                <img src="/assets/icon-book.svg" alt="" aria-hidden="true">
+                <p>
+                    <?= (int) $booksCount ?>
+                    <?= (int) $booksCount > 1 ? 'livres' : 'livre' ?>
+                </p>
+            </div>
+
+
+        </div>
+
+        <div class="my-account-infos">
+            <h2>Vos informations personnelles</h2>
+
+
+                <div class="my-account-field">
+                    <label for="email">Adresse email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>"
+                        placeholder="Votre adresse email">
+                </div>
+
+                <div class="my-account-field">
+                    <label for="password">Mot de passe</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Nouveau mot de passe">
+                </div>
+
+                <div class="my-account-field">
+                    <label for="username">Pseudo</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>"
+                        placeholder="Votre pseudo">
+                </div>
+
+
+
+                <button type="submit">Enregistrer</button>
+
+            <p id="my-account-message"></p>
+        </div>
+
+        <div class="my-account-books">
+
+
+            <?php if (empty($libraryBooks)): ?>
+                <p>Vous n'avez pas encore ajouté de livre.</p>
+            <?php else: ?>
+                <div class="my-books-table-wrapper">
+                    <table class="my-books-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Photo</th>
+                                <th scope="col">Titre</th>
+                                <th scope="col">Auteur</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Disponibilité</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php foreach ($libraryBooks as $book): ?>
+                                <?php
+                                $fallbackBookCover = '/assets/img-book-not-found.webp';
+                                $bookCoverSrc = !empty($book['cover']['src'])
+                                    ? (string) $book['cover']['src']
+                                    : $fallbackBookCover;
+                                $bookCoverAlt = !empty($book['cover']['alt'])
+                                    ? (string) $book['cover']['alt']
+                                    : 'Couverture non disponible pour ' . (string) $book['title'];
+                                ?>
+                                <tr>
+                                    <td>
+                                        <img
+                                            src="<?= htmlspecialchars($bookCoverSrc, ENT_QUOTES, 'UTF-8') ?>"
+                                            alt="<?= htmlspecialchars($bookCoverAlt, ENT_QUOTES, 'UTF-8') ?>"
+                                            width="78"
+                                            height="78"
+                                            onerror="this.onerror=null;this.src='<?= htmlspecialchars($fallbackBookCover, ENT_QUOTES, 'UTF-8') ?>';">
+                                    </td>
+
+                                    <td>
+                                        <a href="/?action=single-book&id=<?= htmlspecialchars((string) $book['id'], ENT_QUOTES, 'UTF-8') ?>">
+                                            <?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <?= htmlspecialchars((string) $book['author_name'], ENT_QUOTES, 'UTF-8') ?>
+                                    </td>
+
+                                    <td>
+                                        <?= htmlspecialchars((string) mb_strimwidth((string) ($book['description'] ?? ''), 0, 120, '...'), ENT_QUOTES, 'UTF-8') ?>
+                                    </td>
+
+                                    <td>
+                                        <?php if (!empty($book['is_available'])): ?>
+                                            <span class="status status--available">Disponible</span>
+                                        <?php else: ?>
+                                            <span class="status status--unavailable">Non dispo.</span>
+                                        <?php endif; ?>
+                                    </td>
+
+                                    <td>
+                                        <div class="book-actions">
+                                            <a href="/?action=edit-book&id=<?= (int) $book['id'] ?>">Éditer</a>
+                                            <a href="/?action=delete-book&id=<?= (int) $book['id'] ?>">Supprimer</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    </form>
+</section>
+
+<script src="/js/my-account.js"></script>
