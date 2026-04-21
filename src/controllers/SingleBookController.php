@@ -50,6 +50,7 @@ class SingleBookController extends AbstractController
 
         $book = $bookResult['data'];
         $coverPicture = null;
+        $ownerAvatar = null;
 
         if (!empty($book['cover_picture_id'])) {
             $pictureResult = $this->pictureHelper->getPicturePackage(
@@ -61,6 +62,19 @@ class SingleBookController extends AbstractController
                 $coverPicture = $pictureResult['data'];
             }
         }
+
+        if (!empty($book['owner_profile_picture_id'])) {
+            $pictureResult = $this->pictureHelper->getPicturePackage(
+                (int) $book['owner_profile_picture_id'],
+                'profile'
+            );
+
+            if ($pictureResult['success'] === true) {
+                $ownerAvatar = (string) ($pictureResult['data']['src'] ?? '');
+            }
+        }
+
+        $book['owner_avatar'] = $ownerAvatar;
 
         $view = new View((string) $book['title']);
         $view->render('single-book', [
