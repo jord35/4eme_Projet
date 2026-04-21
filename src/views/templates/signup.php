@@ -55,5 +55,4 @@
     </div>
 </section>
 
-<script src="/js/common/app.js"></script>
 <script src="/js/signup.js"></script>

@@ -9,6 +9,26 @@ class SignupController extends AbstractController
         $this->authenticationService = new AuthenticationService();
     }
 
+    public function execute(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            http_response_code(405);
+
+            if ($this->isAjaxRequest()) {
+                $this->renderJson([
+                    'success' => false,
+                    'message' => 'Method Not Allowed'
+                ]);
+            }
+
+            echo 'Method Not Allowed';
+            return;
+        }
+
+        $view = new View('Inscription');
+        $view->render('signup');
+    }
+
     public function checkUsername(): void
     {
         if (!$this->isAjaxRequest()) {

@@ -144,7 +144,8 @@ if ($action === 'login') {
 }
 
 if ($action === 'signup') {
-    require_once ROOT_DIR . 'src/views/templates/signup.php';
+    $controller = new SignupController();
+    $controller->execute();
     exit;
 }
 

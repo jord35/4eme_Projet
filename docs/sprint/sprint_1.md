@@ -111,3 +111,5 @@ J'ai corrigé cela en créant une entité User et en faisant passer cette logiqu
 
 fixe de quelques petites incohérences entre l'update de user manager et de book manager ainsi que picture manager et picture variant manager au sujet D'erreurs potentiellement silencieuses.
 en cas d'échec D'ajout des variantes d'images.
+
+J'ai dû faire une modification sur SignUp puisque vu que c'était l'une des premières, voire même la première branche que j'avais mise en place, l'architecture ne passait pas par le layout.
