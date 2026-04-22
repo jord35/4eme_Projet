@@ -12,6 +12,10 @@
         line-height: 1.2;
     }
 
+    &__message {
+        margin-bottom: var(--space-sm);
+    }
+
     &__top {
         display: grid;
         grid-template-columns: 1fr 1fr;

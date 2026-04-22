@@ -13,6 +13,15 @@ $profileImageAlt = $username !== ''
     <div class="account-page__inner site-frame">
         <h1 class="account-page__title">Mon compte</h1>
 
+        <p
+            id="my-account-message"
+            class="account-page__message form-message"
+            data-state=""
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            hidden></p>
+
         <div class="account-page__top">
             <div class="account-page__panel account-page__panel--profile">
                 <form

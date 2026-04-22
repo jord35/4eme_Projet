@@ -1464,6 +1464,9 @@ a {
   font-size: 36px;
   line-height: 1.2;
 }
+.account-page__message {
+  margin-bottom: var(--space-sm);
+}
 .account-page__top {
   display: grid;
   grid-template-columns: 1fr 1fr;

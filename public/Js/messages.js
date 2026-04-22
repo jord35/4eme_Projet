@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fallbackConversationAvatar = '/assets/Icon-mon-compte.svg';
 
         if (!Array.isArray(conversationSummaries) || conversationSummaries.length === 0) {
-            conversationList.innerHTML = '';
+            conversationList.innerHTML = '<li class="messages-page__empty-sidebar">Aucune conversation pour le moment.</li>';
             return;
         }
 
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 : 'Aucun message pour le moment.';
 
             const lastMessageCreatedAt = conversation.last_message_created_at
-                ? `<small>${escapeHtml(conversation.last_message_created_at)}</small>`
+                ? `<p class="messages-page__conversation-time">${escapeHtml(conversation.last_message_created_at)}</p>`
                 : '';
 
             const badge = hasUnread
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="messages-page__conversation-body">
                             <div class="messages-page__conversation-header">
                                 <h2 class="messages-page__conversation-name">${conversationUsername}</h2>
-                                ${lastMessageCreatedAt.replace('<small>', '<p>').replace('</small>', '</p>')}
+                                ${lastMessageCreatedAt}
                             </div>
                             <p class="messages-page__conversation-preview">${lastMessageContent}</p>
                         </div>
