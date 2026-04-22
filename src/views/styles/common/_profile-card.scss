@@ -1,0 +1,37 @@
+.profile-card,
+.my-account-profile-card,
+.public-account-profile-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-lg);
+}
+
+.profile-card__title,
+.my-account-profile-card h2,
+.public-account-profile-card h2 {
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.profile-card__meta,
+.my-account-profile-card p,
+.public-account-profile-card p {
+    color: var(--color-gray-dark);
+}
+
+.library-summary,
+.profile-card__summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.library-summary img,
+.profile-card__summary img {
+    width: 18px;
+    height: 18px;
+}

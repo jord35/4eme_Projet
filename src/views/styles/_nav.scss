@@ -1,14 +1,107 @@
-.site-nav {
-}
+.site-header {
+    width: 100%;
+    background-color: var(--color-gray-light);
+    border-bottom: 1px solid var(--color-gray-text);
 
-.site-nav__brand {
-}
+    &__brand {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        text-decoration: none;
+    }
 
-.site-nav__links {
-}
+    &__logo {
+        display: block;
+        width: auto;
+        height: 42px;
+    }
 
-.site-nav__link {
-}
+    &__nav {
+        display: flex;
+        align-items: center;
+        min-height: var(--header-height);
+        flex: 1;
+        justify-content: flex-end;
+        margin-left: 56px;
+    }
 
-.site-nav__badge {
+    &__list {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        min-height: var(--header-height);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        min-height: var(--header-height);
+    }
+
+    &__link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: var(--header-height);
+        color: var(--color-gray-dark);
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: var(--color-green-primary);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--color-green-secondary);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        &--icon {
+            gap: 6px;
+        }
+    }
+
+    &__icon {
+        width: 14px;
+        height: 14px;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+    &__label {
+        display: inline-block;
+    }
+
+    &__badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 14px;
+        height: 14px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background-color: var(--color-gray-dark);
+        color: var(--color-white);
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    &__username {
+        display: inline-flex;
+        align-items: center;
+        color: var(--color-gray-dark);
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
 }

@@ -1,4 +1,13 @@
 @use 'layout';
+@use 'common/auth-page';
+@use 'common/forms';
+@use 'common/buttons';
+@use 'common/status';
+@use 'common/media';
+@use 'common/profile-card';
+@use 'common/library-table';
+@use 'common/section-header';
+@use 'common/book-card';
 @use 'nav';
 @use 'footer';
 @use 'books';

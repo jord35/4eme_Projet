@@ -1,1 +1,124 @@
-.public-account-profile {}
+.public-account-page {
+	padding-top: var(--page-padding-top);
+	padding-bottom: var(--page-padding-bottom);
+
+	&__title {
+		margin-bottom: 40px;
+		font-size: 36px;
+		line-height: 1.2;
+	}
+
+	&__inner {
+		padding-inline: var(--layout-content-inset);
+	}
+
+	&__top {
+		display: grid;
+		grid-template-columns: minmax(280px, 1fr) minmax(0, 2fr);
+		gap: var(--space-xs);
+	}
+
+	&__panel {
+		min-height: 365px;
+		padding: var(--panel-padding);
+		background-color: var(--color-white);
+		border-radius: var(--radius-lg);
+
+		&--profile {
+			display: flex;
+		}
+
+		&--books {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	&__empty {
+		color: var(--color-gray-text);
+	}
+}
+
+.public-account-profile-card {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 0;
+	background: transparent;
+	border: 0;
+
+	&__content {
+		width: 100%;
+		max-width: 180px;
+		padding-top: 24px;
+		border-top: var(--border-width) solid var(--color-surface-muted);
+	}
+
+	&__image {
+		display: block;
+		object-fit: cover;
+	}
+
+	&__name {
+		margin-bottom: 8px;
+		font-family: var(--font-family-base);
+		font-size: 24px;
+		font-weight: 400;
+		line-height: 1.2;
+	}
+
+	&__meta {
+		margin-bottom: 18px;
+		color: var(--color-gray-text);
+		font-size: 13px;
+	}
+
+	&__library-title {
+		margin-bottom: 8px;
+		font-family: var(--font-family-base);
+		font-size: 12px;
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--color-gray-text);
+	}
+
+	&__library {
+		justify-content: center;
+		margin-bottom: var(--space-sm);
+	}
+
+	&__library-icon {
+		width: 14px;
+		height: 14px;
+	}
+
+	&__library-count {
+		font-size: 14px;
+		color: var(--color-gray-dark);
+	}
+}
+
+.public-account-profile-media {
+	margin-bottom: 28px;
+}
+
+.public-account-books {
+	width: 100%;
+}
+
+.public-books-table-wrapper {
+	padding: 0;
+	border: 0;
+	background-color: transparent;
+}
+
+.public-books-table tr:nth-child(even) {
+	background-color: var(--color-gray-light);
+}
+
+.message-link {
+	align-self: center;
+}

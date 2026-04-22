@@ -1,0 +1,158 @@
+.book-form,
+#login-form,
+#signup-form,
+#my-account-form,
+.form-shell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.book-form-layout,
+.form-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    gap: var(--space-lg);
+    align-items: start;
+}
+
+.book-form-infos,
+.my-account-infos,
+.form-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-md);
+}
+
+.book-form-field,
+.my-account-field,
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.book-form-field label,
+.my-account-field label,
+.form-field label,
+.book-form-field legend,
+.form-field legend {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-gray-dark);
+}
+
+.book-form input[type='text'],
+.book-form textarea,
+#login-form input,
+#signup-form input,
+#my-account-form input[type='text'],
+#my-account-form input[type='email'],
+#my-account-form input[type='password'],
+.form-field input,
+.form-field textarea,
+.form-field select {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 16px;
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-sm);
+    color: var(--color-gray-dark);
+}
+
+.book-form textarea,
+.form-field textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+.book-form input::placeholder,
+.book-form textarea::placeholder,
+#login-form input::placeholder,
+#signup-form input::placeholder,
+#my-account-form input::placeholder,
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: var(--color-gray-text);
+}
+
+.book-form input:focus-visible,
+.book-form textarea:focus-visible,
+#login-form input:focus-visible,
+#signup-form input:focus-visible,
+#my-account-form input:focus-visible,
+.form-field input:focus-visible,
+.form-field textarea:focus-visible,
+.form-field select:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-green-secondary);
+    outline-offset: 2px;
+    border-color: var(--color-green-secondary);
+}
+
+.book-form-fieldset,
+.form-fieldset {
+    padding: var(--space-sm);
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-sm);
+}
+
+.book-form-fieldset label,
+.form-fieldset label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 400;
+}
+
+.book-form-fieldset input[type='radio'],
+.form-fieldset input[type='radio'] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--color-green-primary);
+}
+
+.form-message {
+    padding: 14px 16px;
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    color: var(--color-gray-dark);
+}
+
+.form-message[data-state='success'],
+.form-message--success {
+    border-color: var(--color-green-primary);
+}
+
+.form-message[data-state='error'],
+.form-message--error {
+    border-color: var(--color-red);
+    color: var(--color-red);
+}
+
+.form-field-message {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--color-gray-text);
+}
+
+.form-field-message[data-state='success'] {
+    color: var(--color-green-secondary);
+}
+
+.form-field-message[data-state='error'] {
+    color: var(--color-red);
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}

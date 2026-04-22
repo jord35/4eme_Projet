@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const setLoginMessage = (messageBox, message, state) => {
+        if (!messageBox) {
+            return;
+        }
+
+        messageBox.textContent = message;
+        messageBox.dataset.state = state;
+        messageBox.hidden = message === '';
+    };
+
     initFormAjax(
         'login-form',
         (data, form, response) => {
@@ -7,23 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const messageBox = document.getElementById('login-message');
 
-            if (messageBox) {
-                messageBox.textContent = '';
-                messageBox.className = '';
-            }
+            setLoginMessage(messageBox, '', '');
 
             if (data.success) {
-                if (messageBox) {
-                    messageBox.textContent = 'Connexion réussie.';
-                    messageBox.className = 'success-message';
-                }
+                setLoginMessage(messageBox, 'Connexion réussie.', 'success');
 
                 console.log('Connexion réussie');
             } else {
-                if (messageBox) {
-                    messageBox.textContent = data.message || 'Échec de la connexion.';
-                    messageBox.className = 'error-message';
-                }
+                setLoginMessage(messageBox, data.message || 'Échec de la connexion.', 'error');
 
                 console.log('Connexion refusée');
             }
@@ -33,10 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const messageBox = document.getElementById('login-message');
 
-            if (messageBox) {
-                messageBox.textContent = 'Erreur réseau ou serveur.';
-                messageBox.className = 'error-message';
-            }
+            setLoginMessage(messageBox, 'Erreur réseau ou serveur.', 'error');
         }
     );
 });

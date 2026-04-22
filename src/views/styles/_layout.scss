@@ -2,36 +2,118 @@
     box-sizing: border-box;
 }
 
+html {
+    color-scheme: light;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-body);
     margin: 0;
-    padding: 20px;
-    background: #f5f5f5;
-    line-height: 1.5;
+    background: var(--color-gray-light);
+    color: var(--color-gray-dark);
+    line-height: var(--line-height-body);
 }
 
-// Variables globales
 :root {
-    --border-radius: 8px;
-    --border-color: #fd0000;
-    --bg-panel: #fff;
-    --bg-message: #fafafa;
-    --text-muted: #555;
-    --spacing-sm: 12px;
-    --spacing-md: 20px;
+    --layout-max-width: 1440px;
+    --layout-gutter: 0px;
+    --layout-section-gap: 0px;
+    --layout-content-inset: 150px;
+    --page-padding-top: 72px;
+    --page-padding-bottom: 96px;
+    --header-height: 80px;
+    --footer-padding-block: 23px;
+    --footer-padding-inline: 22px;
+    --font-family-base: 'Inter', sans-serif;
+    --font-family-title: 'Playfair Display', serif;
+    --font-size-body: 14px;
+    --font-weight-body: 400;
+    --line-height-body: 1.5;
+    --radius-xs: 3px;
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --border-width: 1px;
+    --focus-ring-width: 2px;
+    --control-height-compact: 44px;
+    --control-height-default: 50px;
+    --panel-padding: 40px 46px;
+    --color-gray-light: #f5f3ef;
+    --color-green-primary: #00ac66;
+    --color-green-secondary: #006d41;
+    --color-gray-text: #a6a6a6;
+    --color-gray-dark: #292929;
+    --color-white: #ffffff;
+    --color-red: #c56d6d;
+    --color-surface-muted: #ece7de;
+    --color-surface-field: #f3f6f9;
+    --space-xs: 16px;
+    --space-sm: 24px;
+    --space-md: 32px;
+    --space-lg: 48px;
+    --space-xl: 80px;
+    --space-2xl: 128px;
+    --spacing-xs: var(--space-xs);
+    --spacing-sm: var(--space-sm);
+    --spacing-md: var(--space-md);
+    --spacing-lg: var(--space-lg);
+    --border-radius-sm: var(--radius-sm);
 }
 
-// Layout flex global (optionnel)
-.layout {
+.site-shell {
+    min-height: 100vh;
     display: flex;
-    gap: 20px;
-    align-items: flex-start;
+    flex-direction: column;
 }
 
-// Utilitaires globaux
-.container {
-    max-width: 1200px;
+.site-main {
+    flex: 1;
+    padding-block: var(--layout-section-gap);
+}
+
+.site-frame {
+    width: min(100%, var(--layout-max-width));
     margin: 0 auto;
+    padding-inline: var(--layout-gutter);
+}
+
+.site-frame--header,
+.site-frame--footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: var(--font-family-title);
+    color: var(--color-gray-dark);
+}
+
+p,
+ul,
+ol,
+dl {
+    margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+a {
+    color: inherit;
 }
 
 .visually-hidden {

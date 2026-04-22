@@ -4,10 +4,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const usernameMsg = document.getElementById('username-message');
     const emailMsg = document.getElementById('email-message');
     const passwordMsg = document.getElementById('password-message');
+    const formMessage = document.getElementById('signup-message');
+
+    const setFieldMessage = (element, message, state = '') => {
+        if (!element) {
+            return;
+        }
+
+        element.textContent = message;
+        element.dataset.state = state;
+        element.hidden = message === '';
+    };
+
+    const setFormMessage = (message, state = '') => {
+        if (!formMessage) {
+            return;
+        }
+
+        formMessage.textContent = message;
+        formMessage.dataset.state = state;
+        formMessage.hidden = message === '';
+    };
 
     async function checkUsername() {
         const username = usernameInput.value.trim();
-        usernameMsg.textContent = '';
+        setFieldMessage(usernameMsg, '', '');
 
         if (!username) {
             return;
@@ -30,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            usernameMsg.textContent = data.message || '';
+            setFieldMessage(usernameMsg, data.message || '', data.success ? 'success' : 'error');
         } catch (error) {
             console.error(error);
         }
@@ -38,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function checkEmail() {
         const email = emailInput.value.trim();
-        emailMsg.textContent = '';
+        setFieldMessage(emailMsg, '', '');
 
         if (!email) {
             return;
@@ -61,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            emailMsg.textContent = data.message || '';
+            setFieldMessage(emailMsg, data.message || '', data.success ? 'success' : 'error');
         } catch (error) {
             console.error(error);
         }
@@ -71,31 +92,34 @@ document.addEventListener('DOMContentLoaded', () => {
     emailInput.addEventListener('blur', checkEmail);
 
     initFormAjax('signup-form', (data) => {
-        usernameMsg.textContent = '';
-        emailMsg.textContent = '';
-        passwordMsg.textContent = '';
+        setFieldMessage(usernameMsg, '', '');
+        setFieldMessage(emailMsg, '', '');
+        setFieldMessage(passwordMsg, '', '');
+        setFormMessage('', '');
 
         if (data.success) {
-            alert(data.message);
+            setFormMessage(data.message || 'Inscription réussie.', 'success');
             return;
         }
 
         if (data.errors && data.errors.username) {
-            usernameMsg.textContent = data.errors.username;
+            setFieldMessage(usernameMsg, data.errors.username, 'error');
         }
 
         if (data.errors && data.errors.email) {
-            emailMsg.textContent = data.errors.email;
+            setFieldMessage(emailMsg, data.errors.email, 'error');
         }
 
         if (data.errors && data.errors.password) {
-            passwordMsg.textContent = data.errors.password;
+            setFieldMessage(passwordMsg, data.errors.password, 'error');
         }
 
         if (data.message) {
+            setFormMessage(data.message, 'error');
             console.error(data.message);
         }
     }, (error) => {
         console.error('Erreur AJAX signup :', error);
+        setFormMessage('Erreur réseau ou serveur.', 'error');
     });
 });

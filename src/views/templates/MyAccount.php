@@ -9,18 +9,23 @@ $profileImageAlt = $username !== ''
     : 'Image de profil utilisateur';
 ?>
 
-<section class="my-account-section">
-    <div class="my-account-layout">
-        <div class="my-account-edit-panel">
-            <form
-                id="my-account-form"
-                method="post"
-                action="/?action=my-account"
-                enctype="multipart/form-data"
-                novalidate>
-                <div class="my-account-profile-card">
-                    <div class="my-account-profile-media">
+<section class="account-page">
+    <div class="account-page__inner site-frame">
+        <h1 class="account-page__title">Mon compte</h1>
+
+        <div class="account-page__top">
+            <div class="account-page__panel account-page__panel--profile">
+                <form
+                    class="account-profile-card profile-card"
+                    id="my-account-form"
+                    method="post"
+                    action="/?action=my-account"
+                    enctype="multipart/form-data"
+                    novalidate>
+
+                    <div class="account-profile-card__media editable-media editable-media--avatar">
                         <img
+                            class="account-profile-card__image editable-media__preview"
                             id="profile-image-preview"
                             src="<?= htmlspecialchars($profileImageSrc, ENT_QUOTES, 'UTF-8') ?>"
                             <?php if (!empty($profilePicture['srcset']) && $profileImageSrc !== $fallbackProfilePicture): ?>
@@ -34,8 +39,8 @@ $profileImageAlt = $username !== ''
                             height="<?= (int) ($profilePicture['height'] ?? 200) ?>"
                             onerror="this.onerror=null;this.removeAttribute('srcset');this.removeAttribute('sizes');this.src='<?= htmlspecialchars($fallbackProfilePicture, ENT_QUOTES, 'UTF-8') ?>';">
 
-                        <div class="my-account-profile-edit-wrapper">
-                            <label class="my-account-profile-edit" for="profile_image">Modifier</label>
+                        <div class="account-profile-card__edit">
+                            <label class="account-profile-card__edit-button editable-media__edit link-action link-action--muted" for="profile_image">modifier</label>
                             <input
                                 class="visually-hidden"
                                 type="file"
@@ -45,30 +50,44 @@ $profileImageAlt = $username !== ''
                         </div>
                     </div>
 
-                    <h2><?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?></h2>
+                    <div class="account-profile-card__content">
+                        <h2 class="account-profile-card__name"><?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?></h2>
 
-                    <p>
-                        Membre depuis
-                        <?= htmlspecialchars($memberSince !== '' ? $memberSince : 'peu de temps', ENT_QUOTES, 'UTF-8') ?>
-                    </p>
-
-                    <h3>Bibliothèque</h3>
-
-                    <div class="library-summary">
-                        <img src="/assets/icon-book.svg" alt="" aria-hidden="true">
-                        <p>
-                            <?= (int) $booksCount ?>
-                            <?= (int) $booksCount > 1 ? 'livres' : 'livre' ?>
+                        <p class="account-profile-card__meta">
+                            Membre depuis
+                            <?= htmlspecialchars($memberSince !== '' ? $memberSince : 'peu de temps', ENT_QUOTES, 'UTF-8') ?>
                         </p>
+
+                        <h3 class="account-profile-card__library-title">Bibliothèque</h3>
+
+                        <div class="account-profile-card__library">
+                            <img
+                                class="account-profile-card__library-icon"
+                                src="/assets/icon-book.svg"
+                                alt=""
+                                aria-hidden="true">
+                            <p class="account-profile-card__library-count">
+                                <?= (int) $booksCount ?>
+                                <?= (int) $booksCount > 1 ? 'livres' : 'livre' ?>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                </form>
+            </div>
 
-                <div class="my-account-infos">
-                    <h2>Vos informations personnelles</h2>
+            <div class="account-page__panel account-page__panel--details">
+                <form
+                    class="account-details-form form-shell"
+                    method="post"
+                    action="/?action=my-account"
+                    novalidate>
 
-                    <div class="my-account-field">
-                        <label for="email">Adresse email</label>
+                    <h2 class="account-details-form__title">Vos informations personnelles</h2>
+
+                    <div class="account-details-form__field form-field">
+                        <label class="account-details-form__label" for="email">Adresse email</label>
                         <input
+                            class="account-details-form__input"
                             type="email"
                             id="email"
                             name="email"
@@ -76,18 +95,20 @@ $profileImageAlt = $username !== ''
                             placeholder="Votre adresse email">
                     </div>
 
-                    <div class="my-account-field">
-                        <label for="password">Mot de passe</label>
+                    <div class="account-details-form__field form-field">
+                        <label class="account-details-form__label" for="password">Mot de passe</label>
                         <input
+                            class="account-details-form__input"
                             type="password"
                             id="password"
                             name="password"
                             placeholder="Nouveau mot de passe">
                     </div>
 
-                    <div class="my-account-field">
-                        <label for="username">Pseudo</label>
+                    <div class="account-details-form__field form-field">
+                        <label class="account-details-form__label" for="username">Pseudo</label>
                         <input
+                            class="account-details-form__input"
                             type="text"
                             id="username"
                             name="username"
@@ -95,30 +116,29 @@ $profileImageAlt = $username !== ''
                             placeholder="Votre pseudo">
                     </div>
 
-                    <button type="submit">Enregistrer</button>
-
-                </div>
-            </form>
+                    <button class="account-details-form__submit button button--outline" type="submit">Enregistrer</button>
+                </form>
+            </div>
         </div>
 
-        <div class="my-account-books">
+        <div class="account-library">
             <?php if (empty($libraryBooks)): ?>
-                <p>Vous n'avez pas encore ajouté de livre.</p>
+                <p class="account-library__empty">Vous n'avez pas encore ajouté de livre.</p>
             <?php else: ?>
-                <div class="my-books-table-wrapper">
-                    <table class="my-books-table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Photo</th>
-                                <th scope="col">Titre</th>
-                                <th scope="col">Auteur</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Disponibilité</th>
-                                <th scope="col">Action</th>
+                <div class="account-library__table-wrapper library-table-wrapper">
+                    <table class="account-library__table library-table">
+                        <thead class="account-library__head">
+                            <tr class="account-library__row account-library__row--head">
+                                <th class="account-library__cell account-library__cell--head" scope="col">Photo</th>
+                                <th class="account-library__cell account-library__cell--head" scope="col">Titre</th>
+                                <th class="account-library__cell account-library__cell--head" scope="col">Auteur</th>
+                                <th class="account-library__cell account-library__cell--head" scope="col">Description</th>
+                                <th class="account-library__cell account-library__cell--head" scope="col">Disponibilité</th>
+                                <th class="account-library__cell account-library__cell--head" scope="col">Action</th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody class="account-library__body">
                             <?php foreach ($libraryBooks as $book): ?>
                                 <?php
                                 $fallbackBookCover = '/assets/img-book-not-found.webp';
@@ -129,9 +149,10 @@ $profileImageAlt = $username !== ''
                                     ? (string) $book['cover']['alt']
                                     : 'Couverture non disponible pour ' . (string) $book['title'];
                                 ?>
-                                <tr>
-                                    <td>
+                                <tr class="account-library__row">
+                                    <td class="account-library__cell">
                                         <img
+                                            class="account-library__cover"
                                             src="<?= htmlspecialchars($bookCoverSrc, ENT_QUOTES, 'UTF-8') ?>"
                                             alt="<?= htmlspecialchars($bookCoverAlt, ENT_QUOTES, 'UTF-8') ?>"
                                             width="78"
@@ -139,19 +160,19 @@ $profileImageAlt = $username !== ''
                                             onerror="this.onerror=null;this.src='<?= htmlspecialchars($fallbackBookCover, ENT_QUOTES, 'UTF-8') ?>';">
                                     </td>
 
-                                    <td>
+                                    <td class="account-library__cell">
                                         <?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?>
                                     </td>
 
-                                    <td>
+                                    <td class="account-library__cell">
                                         <?= htmlspecialchars((string) $book['author_name'], ENT_QUOTES, 'UTF-8') ?>
                                     </td>
 
-                                    <td>
+                                    <td class="account-library__cell">
                                         <?= htmlspecialchars((string) mb_strimwidth((string) ($book['description'] ?? ''), 0, 120, '...'), ENT_QUOTES, 'UTF-8') ?>
                                     </td>
 
-                                    <td>
+                                    <td class="account-library__cell">
                                         <?php if (!empty($book['is_available'])): ?>
                                             <span class="status status--available">Disponible</span>
                                         <?php else: ?>
@@ -159,10 +180,10 @@ $profileImageAlt = $username !== ''
                                         <?php endif; ?>
                                     </td>
 
-                                    <td>
-                                        <div class="book-actions">
-                                            <a href="/?action=edit-book&id=<?= (int) $book['id'] ?>">Éditer</a>
-                                            <a href="/?action=delete-book&id=<?= (int) $book['id'] ?>">Supprimer</a>
+                                    <td class="account-library__cell">
+                                        <div class="account-library__actions book-actions">
+                                            <a class="account-library__action-link link-action" href="/?action=edit-book&id=<?= (int) $book['id'] ?>">Éditer</a>
+                                            <a class="account-library__action-link account-library__action-link--danger link-action link-action--destructive" href="/?action=delete-book&id=<?= (int) $book['id'] ?>">Supprimer</a>
                                         </div>
                                     </td>
                                 </tr>

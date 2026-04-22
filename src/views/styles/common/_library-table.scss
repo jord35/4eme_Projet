@@ -1,0 +1,62 @@
+.my-books-table-wrapper,
+.public-books-table-wrapper,
+.library-table-wrapper {
+    overflow-x: auto;
+    padding: var(--space-sm);
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-lg);
+}
+
+.my-books-table,
+.public-books-table,
+.library-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.my-books-table th,
+.my-books-table td,
+.public-books-table th,
+.public-books-table td,
+.library-table th,
+.library-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: var(--border-width) solid var(--color-gray-light);
+    vertical-align: middle;
+}
+
+.my-books-table th,
+.public-books-table th,
+.library-table th {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.my-books-table td img,
+.public-books-table td img,
+.library-table td img {
+    display: block;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+}
+
+.book-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.book-actions a {
+    color: var(--color-green-secondary);
+    text-decoration: underline;
+    text-underline-offset: 0.14em;
+}
+
+.book-actions a:last-child {
+    color: var(--color-red);
+}

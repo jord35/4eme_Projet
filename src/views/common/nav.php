@@ -5,71 +5,74 @@ $currentUsername = trim((string) ($_SESSION['username'] ?? ''));
 $messageCountSuffix = $globalUnreadMessageCount > 1 ? 's' : '';
 ?>
 
-<header id="site-header">
-	<a id="nav-brand" href="/?action=home">
-		<img id="nav-brand-logo" src="/assets/logo.svg" alt="Tom Troc">
-	</a>
+<header class="site-header">
+	<div class="site-frame site-frame--header">
+		<a class="site-header__brand" href="/?action=home">
+			<img class="site-header__logo" src="/assets/logo.svg" alt="Tom Troc">
+		</a>
 
-	<nav id="main-navigation" aria-label="Principale">
-		<ul id="nav-list">
-			<li class="nav-item">
-				<a id="nav-home-link" href="/?action=home">Accueil</a>
-			</li>
+		<nav class="site-header__nav" aria-label="Principale">
+			<ul class="site-header__list">
+				<li class="site-header__item">
+					<a class="site-header__link" href="/?action=home">Accueil</a>
+				</li>
 
-			<li class="nav-item">
-				<a id="nav-books-link" href="/?action=books">Nos livres à l'échange</a>
-			</li>
+				<li class="site-header__item">
+					<a class="site-header__link" href="/?action=books">Nos livres à l'échange</a>
+				</li>
 
-			<?php if ($isAuthenticated): ?>
-				<li class="nav-item">
-					<a
-						id="nav-messages-link"
-						href="/?action=messages"
-						<?= $globalUnreadMessageCount > 0 ? 'aria-describedby="navbar-message-badge"' : '' ?>>
-						<img
-							id="nav-messages-icon"
-							src="/assets/Icon-messagerie.svg"
-							alt=""
-							aria-hidden="true">
-						<span id="nav-messages-text">Messagerie</span>
+				<?php if ($isAuthenticated): ?>
+					<li class="site-header__item">
+						<a
+							class="site-header__link site-header__link--icon"
+							href="/?action=messages"
+							<?= $globalUnreadMessageCount > 0 ? 'aria-describedby="navbar-message-badge"' : '' ?>>
+							<img
+								class="site-header__icon"
+								src="/assets/Icon-messagerie.svg"
+								alt=""
+								aria-hidden="true">
+							<span class="site-header__label">Messagerie</span>
 
-						<?php if ($globalUnreadMessageCount > 0): ?>
-							<span
-								id="navbar-message-badge"
-								aria-label="<?= $globalUnreadMessageCount ?> message<?= $messageCountSuffix ?> non lu<?= $messageCountSuffix ?>">
-								<?= $globalUnreadMessageCount ?>
+							<?php if ($globalUnreadMessageCount > 0): ?>
+								<span
+									class="site-header__badge"
+									id="navbar-message-badge"
+									aria-label="<?= $globalUnreadMessageCount ?> message<?= $messageCountSuffix ?> non lu<?= $messageCountSuffix ?>">
+									<?= $globalUnreadMessageCount ?>
+								</span>
+							<?php endif; ?>
+						</a>
+					</li>
+
+					<li class="site-header__item">
+						<a class="site-header__link site-header__link--icon" href="/?action=my-account">
+							<img
+								class="site-header__icon"
+								src="/assets/Icon-mon-compte.svg"
+								alt=""
+								aria-hidden="true">
+							<span class="site-header__label">Mon compte</span>
+						</a>
+					</li>
+
+					<?php if ($currentUsername !== ''): ?>
+						<li class="site-header__item">
+							<span class="site-header__username" aria-label="Utilisateur connecté">
+								<?= htmlspecialchars($currentUsername, ENT_QUOTES, 'UTF-8') ?>
 							</span>
-						<?php endif; ?>
-					</a>
-				</li>
+						</li>
+					<?php endif; ?>
+				<?php else: ?>
+					<li class="site-header__item">
+						<a class="site-header__link" href="/?action=login">Connexion</a>
+					</li>
 
-				<li class="nav-item">
-					<a id="nav-account-link" href="/?action=my-account">
-						<img
-							id="nav-account-icon"
-							src="/assets/Icon-mon-compte.svg"
-							alt=""
-							aria-hidden="true">
-						<span id="nav-account-text">Mon compte</span>
-					</a>
-				</li>
-
-				<?php if ($currentUsername !== ''): ?>
-					<li class="nav-item">
-						<span id="nav-current-username" aria-label="Utilisateur connecté">
-							<?= htmlspecialchars($currentUsername, ENT_QUOTES, 'UTF-8') ?>
-						</span>
+					<li class="site-header__item">
+						<a class="site-header__link" href="/?action=signup">Inscription</a>
 					</li>
 				<?php endif; ?>
-			<?php else: ?>
-				<li class="nav-item">
-					<a id="nav-login-link" href="/?action=login">Connexion</a>
-				</li>
-
-				<li class="nav-item">
-					<a id="nav-signup-link" href="/?action=signup">Inscription</a>
-				</li>
-			<?php endif; ?>
-		</ul>
-	</nav>
+			</ul>
+		</nav>
+	</div>
 </header>

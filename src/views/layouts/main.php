@@ -9,13 +9,17 @@
 <body>
     <?php $globalUnreadMessageCount = (int) ($globalUnreadMessageCount ?? 0); ?>
 
-    <?php require __DIR__ . '/../common/nav.php'; ?>
+    <div class="site-shell">
+        <?php require __DIR__ . '/../common/nav.php'; ?>
 
-    <main class="container">
-        <?= $content ?>
-    </main>
+        <main class="site-main">
+            <div class="site-frame">
+                <?= $content ?>
+            </div>
+        </main>
 
-    <?php require __DIR__ . '/../common/footer.php'; ?>
+        <?php require __DIR__ . '/../common/footer.php'; ?>
+    </div>
 
     <script src="/js/common/app.js"></script>
 </body>
