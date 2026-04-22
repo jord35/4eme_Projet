@@ -15,12 +15,11 @@ $ownerAvatar = !empty($book['owner_avatar'])
     : '/assets/Icon-mon-compte.svg';
 ?>
 
-<section class="single-book-section">
-
-
-    <div class="single-book-layout">
-        <div class="single-book-media">
+<section class="book-detail">
+    <div class="book-detail__inner">
+        <div class="book-detail__media">
             <img
+                class="book-detail__image"
                 src="<?= htmlspecialchars($coverSrc, ENT_QUOTES, 'UTF-8') ?>"
                 <?php if (!empty($coverPicture['srcset']) && $coverSrc !== $fallbackCover): ?>
                 srcset="<?= htmlspecialchars((string) $coverPicture['srcset'], ENT_QUOTES, 'UTF-8') ?>"
@@ -34,36 +33,35 @@ $ownerAvatar = !empty($book['owner_avatar'])
                 onerror="this.onerror=null;this.src='<?= htmlspecialchars($fallbackCover, ENT_QUOTES, 'UTF-8') ?>';">
         </div>
 
-        <div class="single-book-content">
-            <div class="single-book-intro">
-                <h1><?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?></h1>
-                <p>par <?= htmlspecialchars((string) $book['author_name'], ENT_QUOTES, 'UTF-8') ?></p>
+        <div class="book-detail__content">
+            <div class="book-detail__intro">
+                <h1 class="book-detail__title"><?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?></h1>
+                <p class="book-detail__author">par <?= htmlspecialchars((string) $book['author_name'], ENT_QUOTES, 'UTF-8') ?></p>
             </div>
 
-
-
-            <div class="single-book-description">
-                <h2>Description</h2>
-                <p><?= nl2br(htmlspecialchars((string) ($book['description'] ?? ''), ENT_QUOTES, 'UTF-8')) ?></p>
+            <div class="book-detail__description">
+                <h2 class="book-detail__section-title">Description</h2>
+                <div class="book-detail__description-text">
+                    <p><?= nl2br(htmlspecialchars((string) ($book['description'] ?? ''), ENT_QUOTES, 'UTF-8')) ?></p>
+                </div>
             </div>
 
-            <div class="single-book-owner">
-                <h2>Propriétaire</h2>
+            <div class="book-detail__owner">
+                <h2 class="book-detail__section-title">Propriétaire</h2>
 
+                <?php
+                $ownerCardClassName = 'book-detail__owner-card owner-card';
+                $ownerCardHref = '/?action=public-account&username=' . urlencode($ownerUsername);
+                $ownerCardName = $ownerUsername;
+                $ownerCardAvatarSrc = $ownerAvatar;
+                $ownerCardAvatarAlt = 'Photo de profil de ' . $ownerUsername;
+                require __DIR__ . '/common/owner-card.php';
+                ?>
+            </div>
+
+            <div class="book-detail__actions">
                 <a
-                    class="user-card"
-                    href="/?action=public-account&username=<?= urlencode($ownerUsername) ?>">
-                    <img
-                        src="<?= htmlspecialchars($ownerAvatar, ENT_QUOTES, 'UTF-8') ?>"
-                        alt="Photo de profil de <?= htmlspecialchars($ownerUsername, ENT_QUOTES, 'UTF-8') ?>"
-                        onerror="this.onerror=null;this.src='/assets/Icon-mon-compte.svg';">
-                    <p><?= htmlspecialchars($ownerUsername, ENT_QUOTES, 'UTF-8') ?></p>
-                </a>
-            </div>
-
-            <div class="single-book-actions">
-                <a
-                    class="message-link"
+                    class="book-detail__message-link button button--primary"
                     href="/?action=messages&username=<?= urlencode($ownerUsername) ?>">
                     Envoyer un message
                 </a>

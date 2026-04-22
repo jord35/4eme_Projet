@@ -1,1 +1,93 @@
-.single-book-section {}
+.book-detail {
+    min-height: calc(100vh - var(--header-height));
+    background-color: var(--color-gray-light);
+
+    &__inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: calc(100vh - var(--header-height));
+        width: min(100%, var(--layout-max-width));
+        margin: 0 auto;
+    }
+
+    &__media {
+        min-width: 0;
+        height: 100%;
+        background-color: var(--color-surface-muted);
+    }
+
+    &__image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 84px 52px 48px;
+    }
+
+    &__intro {
+        margin-bottom: 48px;
+    }
+
+    &__title {
+        margin-bottom: 10px;
+        font-size: 48px;
+        line-height: 1.1;
+    }
+
+    &__author {
+        color: var(--color-gray-text);
+        font-size: 16px;
+    }
+
+    &__description {
+        margin-bottom: 40px;
+        min-height: 594px;
+    }
+
+    &__section-title {
+        margin-bottom: 16px;
+        font-family: var(--font-family-base);
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-gray-dark);
+    }
+
+    &__description-text {
+        max-width: 390px;
+        color: var(--color-gray-dark);
+        font-size: 14px;
+        line-height: 1.7;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    &__owner {
+        margin-bottom: 56px;
+    }
+
+    &__owner-card {
+        max-width: fit-content;
+    }
+
+    &__actions {
+        margin-top: auto;
+        padding-top: 24px;
+    }
+
+    &__message-link {
+        width: 100%;
+        max-width: 392px;
+        text-decoration: none;
+    }
+}

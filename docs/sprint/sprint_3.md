@@ -1,6 +1,6 @@
 # Sprint 3 - Finalisation
 
-- [x] Intégration CSS ___
+- [x] Intégration CSS ____
 - [ ] Amélioration de l'accessibilité
 - [ ] Vérifications Lighthouse
 - [ ] Micro-optimisations
