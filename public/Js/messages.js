@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const messagesList = document.getElementById('messages-list');
     const messageForm = document.getElementById('message-form');
-    const feedback = document.getElementById('message-form-feedback');
     const navbarBadge = document.getElementById('navbar-message-badge');
     const conversationList = document.getElementById('messages-conversation-list');
     const unreadConversationCountElement = document.getElementById('unread-conversation-count');
@@ -56,16 +55,58 @@ document.addEventListener('DOMContentLoaded', () => {
         return div.innerHTML;
     }
 
+    function getActiveConversationAvatarSrc() {
+        const threadAvatar = document.querySelector('.messages-page__thread-card img');
+
+        if (!threadAvatar) {
+            return '/assets/Icon-mon-compte.svg';
+        }
+
+        return threadAvatar.getAttribute('src') || '/assets/Icon-mon-compte.svg';
+    }
+
     function formatMessageHtml(message) {
-        const isOwn = message.is_own ? ' is-own' : '';
+        const isOwn = Boolean(message.is_own);
+        const messageClasses = isOwn
+            ? 'messages-page__message messages-page__message--own'
+            : 'messages-page__message';
+        const contentHtml = escapeHtml(message.content).replace(/\n/g, '<br>');
+
+        if (isOwn) {
+            return `
+                <article class="${messageClasses}" data-message-id="${Number(message.id)}">
+                    <p class="messages-page__message-time">
+                        ${escapeHtml(message.created_at)}
+                    </p>
+
+                    <div class="messages-page__message-bubble">
+                        <p>${contentHtml}</p>
+                    </div>
+                </article>
+            `;
+        }
+
+        const avatarSrc = escapeHtml(getActiveConversationAvatarSrc());
 
         return `
-            <article class="message-item${isOwn}" data-message-id="${Number(message.id)}">
-                <header class="message-item__header">
-                    <strong>${escapeHtml(message.sender_username)}</strong>
-                    <small>${escapeHtml(message.created_at)}</small>
-                </header>
-                <p>${escapeHtml(message.content).replace(/\n/g, '<br>')}</p>
+            <article class="${messageClasses}" data-message-id="${Number(message.id)}">
+                <div class="messages-page__message-meta">
+                    <img
+                        class="messages-page__message-avatar avatar avatar--xs"
+                        src="${avatarSrc}"
+                        alt=""
+                        aria-hidden="true"
+                        width="28"
+                        height="28"
+                        onerror="this.onerror=null;this.src='/assets/Icon-mon-compte.svg';">
+                    <p class="messages-page__message-time">
+                        ${escapeHtml(message.created_at)}
+                    </p>
+                </div>
+
+                <div class="messages-page__message-bubble">
+                    <p>${contentHtml}</p>
+                </div>
             </article>
         `;
     }
@@ -120,9 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const conversationUsername = escapeHtml(conversation.other_username || '');
 
             const classes = [
-                'messages-conversation-item',
-                isActive ? 'is-active' : '',
-                hasUnread ? 'has-unread' : ''
+                'messages-page__conversation-item',
+                isActive ? 'messages-page__conversation-item--active' : '',
+                hasUnread ? 'messages-page__conversation-item--unread' : ''
             ].filter(Boolean).join(' ');
 
             const lastMessageContent = conversation.last_message_content
@@ -134,26 +175,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 : '';
 
             const badge = hasUnread
-                ? `<span class="messages-conversation-badge">${unreadCount}</span>`
+                ? `<span class="messages-page__conversation-badge">${unreadCount}</span>`
                 : '';
 
             return `
                 <li class="${classes}">
                     <a
-                        class="conversation-card"
+                        class="messages-page__conversation-card"
                         href="/?action=messages&conversation_id=${conversationId}">
                         <img
+                            class="messages-page__conversation-avatar avatar avatar--md"
                             src="${conversationAvatar}"
                             alt="Photo de profil de ${conversationUsername}"
                             width="56"
                             height="56"
                             onerror="this.onerror=null;this.src='${fallbackConversationAvatar}';">
-                        <div class="conversation-card-body">
-                            <div class="conversation-card-header">
-                                <h2>${conversationUsername}</h2>
+                        <div class="messages-page__conversation-body">
+                            <div class="messages-page__conversation-header">
+                                <h2 class="messages-page__conversation-name">${conversationUsername}</h2>
                                 ${lastMessageCreatedAt.replace('<small>', '<p>').replace('</small>', '</p>')}
                             </div>
-                            <p>${lastMessageContent}</p>
+                            <p class="messages-page__conversation-preview">${lastMessageContent}</p>
                         </div>
                         ${badge}
                     </a>
@@ -216,16 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initFormAjax(
         'message-form',
         (data, form) => {
-            if (feedback) {
-                feedback.textContent = '';
-                feedback.className = '';
-            }
-
             if (!data || data.success !== true) {
-                if (feedback) {
-                    feedback.textContent = data?.error || 'Le message n’a pas pu être envoyé.';
-                    feedback.className = 'error-message';
-                }
+                console.error(data?.error || 'Le message n’a pas pu être envoyé.');
                 return;
             }
 
@@ -242,11 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             form.reset();
 
-            if (feedback) {
-                feedback.textContent = 'Message envoyé.';
-                feedback.className = 'success-message';
-            }
-
             if (typeof data.data?.unreadMessageCount !== 'undefined') {
                 updateNavbarBadge(data.data.unreadMessageCount);
             }
@@ -260,11 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         (error) => {
             console.error('Erreur lors de l’envoi du message :', error);
-
-            if (feedback) {
-                feedback.textContent = 'Erreur réseau ou serveur.';
-                feedback.className = 'error-message';
-            }
         }
     );
 

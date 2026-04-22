@@ -8,6 +8,10 @@
     background-color: var(--color-white);
     text-decoration: none;
 
+    &__avatar {
+        flex-shrink: 0;
+    }
+
     &__name {
         font-size: 14px;
         color: var(--color-gray-dark);
