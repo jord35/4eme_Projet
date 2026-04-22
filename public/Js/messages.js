@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const activeConversationId = getConversationId();
+        const fallbackConversationAvatar = '/assets/Icon-mon-compte.svg';
 
         if (!Array.isArray(conversationSummaries) || conversationSummaries.length === 0) {
             conversationList.innerHTML = '';
@@ -113,6 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const isActive = conversationId === activeConversationId;
             const unreadCount = Number(conversation.unread_count || 0);
             const hasUnread = unreadCount > 0;
+            const conversationAvatar = conversation.other_user_picture
+                ? escapeHtml(conversation.other_user_picture)
+                : fallbackConversationAvatar;
+            const conversationUsername = escapeHtml(conversation.other_username || '');
 
             const classes = [
                 'messages-conversation-item',
@@ -134,12 +139,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return `
                 <li class="${classes}">
-                    <a href="/?action=messages&conversation_id=${conversationId}">
-                        <div>
-                            <strong>${escapeHtml(conversation.other_username || '')}</strong>
+                    <a
+                        class="conversation-card"
+                        href="/?action=messages&conversation_id=${conversationId}">
+                        <img
+                            src="${conversationAvatar}"
+                            alt="Photo de profil de ${conversationUsername}"
+                            width="56"
+                            height="56"
+                            onerror="this.onerror=null;this.src='${fallbackConversationAvatar}';">
+                        <div class="conversation-card-body">
+                            <div class="conversation-card-header">
+                                <h2>${conversationUsername}</h2>
+                                ${lastMessageCreatedAt.replace('<small>', '<p>').replace('</small>', '</p>')}
+                            </div>
+                            <p>${lastMessageContent}</p>
                         </div>
-                        <p>${lastMessageContent}</p>
-                        ${lastMessageCreatedAt}
                         ${badge}
                     </a>
                 </li>

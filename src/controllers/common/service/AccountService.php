@@ -141,7 +141,6 @@ class AccountService
 
         if (!empty($files['profile_image']) && !empty($files['profile_image']['tmp_name'])) {
             $pictureResult = $this->pictureHelper->savePicture($files['profile_image'], [
-                'context' => 'profile',
                 'variant_type' => 'profile'
             ]);
 

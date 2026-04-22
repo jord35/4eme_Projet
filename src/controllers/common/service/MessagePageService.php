@@ -4,11 +4,15 @@ class MessagePageService
 {
     private AuthenticationService $authenticationService;
     private MessagingService $messagingService;
+    private PictureHelper $pictureHelper;
+    private DateHelper $dateHelper;
 
     public function __construct()
     {
         $this->authenticationService = new AuthenticationService();
         $this->messagingService = new MessagingService();
+        $this->pictureHelper = new PictureHelper();
+        $this->dateHelper = new DateHelper();
     }
 
     public function getPageData(?int $conversationId = null, ?int $otherUserId = null): array
@@ -27,7 +31,9 @@ class MessagePageService
             return $conversationsResult;
         }
 
-        $conversationSummaries = $conversationsResult['data'] ?? [];
+        $conversationSummaries = $this->formatConversationSummaries(
+            $this->hydrateConversationPictures($conversationsResult['data'] ?? [])
+        );
         $activeConversationId = null;
         $messages = [];
 
@@ -58,7 +64,7 @@ class MessagePageService
                 return $messagesResult;
             }
 
-            $messages = $messagesResult['data'] ?? [];
+            $messages = $this->formatMessages($messagesResult['data'] ?? []);
 
             $markReadResult = $this->messagingService->markConversationAsRead(
                 $activeConversationId,
@@ -75,7 +81,9 @@ class MessagePageService
                 return $conversationsResult;
             }
 
-            $conversationSummaries = $conversationsResult['data'] ?? [];
+            $conversationSummaries = $this->formatConversationSummaries(
+                $this->hydrateConversationPictures($conversationsResult['data'] ?? [])
+            );
         }
 
         $unreadCountersResult = $this->getUnreadCounters($currentUserId);
@@ -137,7 +145,7 @@ class MessagePageService
             'success' => true,
             'error' => null,
             'data' => [
-                'messages' => $messagesResult['data'] ?? [],
+                'messages' => $this->formatMessages($messagesResult['data'] ?? []),
                 'unreadConversationCount' => (int) ($unreadCountersResult['data']['unreadConversationCount'] ?? 0),
                 'unreadMessageCount' => (int) ($unreadCountersResult['data']['unreadMessageCount'] ?? 0)
             ]
@@ -176,7 +184,7 @@ class MessagePageService
             'success' => true,
             'error' => null,
             'data' => [
-                'message' => $sendResult['data'],
+                'message' => $this->formatMessage($sendResult['data'] ?? []),
                 'unreadConversationCount' => (int) ($unreadCountersResult['data']['unreadConversationCount'] ?? 0),
                 'unreadMessageCount' => (int) ($unreadCountersResult['data']['unreadMessageCount'] ?? 0)
             ]
@@ -250,10 +258,63 @@ class MessagePageService
             'success' => true,
             'error' => null,
             'data' => [
-                'conversationSummaries' => $conversationsResult['data'] ?? [],
+                'conversationSummaries' => $this->formatConversationSummaries(
+                    $this->hydrateConversationPictures($conversationsResult['data'] ?? [])
+                ),
                 'unreadConversationCount' => (int) ($unreadCountersResult['data']['unreadConversationCount'] ?? 0),
                 'unreadMessageCount' => (int) ($unreadCountersResult['data']['unreadMessageCount'] ?? 0)
             ]
         ];
+    }
+
+    private function hydrateConversationPictures(array $conversationSummaries): array
+    {
+        return array_map(function (array $conversation): array {
+            $conversation['other_user_picture'] = null;
+
+            if (empty($conversation['other_user_profile_picture_id'])) {
+                return $conversation;
+            }
+
+            $pictureResult = $this->pictureHelper->getPicturePackage(
+                (int) $conversation['other_user_profile_picture_id'],
+                'profile'
+            );
+
+            if ($pictureResult['success'] === true) {
+                $conversation['other_user_picture'] = (string) ($pictureResult['data']['src'] ?? '');
+            }
+
+            return $conversation;
+        }, $conversationSummaries);
+    }
+
+    private function formatConversationSummaries(array $conversationSummaries): array
+    {
+        return array_map(function (array $conversation): array {
+            $conversation['last_message_created_at'] = $this->dateHelper->formatMessageListTime(
+                (string) ($conversation['last_message_created_at'] ?? '')
+            );
+
+            return $conversation;
+        }, $conversationSummaries);
+    }
+
+    private function formatMessages(array $messages): array
+    {
+        return array_map(fn(array $message): array => $this->formatMessage($message), $messages);
+    }
+
+    private function formatMessage(array $message): array
+    {
+        if (empty($message)) {
+            return $message;
+        }
+
+        $message['created_at'] = $this->dateHelper->formatConversationMessageDateTime(
+            (string) ($message['created_at'] ?? '')
+        );
+
+        return $message;
     }
 }

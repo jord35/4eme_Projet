@@ -1,7 +1,7 @@
 # Sprint 2 - Consolidation de l'architecture
 
 - [ ] Séparation plus propre des responsabilités
-- [ ] Raffinement des vues_________
+- [ ] Raffinement des vues__________
 - [ ] Gestion des cas limites_
 - [ ] Ajout des interactions JavaScript nécessaires
 - [ ] Nettoyage du code
@@ -24,3 +24,6 @@ J'ai ajouté les icônes et les logos, et j'ai démarré le squelette des vues.
 Dans un premier temps, je ne pense pas créer une branche pour chaque vue. J'ai d'abord besoin de poser un squelette propre pour les balises PHP/HTML. Une fois cette base en place, je pourrai avancer sur les styles en suivant une logique orientée composants, plutôt qu'une logique strictement liée au flux d'utilisation.
 
 j'ai amélioré le système d'affichage de date afin qu'il colle à la maquette
+
+j'ai amélioré la gestion des images lors de l'ajout des images par l'utilisateur afin qu'il puisse créer plusieurs variantes utilisables dans le projet.
+Et j'ai mis à jour les appels des différentes variantes en fonction des besoins dans le projet.
