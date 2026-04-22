@@ -1,10 +1,10 @@
 # Sprint 2 - Consolidation de l'architecture
 
-- [ ] Séparation plus propre des responsabilités
-- [ ] Raffinement des vues__________
-- [ ] Gestion des cas limites_
-- [ ] Ajout des interactions JavaScript nécessaires
-- [ ] Nettoyage du code
+- [x] Séparation plus propre des responsabilités
+- [x] Raffinement des vues__________
+- [x] Gestion des cas limites_
+- [x] Ajout des interactions JavaScript nécessaires
+- [x] Nettoyage du code
 
 1. Adaptation de la page home et intégration dans la nouvelle architecture.
 
