@@ -39,4 +39,27 @@ class DateHelper
         $years = max(1, (int) floor($days / 365));
         return $years . ' ' . ($years > 1 ? 'ans' : 'an');
     }
+
+    public function formatMessageListTime(string $value): string
+    {
+        return $this->formatDateTimeValue($value, 'H:i');
+    }
+
+    public function formatConversationMessageDateTime(string $value): string
+    {
+        return $this->formatDateTimeValue($value, 'd.m H:i');
+    }
+
+    private function formatDateTimeValue(string $value, string $format): string
+    {
+        if ($value === '') {
+            return '';
+        }
+
+        try {
+            return (new DateTimeImmutable($value))->format($format);
+        } catch (Exception $exception) {
+            return $value;
+        }
+    }
 }

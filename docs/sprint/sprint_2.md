@@ -22,3 +22,5 @@ J'ai également commencé la checklist de consignes.md pour vérifier que toutes
 J'ai ajouté les icônes et les logos, et j'ai démarré le squelette des vues.
 
 Dans un premier temps, je ne pense pas créer une branche pour chaque vue. J'ai d'abord besoin de poser un squelette propre pour les balises PHP/HTML. Une fois cette base en place, je pourrai avancer sur les styles en suivant une logique orientée composants, plutôt qu'une logique strictement liée au flux d'utilisation.
+
+j'ai amélioré le système d'affichage de date afin qu'il colle à la maquette

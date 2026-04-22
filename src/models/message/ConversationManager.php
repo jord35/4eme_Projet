@@ -255,6 +255,7 @@ class ConversationManager extends AbstractEntityManager
                 cp.conversation_id,
                 other_user.id AS other_user_id,
                 other_user.username AS other_username,
+                other_user.profile_picture_id AS other_user_profile_picture_id,
                 last_message.id AS last_message_id,
                 last_message.content AS last_message_content,
                 last_message.created_at AS last_message_created_at,
@@ -303,6 +304,9 @@ class ConversationManager extends AbstractEntityManager
                 'conversation_id' => (int) $row['conversation_id'],
                 'other_user_id' => (int) $row['other_user_id'],
                 'other_username' => (string) $row['other_username'],
+                'other_user_profile_picture_id' => isset($row['other_user_profile_picture_id'])
+                    ? (int) $row['other_user_profile_picture_id']
+                    : null,
                 'last_message_id' => isset($row['last_message_id']) ? (int) $row['last_message_id'] : null,
                 'last_message_content' => $row['last_message_content'] !== null ? (string) $row['last_message_content'] : null,
                 'last_message_created_at' => $row['last_message_created_at'] !== null ? (string) $row['last_message_created_at'] : null,
