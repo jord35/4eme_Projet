@@ -1,7 +1,6 @@
 .book-form,
 #login-form,
 #signup-form,
-#my-account-form,
 .form-shell {
     display: flex;
     flex-direction: column;
@@ -50,9 +49,6 @@
 .book-form textarea,
 #login-form input,
 #signup-form input,
-#my-account-form input[type='text'],
-#my-account-form input[type='email'],
-#my-account-form input[type='password'],
 .form-field input,
 .form-field textarea,
 .form-field select {
@@ -75,7 +71,6 @@
 .book-form textarea::placeholder,
 #login-form input::placeholder,
 #signup-form input::placeholder,
-#my-account-form input::placeholder,
 .form-field input::placeholder,
 .form-field textarea::placeholder {
     color: var(--color-gray-text);
@@ -85,7 +80,6 @@
 .book-form textarea:focus-visible,
 #login-form input:focus-visible,
 #signup-form input:focus-visible,
-#my-account-form input:focus-visible,
 .form-field input:focus-visible,
 .form-field textarea:focus-visible,
 .form-field select:focus-visible {

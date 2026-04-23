@@ -1,7 +1,7 @@
 # Sprint 3 - Finalisation
 
-- [ ] Intégration CSS ______Première partie terminée, il ne reste plus qu'à faire les derniers petits détails.
-- [ ] Amélioration de l'accessibilité
+- [ ] Intégration CSS _______Première partie terminée, il ne reste plus qu'à faire les derniers petits détails.
+- [ ] Amélioration de l'accessibilité _ 
 - [ ] Vérifications Lighthouse
 - [ ] Micro-optimisations
 - [ ] QA finale

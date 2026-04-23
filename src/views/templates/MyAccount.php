@@ -22,16 +22,15 @@ $profileImageAlt = $username !== ''
             aria-atomic="true"
             hidden></p>
 
-        <div class="account-page__top">
+        <form
+            class="account-page__top"
+            id="my-account-form"
+            method="post"
+            action="/?action=my-account"
+            enctype="multipart/form-data"
+            novalidate>
             <div class="account-page__panel account-page__panel--profile">
-                <form
-                    class="account-profile-card profile-card"
-                    id="my-account-form"
-                    method="post"
-                    action="/?action=my-account"
-                    enctype="multipart/form-data"
-                    novalidate>
-
+                <div class="account-profile-card profile-card">
                     <div class="account-profile-card__media editable-media editable-media--avatar">
                         <img
                             class="account-profile-card__image editable-media__preview"
@@ -81,15 +80,11 @@ $profileImageAlt = $username !== ''
                             </p>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
 
             <div class="account-page__panel account-page__panel--details">
-                <form
-                    class="account-details-form form-shell"
-                    method="post"
-                    action="/?action=my-account"
-                    novalidate>
+                <div class="account-details-form form-shell">
 
                     <h2 class="account-details-form__title">Vos informations personnelles</h2>
 
@@ -126,9 +121,9 @@ $profileImageAlt = $username !== ''
                     </div>
 
                     <button class="account-details-form__submit button button--outline" type="submit">Enregistrer</button>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
 
         <div class="account-library">
             <?php if (empty($libraryBooks)): ?>
