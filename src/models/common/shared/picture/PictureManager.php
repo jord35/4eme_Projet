@@ -313,10 +313,10 @@ class PictureManager extends AbstractEntityManager
     {
         return match ($context) {
             'profile' => '(max-width: 768px) 48px, 135px',
-            'book_card' => '(max-width: 768px) 160px, 240px',
-            'book_table' => '(max-width: 768px) 78px, 96px',
-            'book_detail' => '(max-width: 768px) 320px, 720px',
-            'cover' => '(max-width: 768px) 375px, 1042px',
+            'book_card' => '(max-width: 768px) 160px, 200px',
+            'book_table' => '(max-width: 768px) 79px, 78px',
+            'book_detail' => '(max-width: 768px) 375px, 720px',
+            'cover' => '(max-width: 768px) 335px, 488px',
             default => '100vw',
         };
     }

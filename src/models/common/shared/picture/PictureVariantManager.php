@@ -128,7 +128,7 @@ class PictureVariantManager extends AbstractEntityManager
             if ($generated['success'] === false) {
                 $errors[] = [
                     'device' => $definition['device'],
-                    'width' => (int) ($definition['target_size'] ?? 0),
+                    'width' => (int) ($definition['target_width'] ?? $definition['target_size'] ?? 0),
                     'format' => (string) $definition['format'],
                     'error' => $generated['error'] ?? 'Variant generation failed.'
                 ];
@@ -225,27 +225,27 @@ class PictureVariantManager extends AbstractEntityManager
     {
         return match ($variantType) {
             'profile' => [
-                ['target_size' => 48, 'resize_mode' => 'min_side', 'device' => 'mobile', 'format' => 'webp'],
-                ['target_size' => 135, 'resize_mode' => 'min_side', 'device' => 'desktop', 'format' => 'webp'],
+                ['target_width' => 48, 'target_height' => 48, 'resize_mode' => 'cover_box', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_width' => 135, 'target_height' => 135, 'resize_mode' => 'cover_box', 'device' => 'desktop', 'format' => 'webp'],
             ],
             'book_card' => [
-                ['target_size' => 160, 'resize_mode' => 'width', 'device' => 'mobile', 'format' => 'webp'],
-                ['target_size' => 240, 'resize_mode' => 'width', 'device' => 'desktop', 'format' => 'webp'],
+                ['target_width' => 160, 'target_height' => 160, 'resize_mode' => 'cover_box', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_width' => 200, 'target_height' => 200, 'resize_mode' => 'cover_box', 'device' => 'desktop', 'format' => 'webp'],
             ],
             'book_table' => [
-                ['target_size' => 78, 'resize_mode' => 'width', 'device' => 'mobile', 'format' => 'webp'],
-                ['target_size' => 96, 'resize_mode' => 'width', 'device' => 'desktop', 'format' => 'webp'],
+                ['target_width' => 79, 'target_height' => 79, 'resize_mode' => 'cover_box', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_width' => 78, 'target_height' => 78, 'resize_mode' => 'cover_box', 'device' => 'desktop', 'format' => 'webp'],
             ],
             'book_detail' => [
-                ['target_size' => 320, 'resize_mode' => 'width', 'device' => 'mobile', 'format' => 'webp'],
-                ['target_size' => 720, 'resize_mode' => 'width', 'device' => 'desktop', 'format' => 'webp'],
+                ['target_width' => 375, 'target_height' => 450, 'resize_mode' => 'cover_box', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_width' => 720, 'target_height' => 863, 'resize_mode' => 'cover_box', 'device' => 'desktop', 'format' => 'webp'],
             ],
             'cover' => [
-                ['target_size' => 375, 'resize_mode' => 'width', 'device' => 'mobile', 'format' => 'webp'],
-                ['target_size' => 1042, 'resize_mode' => 'width', 'device' => 'desktop', 'format' => 'webp'],
+                ['target_width' => 335, 'target_height' => 335, 'resize_mode' => 'cover_box', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_width' => 488, 'target_height' => 488, 'resize_mode' => 'cover_box', 'device' => 'desktop', 'format' => 'webp'],
             ],
             default => [
-                ['target_size' => 320, 'resize_mode' => 'width', 'device' => 'all', 'format' => 'webp'],
+                ['target_width' => 320, 'target_height' => 320, 'resize_mode' => 'cover_box', 'device' => 'all', 'format' => 'webp'],
             ],
         };
     }
@@ -272,13 +272,14 @@ class PictureVariantManager extends AbstractEntityManager
         $sourceWidth = $sourceInfo[0];
         $sourceHeight = $sourceInfo[1];
         $mimeType = $sourceInfo['mime'];
-        $targetSize = (int) ($definition['target_size'] ?? 0);
+        $targetWidth = (int) ($definition['target_width'] ?? $definition['target_size'] ?? 0);
+        $targetHeight = (int) ($definition['target_height'] ?? $definition['target_size'] ?? 0);
         $resizeMode = (string) ($definition['resize_mode'] ?? 'width');
 
-        if ($targetSize <= 0) {
+        if ($targetWidth <= 0 || $targetHeight <= 0) {
             return [
                 'success' => false,
-                'error' => 'Invalid target size.'
+                'error' => 'Invalid target dimensions.'
             ];
         }
 
@@ -294,7 +295,8 @@ class PictureVariantManager extends AbstractEntityManager
         $dimensions = $this->resolveTargetDimensions(
             $sourceWidth,
             $sourceHeight,
-            $targetSize,
+            $targetWidth,
+            $targetHeight,
             $resizeMode
         );
 
@@ -351,19 +353,17 @@ class PictureVariantManager extends AbstractEntityManager
         ];
     }
 
-    private function resolveTargetDimensions(int $sourceWidth, int $sourceHeight, int $targetSize, string $resizeMode): array
+    private function resolveTargetDimensions(int $sourceWidth, int $sourceHeight, int $targetWidth, int $targetHeight, string $resizeMode): array
     {
-        if ($resizeMode === 'min_side') {
-            $smallestSide = min($sourceWidth, $sourceHeight);
-
-            if ($smallestSide <= $targetSize) {
+        if ($resizeMode === 'cover_box') {
+            if ($sourceWidth <= $targetWidth || $sourceHeight <= $targetHeight) {
                 return [
                     'width' => $sourceWidth,
                     'height' => $sourceHeight,
                 ];
             }
 
-            $scale = $targetSize / $smallestSide;
+            $scale = max($targetWidth / $sourceWidth, $targetHeight / $sourceHeight);
 
             return [
                 'width' => max(1, (int) round($sourceWidth * $scale)),
@@ -371,7 +371,25 @@ class PictureVariantManager extends AbstractEntityManager
             ];
         }
 
-        if ($sourceWidth <= $targetSize) {
+        if ($resizeMode === 'min_side') {
+            $smallestSide = min($sourceWidth, $sourceHeight);
+
+            if ($smallestSide <= $targetWidth) {
+                return [
+                    'width' => $sourceWidth,
+                    'height' => $sourceHeight,
+                ];
+            }
+
+            $scale = $targetWidth / $smallestSide;
+
+            return [
+                'width' => max(1, (int) round($sourceWidth * $scale)),
+                'height' => max(1, (int) round($sourceHeight * $scale)),
+            ];
+        }
+
+        if ($sourceWidth <= $targetWidth) {
             return [
                 'width' => $sourceWidth,
                 'height' => $sourceHeight,
@@ -379,8 +397,8 @@ class PictureVariantManager extends AbstractEntityManager
         }
 
         return [
-            'width' => $targetSize,
-            'height' => max(1, (int) round(($sourceHeight / $sourceWidth) * $targetSize)),
+            'width' => $targetWidth,
+            'height' => max(1, (int) round(($sourceHeight / $sourceWidth) * $targetWidth)),
         ];
     }
 

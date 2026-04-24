@@ -51,7 +51,9 @@
                                         <?php if (!empty($coverPicture['srcset'])): ?>
                                         srcset="<?= htmlspecialchars($coverPicture['srcset'], ENT_QUOTES, 'UTF-8') ?>"
                                         <?php endif; ?>
-                                        sizes="220px"
+                                        <?php if (!empty($coverPicture['sizes'])): ?>
+                                        sizes="<?= htmlspecialchars((string) $coverPicture['sizes'], ENT_QUOTES, 'UTF-8') ?>"
+                                        <?php endif; ?>
                                         alt="<?= htmlspecialchars($coverPicture['alt'] ?? 'Aperçu de la couverture', ENT_QUOTES, 'UTF-8') ?>"
                                         width="<?= (int) ($coverPicture['width'] ?? 220) ?>"
                                         height="<?= (int) ($coverPicture['height'] ?? 320) ?>"

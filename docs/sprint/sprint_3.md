@@ -1,6 +1,6 @@
 # Sprint 3 - Finalisation
 
-- [x] Fix du flou des images et vérification de la logique de génération / sélection des variantes.
+- [x] Fix du flou des images et vérification de la logique de génération et sélection des variantes.
 - [x] Implémentation du tri par titre sur la page books.
 - [ ] Remplacement des fausses données par des données crédibles de démonstration.
 - [ ] Vérification point par point, sur les différentes pages, de ce qui relève réellement du layout commun parmi les éléments notés comme `layout potentiel`, et de ce qui doit rester spécifique à chaque page.

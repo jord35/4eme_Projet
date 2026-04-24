@@ -45,6 +45,11 @@
     object-fit: cover;
 }
 
+.library-table__cover {
+    width: 78px;
+    height: 78px;
+}
+
 .book-actions {
     display: flex;
     align-items: center;
@@ -59,4 +64,11 @@
 
 .book-actions a:last-child {
     color: var(--color-red);
+}
+
+@media (max-width: 768px) {
+    .library-table__cover {
+        width: 79px;
+        height: 79px;
+    }
 }

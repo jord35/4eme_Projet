@@ -97,3 +97,18 @@
         color: var(--color-gray-text);
     }
 }
+
+@media (max-width: 768px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fit, 160px);
+    }
+
+    .book-card {
+        width: 160px;
+        height: 284px;
+
+        &__cover {
+            height: 160px;
+        }
+    }
+}

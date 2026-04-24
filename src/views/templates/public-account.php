@@ -106,10 +106,17 @@ $currentUserId = (int) ($_SESSION['user_id'] ?? 0);
                                         <tr>
                                             <td>
                                                 <img
+                                                    class="library-table__cover"
                                                     src="<?= htmlspecialchars($bookCoverSrc, ENT_QUOTES, 'UTF-8') ?>"
+                                                    <?php if (!empty($book['cover']['srcset']) && $bookCoverSrc !== $fallbackBookCover): ?>
+                                                    srcset="<?= htmlspecialchars((string) $book['cover']['srcset'], ENT_QUOTES, 'UTF-8') ?>"
+                                                    <?php endif; ?>
+                                                    <?php if (!empty($book['cover']['sizes']) && $bookCoverSrc !== $fallbackBookCover): ?>
+                                                    sizes="<?= htmlspecialchars((string) $book['cover']['sizes'], ENT_QUOTES, 'UTF-8') ?>"
+                                                    <?php endif; ?>
                                                     alt="<?= htmlspecialchars($bookCoverAlt, ENT_QUOTES, 'UTF-8') ?>"
-                                                    width="78"
-                                                    height="78"
+                                                    width="<?= (int) ($book['cover']['width'] ?? 78) ?>"
+                                                    height="<?= (int) ($book['cover']['height'] ?? 78) ?>"
                                                     onerror="this.onerror=null;this.src='<?= htmlspecialchars($fallbackBookCover, ENT_QUOTES, 'UTF-8') ?>';">
                                             </td>
 

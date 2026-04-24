@@ -46,7 +46,7 @@
 
     &__layout {
         display: grid;
-        grid-template-columns: 352px 1fr;
+        grid-template-columns: 488px 1fr;
         column-gap: 70px;
         align-items: start;
     }
@@ -73,7 +73,7 @@
     &__image {
         display: block;
         width: 100%;
-        height: 473px;
+        height: 488px;
         border-radius: 0;
         object-fit: cover;
     }
@@ -145,5 +145,22 @@
     &__submit {
         min-width: 188px;
         min-height: var(--control-height-default);
+    }
+}
+
+@media (max-width: 768px) {
+    .book-edit-form {
+        &__layout {
+            grid-template-columns: 1fr;
+            row-gap: 32px;
+        }
+
+        &__media-block {
+            max-width: 335px;
+        }
+
+        &__image {
+            height: 335px;
+        }
     }
 }
