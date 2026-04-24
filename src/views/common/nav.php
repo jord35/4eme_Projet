@@ -58,7 +58,7 @@ $messageCountSuffix = $globalUnreadMessageCount > 1 ? 's' : '';
 
 					<?php if ($currentUsername !== ''): ?>
 						<li class="site-header__item">
-							<span class="site-header__username" aria-label="Utilisateur connecté">
+							<span class="site-header__username" id="site-header-username" aria-label="Utilisateur connecté">
 								<?= htmlspecialchars($currentUsername, ENT_QUOTES, 'UTF-8') ?>
 							</span>
 						</li>

@@ -35,6 +35,7 @@ $profileImageAlt = $username !== ''
                         <img
                             class="account-profile-card__image editable-media__preview"
                             id="profile-image-preview"
+                            data-fallback-src="<?= htmlspecialchars($fallbackProfilePicture, ENT_QUOTES, 'UTF-8') ?>"
                             src="<?= htmlspecialchars($profileImageSrc, ENT_QUOTES, 'UTF-8') ?>"
                             <?php if (!empty($profilePicture['srcset']) && $profileImageSrc !== $fallbackProfilePicture): ?>
                             srcset="<?= htmlspecialchars((string) $profilePicture['srcset'], ENT_QUOTES, 'UTF-8') ?>"
@@ -59,7 +60,7 @@ $profileImageAlt = $username !== ''
                     </div>
 
                     <div class="account-profile-card__content">
-                        <h2 class="account-profile-card__name"><?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?></h2>
+                        <h2 class="account-profile-card__name" id="my-account-profile-name"><?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?></h2>
 
                         <p class="account-profile-card__meta">
                             Membre depuis

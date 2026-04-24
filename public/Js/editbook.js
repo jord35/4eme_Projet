@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    let previewObjectUrl = null;
-
     function showMessage(message, type = 'success') {
         if (!messageBox) {
             return;
@@ -31,52 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updatePreviewFromServer(coverPicture) {
-        if (!coverPicture) {
-            return;
-        }
-
-        preview.src = coverPicture.src || '';
-
-        if (coverPicture.srcset) {
-            preview.setAttribute('srcset', coverPicture.srcset);
-        } else {
-            preview.removeAttribute('srcset');
-        }
-
-        if (coverPicture.sizes) {
-            preview.setAttribute('sizes', coverPicture.sizes);
-        } else {
-            preview.removeAttribute('sizes');
-        }
-
-        preview.alt = coverPicture.alt || 'Aperçu de la couverture';
-        preview.width = Number(coverPicture.width || 220);
-        preview.height = Number(coverPicture.height || 320);
-        preview.style.display = 'block';
-    }
-
-    if (pictureInput) {
-        pictureInput.addEventListener('change', () => {
-            const file = pictureInput.files?.[0];
-
-            clearMessage();
-
-            if (!file) {
-                return;
-            }
-
-            if (previewObjectUrl) {
-                URL.revokeObjectURL(previewObjectUrl);
-            }
-
-            previewObjectUrl = URL.createObjectURL(file);
-            preview.src = previewObjectUrl;
-            preview.style.display = 'block';
-            preview.removeAttribute('srcset');
-            preview.removeAttribute('sizes');
-            preview.alt = "Aperçu local de l'image sélectionnée";
+        applyResponsiveImageData(preview, coverPicture, {
+            fallbackAlt: 'Aperçu de la couverture',
+            defaultWidth: 220,
+            defaultHeight: 320
         });
     }
+
+    const localPreview = bindImagePreview({
+        input: pictureInput,
+        preview,
+        onBeforeChange: clearMessage,
+        localAlt: "Aperçu local de l'image sélectionnée"
+    });
 
     initFormAjax(
         'edit-book-form',
@@ -107,10 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updatePreviewFromServer(coverPicture);
             }
 
-            if (previewObjectUrl) {
-                URL.revokeObjectURL(previewObjectUrl);
-                previewObjectUrl = null;
-            }
+            localPreview.release();
 
             showMessage(data.data?.message || 'Livre enregistré avec succès.', 'success');
         },

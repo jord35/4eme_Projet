@@ -35,18 +35,7 @@ class AccountService
             ];
         }
 
-        $profilePicture = null;
-
-        if (!empty($profileResult['profile_picture_id'])) {
-            $pictureResult = $this->pictureHelper->getPicturePackage(
-                (int) $profileResult['profile_picture_id'],
-                'profile'
-            );
-
-            if ($pictureResult['success'] === true) {
-                $profilePicture = $pictureResult['data'];
-            }
-        }
+        $profilePicture = $this->getProfilePictureData($profileResult);
 
         $booksResult = $this->bookHelper->getOwnedBooksForLibrary($userId);
 
@@ -82,13 +71,7 @@ class AccountService
             'success' => true,
             'error' => null,
             'data' => [
-                'profile' => [
-                    'id' => (int) $profileResult['id'],
-                    'username' => (string) $profileResult['username'],
-                    'email' => (string) $profileResult['email'],
-                    'created_at' => (string) $profileResult['created_at'],
-                    'books_count' => (int) $profileResult['books_count']
-                ],
+                'profile' => $this->buildProfileData($profileResult),
                 'profilePicture' => $profilePicture,
                 'libraryBooks' => $libraryBooks
             ]
@@ -177,12 +160,56 @@ class AccountService
             $this->pictureHelper->deletePicturePackageIfUnused($oldProfilePictureId);
         }
 
+        $updatedProfile = $this->userManager->findProfileByUserId($userId);
+
+        if ($updatedProfile === null) {
+            return [
+                'success' => false,
+                'error' => 'User not found.',
+                'data' => null
+            ];
+        }
+
+        $_SESSION['username'] = (string) $updatedProfile['username'];
+
         return [
             'success' => true,
             'error' => null,
             'data' => [
-                'message' => 'Profil mis à jour.'
+                'message' => 'Profil mis à jour.',
+                'profile' => $this->buildProfileData($updatedProfile),
+                'profilePicture' => $this->getProfilePictureData($updatedProfile),
+                'passwordUpdated' => $password !== ''
             ]
         ];
+    }
+
+    private function buildProfileData(array $profileResult): array
+    {
+        return [
+            'id' => (int) $profileResult['id'],
+            'username' => (string) $profileResult['username'],
+            'email' => (string) $profileResult['email'],
+            'created_at' => (string) $profileResult['created_at'],
+            'books_count' => (int) $profileResult['books_count']
+        ];
+    }
+
+    private function getProfilePictureData(array $profileResult): ?array
+    {
+        if (empty($profileResult['profile_picture_id'])) {
+            return null;
+        }
+
+        $pictureResult = $this->pictureHelper->getPicturePackage(
+            (int) $profileResult['profile_picture_id'],
+            'profile'
+        );
+
+        if ($pictureResult['success'] !== true) {
+            return null;
+        }
+
+        return $pictureResult['data'];
     }
 }

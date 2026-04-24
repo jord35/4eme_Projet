@@ -84,6 +84,118 @@ function createPoller({
     };
 }
 
+function applyResponsiveImageData(
+    image,
+    picture,
+    {
+        fallbackSrc = '',
+        fallbackAlt = '',
+        defaultWidth = 0,
+        defaultHeight = 0
+    } = {}
+) {
+    if (!image) {
+        return;
+    }
+
+    if (!picture || !picture.src) {
+        if (fallbackSrc !== '') {
+            image.src = fallbackSrc;
+        }
+
+        image.removeAttribute('srcset');
+        image.removeAttribute('sizes');
+
+        if (fallbackAlt !== '') {
+            image.alt = fallbackAlt;
+        }
+
+        if (defaultWidth > 0) {
+            image.width = Number(defaultWidth);
+        }
+
+        if (defaultHeight > 0) {
+            image.height = Number(defaultHeight);
+        }
+
+        image.style.display = 'block';
+        return;
+    }
+
+    image.src = picture.src || fallbackSrc || '';
+
+    if (picture.srcset) {
+        image.setAttribute('srcset', picture.srcset);
+    } else {
+        image.removeAttribute('srcset');
+    }
+
+    if (picture.sizes) {
+        image.setAttribute('sizes', picture.sizes);
+    } else {
+        image.removeAttribute('sizes');
+    }
+
+    image.alt = picture.alt || fallbackAlt || image.alt || '';
+
+    if (picture.width || defaultWidth > 0) {
+        image.width = Number(picture.width || defaultWidth);
+    }
+
+    if (picture.height || defaultHeight > 0) {
+        image.height = Number(picture.height || defaultHeight);
+    }
+
+    image.style.display = 'block';
+}
+
+function bindImagePreview({
+    input,
+    preview,
+    onBeforeChange = () => { },
+    localAlt = "Aperçu local de l'image sélectionnée"
+}) {
+    if (!input || !preview) {
+        return {
+            release() { }
+        };
+    }
+
+    let previewObjectUrl = null;
+
+    input.addEventListener('change', () => {
+        const file = input.files?.[0];
+
+        onBeforeChange();
+
+        if (!file) {
+            return;
+        }
+
+        if (previewObjectUrl) {
+            URL.revokeObjectURL(previewObjectUrl);
+        }
+
+        previewObjectUrl = URL.createObjectURL(file);
+        preview.src = previewObjectUrl;
+        preview.removeAttribute('srcset');
+        preview.removeAttribute('sizes');
+        preview.alt = localAlt;
+        preview.style.display = 'block';
+    });
+
+    return {
+        release() {
+            if (!previewObjectUrl) {
+                return;
+            }
+
+            URL.revokeObjectURL(previewObjectUrl);
+            previewObjectUrl = null;
+        }
+    };
+}
+
 function initFormAjax(
     formId,
     onSuccess,
