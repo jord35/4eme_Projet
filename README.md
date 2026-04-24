@@ -130,7 +130,11 @@ Valeurs actuelles du projet :
 
 Le front controller du projet est [public/index.php](public/index.php).
 
-Le dossier `public` doit donc être utilisé comme racine web si vous passez par Apache ou un autre serveur local.
+Un fichier [.htaccess](e:/openclassrooms_FStack/4eme_Projet/.htaccess) est présent à la racine pour rediriger automatiquement vers `public/` si le projet est lancé avec Apache depuis la racine du dépôt.
+
+En pratique, vous pouvez donc placer directement le dossier du projet dans votre serveur local et ouvrir la racine du projet dans le navigateur.
+
+Si la redirection ne fonctionne pas, vérifiez que le module de réécriture Apache est activé et que les fichiers `.htaccess` sont autorisés par la configuration du serveur.
 
 
 ### 6. Gestion des fichiers uploadés
