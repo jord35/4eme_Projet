@@ -1,8 +1,13 @@
 # Sprint 3 - Finalisation
 
-- [ ] Intégration CSS _______Première partie terminée, il ne reste plus qu'à faire les derniers petits détails.
-- [ ] Amélioration de l'accessibilité _ 
-- [ ] Vérifications Lighthouse
+- [x] Fix du flou des images et vérification de la logique de génération / sélection des variantes.
+- [ ] Implémentation du tri par titre sur la page books.
+- [ ] Remplacement des fausses données par des données crédibles de démonstration.
+- [ ] Vérification point par point, sur les différentes pages, de ce qui relève réellement du layout commun parmi les éléments notés comme `layout potentiel`, et de ce qui doit rester spécifique à chaque page.
+- [ ] Passe layout pour coller finement à la maquette avec les vraies données.
+- [ ] Derniers correctifs ciblés page par page.
+- [ ] Amélioration de l'accessibilité.
+- [ ] Vérifications Lighthouse.
 - [ ] Micro-optimisations
 - [ ] QA finale
 
@@ -13,4 +18,4 @@ Suivi commits :
 - Ajout des fichiers de configuration locale pour simplifier le lancement sous Apache.
 
 Objectif :
-Finaliser l'expérience utilisateur et la qualité globale du projet afin d'obtenir une application propre, fluide, cohérente et prête à être présentée.
+Finaliser l'expérience utilisateur et la qualité globale du projet afin d'obtenir une application propre, fluide, cohérente, crédible en démonstration et prête à être présentée.

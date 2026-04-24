@@ -312,7 +312,7 @@ class PictureManager extends AbstractEntityManager
     private function buildSizesByContext(string $context): string
     {
         return match ($context) {
-            'profile' => '(max-width: 768px) 48px, 100px',
+            'profile' => '(max-width: 768px) 48px, 135px',
             'book_card' => '(max-width: 768px) 160px, 240px',
             'book_table' => '(max-width: 768px) 78px, 96px',
             'book_detail' => '(max-width: 768px) 320px, 720px',

@@ -116,6 +116,7 @@ class PictureVariantManager extends AbstractEntityManager
         $definitions = $this->getVariantDefinitions($variantType);
         $savedVariants = [];
         $errors = [];
+        $generatedDimensionKeys = [];
 
         foreach ($definitions as $definition) {
             $generated = $this->generateVariantFile(
@@ -127,12 +128,20 @@ class PictureVariantManager extends AbstractEntityManager
             if ($generated['success'] === false) {
                 $errors[] = [
                     'device' => $definition['device'],
-                    'width' => (int) $definition['width'],
+                    'width' => (int) ($definition['target_size'] ?? 0),
                     'format' => (string) $definition['format'],
                     'error' => $generated['error'] ?? 'Variant generation failed.'
                 ];
                 continue;
             }
+
+            $dimensionKey = $generated['width'] . 'x' . $generated['height'];
+
+            if (isset($generatedDimensionKeys[$dimensionKey])) {
+                continue;
+            }
+
+            $generatedDimensionKeys[$dimensionKey] = true;
 
             $variant = new PictureVariant([
                 'picture_id' => $pictureId,
@@ -216,27 +225,27 @@ class PictureVariantManager extends AbstractEntityManager
     {
         return match ($variantType) {
             'profile' => [
-                ['width' => 48, 'device' => 'mobile', 'format' => 'webp'],
-                ['width' => 100, 'device' => 'desktop', 'format' => 'webp'],
+                ['target_size' => 48, 'resize_mode' => 'min_side', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_size' => 135, 'resize_mode' => 'min_side', 'device' => 'desktop', 'format' => 'webp'],
             ],
             'book_card' => [
-                ['width' => 160, 'device' => 'mobile', 'format' => 'webp'],
-                ['width' => 240, 'device' => 'desktop', 'format' => 'webp'],
+                ['target_size' => 160, 'resize_mode' => 'width', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_size' => 240, 'resize_mode' => 'width', 'device' => 'desktop', 'format' => 'webp'],
             ],
             'book_table' => [
-                ['width' => 78, 'device' => 'mobile', 'format' => 'webp'],
-                ['width' => 96, 'device' => 'desktop', 'format' => 'webp'],
+                ['target_size' => 78, 'resize_mode' => 'width', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_size' => 96, 'resize_mode' => 'width', 'device' => 'desktop', 'format' => 'webp'],
             ],
             'book_detail' => [
-                ['width' => 320, 'device' => 'mobile', 'format' => 'webp'],
-                ['width' => 720, 'device' => 'desktop', 'format' => 'webp'],
+                ['target_size' => 320, 'resize_mode' => 'width', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_size' => 720, 'resize_mode' => 'width', 'device' => 'desktop', 'format' => 'webp'],
             ],
             'cover' => [
-                ['width' => 375, 'device' => 'mobile', 'format' => 'webp'],
-                ['width' => 1042, 'device' => 'desktop', 'format' => 'webp'],
+                ['target_size' => 375, 'resize_mode' => 'width', 'device' => 'mobile', 'format' => 'webp'],
+                ['target_size' => 1042, 'resize_mode' => 'width', 'device' => 'desktop', 'format' => 'webp'],
             ],
             default => [
-                ['width' => 320, 'device' => 'all', 'format' => 'webp'],
+                ['target_size' => 320, 'resize_mode' => 'width', 'device' => 'all', 'format' => 'webp'],
             ],
         };
     }
@@ -263,6 +272,15 @@ class PictureVariantManager extends AbstractEntityManager
         $sourceWidth = $sourceInfo[0];
         $sourceHeight = $sourceInfo[1];
         $mimeType = $sourceInfo['mime'];
+        $targetSize = (int) ($definition['target_size'] ?? 0);
+        $resizeMode = (string) ($definition['resize_mode'] ?? 'width');
+
+        if ($targetSize <= 0) {
+            return [
+                'success' => false,
+                'error' => 'Invalid target size.'
+            ];
+        }
 
         $sourceImage = $this->createImageResource($originalFullPath, $mimeType);
 
@@ -273,8 +291,15 @@ class PictureVariantManager extends AbstractEntityManager
             ];
         }
 
-        $targetWidth = (int) $definition['width'];
-        $targetHeight = (int) round(($sourceHeight / $sourceWidth) * $targetWidth);
+        $dimensions = $this->resolveTargetDimensions(
+            $sourceWidth,
+            $sourceHeight,
+            $targetSize,
+            $resizeMode
+        );
+
+        $targetWidth = $dimensions['width'];
+        $targetHeight = $dimensions['height'];
 
         $targetImage = imagecreatetruecolor($targetWidth, $targetHeight);
 
@@ -301,7 +326,7 @@ class PictureVariantManager extends AbstractEntityManager
             mkdir($absoluteDirectory, 0777, true);
         }
 
-        $filename = 'picture_' . $pictureId . '_' . $definition['device'] . '_' . $targetWidth . '.webp';
+        $filename = 'picture_' . $pictureId . '_' . $definition['device'] . '_' . $targetWidth . 'x' . $targetHeight . '.webp';
         $fullPath = $absoluteDirectory . $filename;
         $relativePath = $relativeDirectory . $filename;
 
@@ -323,6 +348,39 @@ class PictureVariantManager extends AbstractEntityManager
             'full_path' => $fullPath,
             'width' => $targetWidth,
             'height' => $targetHeight
+        ];
+    }
+
+    private function resolveTargetDimensions(int $sourceWidth, int $sourceHeight, int $targetSize, string $resizeMode): array
+    {
+        if ($resizeMode === 'min_side') {
+            $smallestSide = min($sourceWidth, $sourceHeight);
+
+            if ($smallestSide <= $targetSize) {
+                return [
+                    'width' => $sourceWidth,
+                    'height' => $sourceHeight,
+                ];
+            }
+
+            $scale = $targetSize / $smallestSide;
+
+            return [
+                'width' => max(1, (int) round($sourceWidth * $scale)),
+                'height' => max(1, (int) round($sourceHeight * $scale)),
+            ];
+        }
+
+        if ($sourceWidth <= $targetSize) {
+            return [
+                'width' => $sourceWidth,
+                'height' => $sourceHeight,
+            ];
+        }
+
+        return [
+            'width' => $targetSize,
+            'height' => max(1, (int) round(($sourceHeight / $sourceWidth) * $targetSize)),
         ];
     }
 
