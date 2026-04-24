@@ -44,9 +44,10 @@ class BookHelper
         ];
     }
 
-    public function getBooksForGrid(): array
+    public function getBooksForGrid(?string $search = null): array
     {
-        $books = $this->bookManager->findAllForGrid();
+        $normalizedSearch = $search !== null ? trim($search) : null;
+        $books = $this->bookManager->findAllForGrid($normalizedSearch !== '' ? $normalizedSearch : null);
 
         return $this->buildGridBooksResponse($books);
     }

@@ -21,13 +21,17 @@
                         id="books-search"
                         name="search"
                         placeholder="Rechercher un livre"
-                        value="<?= htmlspecialchars((string) ($_GET['search'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
+                        value="<?= htmlspecialchars((string) ($search ?? ''), ENT_QUOTES, 'UTF-8') ?>">
                 </div>
             </form>
         </header>
 
         <?php if (empty($bookCards)): ?>
-            <p class="books-page__empty">Aucun livre n'est disponible pour le moment.</p>
+            <p class="books-page__empty">
+                <?= !empty($search)
+                    ? 'Aucun livre ne correspond a votre recherche.'
+                    : "Aucun livre n'est disponible pour le moment." ?>
+            </p>
         <?php else: ?>
             <div class="books-page__grid books-grid">
                 <?php foreach ($bookCards as $bookCard): ?>

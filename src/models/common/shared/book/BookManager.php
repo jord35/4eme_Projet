@@ -34,7 +34,7 @@ class BookManager extends AbstractEntityManager
 
         return new Book($data);
     }
-    private function findForGrid(?int $limit = null): array
+    private function findForGrid(?int $limit = null, ?string $search = null): array
     {
         $sql = '
             SELECT
@@ -47,22 +47,41 @@ class BookManager extends AbstractEntityManager
                 b.is_available
             FROM books b
             INNER JOIN users u ON u.id = b.owner_user_id
+        ';
+
+        $params = null;
+
+        if ($search !== null && trim($search) !== '') {
+            $sql .= '
+            WHERE b.title LIKE :search
+        ';
+
+            $params = [
+                'search' => trim($search) . '%'
+            ];
+
+            $sql .= '
+            ORDER BY b.title ASC, b.created_at DESC
+        ';
+        } else {
+            $sql .= '
             ORDER BY b.created_at DESC
         ';
+        }
 
         if ($limit !== null) {
             $sql .= ' LIMIT ' . (int) $limit;
         }
 
-        $stmt = $this->db->query($sql);
+        $stmt = $this->db->query($sql, $params);
         $rows = $stmt->fetchAll();
 
         return $rows ?: [];
     }
 
-    public function findAllForGrid(): array
+    public function findAllForGrid(?string $search = null): array
     {
-        return $this->findForGrid();
+        return $this->findForGrid(null, $search);
     }
 
     public function findRecentBooksForGrid(int $limit): array

@@ -28,7 +28,9 @@ class BooksController extends AbstractController
             return;
         }
 
-        $booksResult = $this->bookHelper->getBooksForGrid();
+        $search = trim((string) ($_GET['search'] ?? ''));
+
+        $booksResult = $this->bookHelper->getBooksForGrid($search !== '' ? $search : null);
 
         if ($booksResult['success'] === false) {
             http_response_code(500);
@@ -76,7 +78,8 @@ class BooksController extends AbstractController
 
         $view = new View('Livres');
         $view->render('books', [
-            'bookCards' => $bookCards
+            'bookCards' => $bookCards,
+            'search' => $search,
         ]);
     }
 }
