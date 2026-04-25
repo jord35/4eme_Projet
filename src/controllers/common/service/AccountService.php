@@ -184,6 +184,53 @@ class AccountService
         ];
     }
 
+    public function deleteBook(int $bookId): array
+    {
+        $authResult = $this->authenticationService->requireUserId();
+
+        if ($authResult['success'] === false) {
+            return $authResult;
+        }
+
+        if ($bookId <= 0) {
+            return [
+                'success' => false,
+                'error' => 'Invalid book id.',
+                'data' => null
+            ];
+        }
+
+        $userId = $authResult['data']['user_id'];
+
+        $bookResult = $this->bookHelper->getOwnedBook($bookId, $userId);
+
+        if ($bookResult['success'] === false) {
+            return $bookResult;
+        }
+
+        /** @var Book $book */
+        $book = $bookResult['data'];
+        $coverPictureId = $book->getCoverPictureId();
+
+        $deleteResult = $this->bookHelper->deleteBook($bookId, $userId);
+
+        if ($deleteResult['success'] === false) {
+            return $deleteResult;
+        }
+
+        if ($coverPictureId !== null) {
+            $this->pictureHelper->deletePicturePackageIfUnused((int) $coverPictureId);
+        }
+
+        return [
+            'success' => true,
+            'error' => null,
+            'data' => [
+                'message' => 'Livre supprimé.'
+            ]
+        ];
+    }
+
     private function buildProfileData(array $profileResult): array
     {
         return [

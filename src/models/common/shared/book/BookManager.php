@@ -163,6 +163,29 @@ class BookManager extends AbstractEntityManager
 
         return $existingBook instanceof Book;
     }
+
+    public function deleteOwnedBookById(int $bookId, int $ownerUserId): bool
+    {
+        $sql = '
+            DELETE FROM books
+            WHERE id = :id
+              AND owner_user_id = :owner_user_id
+        ';
+
+        $stmt = $this->db->query($sql, [
+            'id' => $bookId,
+            'owner_user_id' => $ownerUserId
+        ]);
+
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+
+        $existingBook = $this->findOwnedBookById($bookId, $ownerUserId);
+
+        return $existingBook === null;
+    }
+
     public function findOwnedBooksByUserId(int $ownerUserId): array
     {
         $sql = '

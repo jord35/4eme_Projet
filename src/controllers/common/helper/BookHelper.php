@@ -191,6 +191,42 @@ class BookHelper
             'data' => $book
         ];
     }
+
+    public function deleteBook(int $bookId, int $ownerUserId): array
+    {
+        if ($bookId <= 0) {
+            return [
+                'success' => false,
+                'error' => 'Invalid book id.',
+                'data' => null
+            ];
+        }
+
+        if ($ownerUserId <= 0) {
+            return [
+                'success' => false,
+                'error' => 'Invalid owner user id.',
+                'data' => null
+            ];
+        }
+
+        $deleted = $this->bookManager->deleteOwnedBookById($bookId, $ownerUserId);
+
+        if ($deleted === false) {
+            return [
+                'success' => false,
+                'error' => 'Book deletion failed.',
+                'data' => null
+            ];
+        }
+
+        return [
+            'success' => true,
+            'error' => null,
+            'data' => null
+        ];
+    }
+
     public function getOwnedBooksForLibrary(int $ownerUserId): array
     {
         if ($ownerUserId <= 0) {

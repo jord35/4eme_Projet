@@ -193,8 +193,24 @@ $profileImageAlt = $username !== ''
 
                                     <td class="account-library__cell">
                                         <div class="account-library__actions book-actions">
-                                            <a class="account-library__action-link link-action" href="/?action=edit-book&id=<?= (int) $book['id'] ?>">Éditer</a>
-                                            <a class="account-library__action-link account-library__action-link--danger link-action link-action--destructive" href="/?action=delete-book&id=<?= (int) $book['id'] ?>">Supprimer</a>
+                                            <a
+                                                class="account-library__action-link link-action"
+                                                href="/?action=edit-book&id=<?= (int) $book['id'] ?>">
+                                                Éditer
+                                            </a>
+
+                                            <form
+                                                method="post"
+                                                action="/?action=my-account"
+                                                onsubmit="return confirm('Supprimer ce livre ?');">
+                                                <input type="hidden" name="form_action" value="delete_book">
+                                                <input type="hidden" name="id" value="<?= (int) $book['id'] ?>">
+                                                <button
+                                                    class="account-library__action-link account-library__action-link--danger link-action link-action--destructive"
+                                                    type="submit">
+                                                    Supprimer
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -204,7 +220,3 @@ $profileImageAlt = $username !== ''
                 </div>
             <?php endif; ?>
         </div>
-    </div>
-</section>
-
-<script src="/js/my-account.js"></script>

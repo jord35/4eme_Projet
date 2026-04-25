@@ -61,10 +61,17 @@ class MyAccountController extends AbstractController
             return;
         }
 
-        $updateResult = $this->accountService->updateProfile($_POST, $_FILES);
+        $formAction = trim((string) ($_POST['form_action'] ?? 'update_profile'));
 
-        if ($updateResult['success'] === false) {
-            $this->handleError($updateResult['error']);
+        if ($formAction === 'delete_book') {
+            $bookId = isset($_POST['id']) ? (int) $_POST['id'] : 0;
+            $actionResult = $this->accountService->deleteBook($bookId);
+        } else {
+            $actionResult = $this->accountService->updateProfile($_POST, $_FILES);
+        }
+
+        if ($actionResult['success'] === false) {
+            $this->handleError($actionResult['error']);
             return;
         }
 
@@ -72,7 +79,7 @@ class MyAccountController extends AbstractController
             $this->renderJson([
                 'success' => true,
                 'error' => null,
-                'data' => $updateResult['data']
+                'data' => $actionResult['data']
             ]);
         }
 
@@ -89,12 +96,18 @@ class MyAccountController extends AbstractController
         } elseif ($error === 'User not found.') {
             $statusCode = 404;
         } elseif (
+            $error === 'Invalid book id.' ||
+            $error === 'Book not found or access denied.'
+        ) {
+            $statusCode = 404;
+        } elseif (
             $error === 'Invalid username.' ||
             $error === 'Invalid email.' ||
             $error === 'Invalid password.' ||
             $error === 'Username already used.' ||
             $error === 'Email already used.' ||
             $error === 'Profile update failed.' ||
+            $error === 'Book deletion failed.' ||
             $error === 'Unsupported image format.' ||
             $error === 'Upload failed.' ||
             $error === 'Invalid uploaded file.'
