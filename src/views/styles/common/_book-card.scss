@@ -1,14 +1,14 @@
 .books-grid {
     display: grid;
     grid-template-columns: repeat(4, 200px);
-    gap: var(--space-md);
+    gap: 38px;
     justify-content: center;
 }
 
 .book-card {
     width: 200px;
     height: 324px;
-    min-width: 0;
+    min-width: 160px;
     background-color: var(--color-white);
 
     &__link {
@@ -55,12 +55,17 @@
 
     &__status {
         position: absolute;
-        top: 12px;
-        right: 12px;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
+        top: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 72px;
+        height: 19px;
+        border-radius: 30px;
         background-color: var(--color-red);
+        font-size: 10px;
+        color: var(--color-white);
     }
 
     &__body {

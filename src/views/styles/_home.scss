@@ -1,17 +1,16 @@
 .home-hero {
-    padding-block: 72px 64px;
+    padding-block: 80px 128px;
 
     &__inner {
-        display: grid;
-        grid-template-columns: 1fr 404px;
+        display: flex;
         align-items: center;
-        column-gap: 96px;
+        justify-content: center;
+        gap: 102px;
         min-height: 520px;
-        padding-inline: var(--layout-content-inset);
     }
 
     &__content {
-        max-width: 390px;
+        max-width: 310px;
     }
 
     &__title {
@@ -21,8 +20,8 @@
     }
 
     &__text {
-        margin-bottom: 32px;
-        color: var(--color-gray-text);
+        margin-bottom: 40px;
+        color: var(--color-gray-dark);
         font-size: var(--font-size-body);
         line-height: var(--line-height-body);
     }
@@ -31,8 +30,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 153px;
-        min-height: 48px;
+        min-width: 152px;
+        min-height: 63px;
         padding: 0 24px;
         border-radius: var(--radius-sm);
         background-color: var(--color-green-primary);
@@ -49,6 +48,13 @@
     &__media {
         display: flex;
         justify-content: flex-end;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__credit {
+        text-align: right;
+        color: var(--color-gray-text);
     }
 
     &__image {
@@ -60,15 +66,15 @@
 }
 
 .home-latest-books {
-    padding-block: 72px 88px;
-    background-color: #faf8f4;
+    padding-block: 80px 64px;
+    background-color: #faf9f7;
 
     &__inner {
         padding-inline: var(--layout-content-inset);
     }
 
     &__header {
-        margin-bottom: 48px;
+        margin-bottom: 80px;
     }
 
     &__empty {
@@ -76,7 +82,7 @@
     }
 
     &__grid {
-        margin-bottom: 40px;
+        margin-bottom: 48px;
     }
 
     &__footer {
@@ -88,7 +94,7 @@
         align-items: center;
         justify-content: center;
         min-width: 210px;
-        min-height: 48px;
+        height: 63px;
         padding: 0 24px;
         border-radius: var(--radius-sm);
         background-color: var(--color-green-primary);
@@ -104,18 +110,25 @@
 }
 
 .home-how-it-works {
-    padding-block: 88px 96px;
+    padding-block: 80px 96px;
 
     &__inner {
-        padding-inline: var(--layout-content-inset);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-inline: 236px;
     }
 
     &__header {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
         margin-bottom: 48px;
+        max-width: 397px;
     }
 
     &__steps {
-        margin-bottom: 40px;
+        margin-bottom: 48px;
     }
 
     &__footer {
@@ -129,8 +142,9 @@
         min-width: 210px;
         min-height: 48px;
         padding: 0 24px;
-        border: 2px solid #8f59ff;
-        color: var(--color-gray-dark);
+        border: 2px solid #00ac66;
+        border-radius: 10px;
+        color: #00ac66;
         text-decoration: none;
         background-color: transparent;
     }
@@ -160,10 +174,14 @@
 
 .home-values {
     padding-bottom: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
     &__media {
         width: 100%;
-        height: 340px;
+        height: 230px;
         overflow: hidden;
     }
 
@@ -175,16 +193,20 @@
     }
 
     &__inner {
-        padding-inline: var(--layout-content-inset);
+        padding-block: 80px;
+        padding-left: 542px;
     }
 
     &__content {
-        max-width: 520px;
-        margin: 72px auto 0;
+        padding-right: 436px;
+    }
+
+    &__body {
+        max-width: 392px;
     }
 
     &__header {
-        margin-bottom: 24px;
+        margin-bottom: 29px;
     }
 
     &__text {
@@ -195,17 +217,18 @@
     &__signature {
         margin-top: 40px;
         display: flex;
-        flex-direction: column;
         align-items: flex-start;
         gap: 12px;
+        justify-content: space-between;
+
     }
 
     &__signature-text {
-        color: var(--color-gray-dark);
+        color: var(--color-gray-text);
     }
 
     &__signature-icon {
-        width: 80px;
+
         height: auto;
     }
 }

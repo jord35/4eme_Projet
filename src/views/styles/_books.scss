@@ -1,9 +1,9 @@
 .books-page {
-    padding-top: 72px;
+    padding-top: 130px;
     padding-bottom: 96px;
 
     &__inner {
-        padding-inline: var(--layout-content-inset);
+        padding-inline: 263px;
     }
 
     &__header {
@@ -17,6 +17,7 @@
     &__title {
         font-size: 36px;
         line-height: 1.2;
+        font-weight: 400;
     }
 
     &__search-form {
@@ -51,6 +52,7 @@
 
         &::placeholder {
             color: var(--color-gray-text);
+            opacity: 1;
         }
     }
 

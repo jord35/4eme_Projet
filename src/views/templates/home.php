@@ -16,6 +16,8 @@
                 class="home-hero__image"
                 src="/assets/hamza-nouasria-desktop.webp"
                 alt="Personne dans une librairie entourée de livres">
+
+            <p class="home-hero__credit">Hamza</p>
         </div>
     </div>
 </section>
@@ -96,26 +98,29 @@
         <div class="home-values__content">
             <?php
             $sectionHeaderTitle = 'Nos valeurs';
+            $sectionHeaderText = null;
             $sectionHeaderClassName = 'home-values__header';
             $sectionHeaderAlignment = 'left';
             require __DIR__ . '/common/section-header.php';
             ?>
 
-            <p class="home-values__text">
-                Chez Tom Troc, nous mettons l'accent sur le partage, la découverte et la communauté.
-                Nos valeurs sont ancrées dans notre passion pour les livres et notre désir de créer des liens entre les lecteurs.
-            </p>
+            <div class="home-values__body">
+                <p class="home-values__text">
+                    Chez Tom Troc, nous mettons l'accent sur le partage, la découverte et la communauté.
+                    Nos valeurs sont ancrées dans notre passion pour les livres et notre désir de créer des liens entre les lecteurs.
+                </p>
 
-            <p class="home-values__text">
-                Notre association a été fondée avec une conviction profonde :
-                chaque livre mérite d'être lu et partagé.
-            </p>
+                <p class="home-values__text">
+                    Notre association a été fondée avec une conviction profonde :
+                    chaque livre mérite d'être lu et partagé.
+                </p>
 
-            <p class="home-values__text">
-                Nous sommes passionnés par la création d'une plateforme conviviale qui permet aux lecteurs
-                de se connecter, de partager leurs découvertes littéraires et d'échanger des livres
-                qui attendent patiemment sur les étagères.
-            </p>
+                <p class="home-values__text">
+                    Nous sommes passionnés par la création d'une plateforme conviviale qui permet aux lecteurs
+                    de se connecter, de partager leurs découvertes littéraires et d'échanger des livres
+                    qui attendent patiemment sur les étagères.
+                </p>
+            </div>
 
             <div class="home-values__signature">
                 <p class="home-values__signature-text">L’équipe Tom Troc</p>

@@ -9,7 +9,7 @@ html {
 body {
     font-family: var(--font-family-base);
     font-size: var(--font-size-body);
-    font-weight: var(--font-weight-body);
+    /* font-weight: var(--font-weight-body); */
     margin: 0;
     background: var(--color-gray-light);
     color: var(--color-gray-dark);
@@ -28,7 +28,7 @@ body {
     --footer-padding-inline: 22px;
     --font-family-base: 'Inter', sans-serif;
     --font-family-title: 'Playfair Display', serif;
-    --font-size-body: 14px;
+    --font-size-body: 16px;
     --font-weight-body: 400;
     --line-height-body: 1.5;
     --radius-xs: 3px;
@@ -81,10 +81,10 @@ body {
 
 .site-frame--header,
 .site-frame--footer {
-    display: flex;
+    /* display: flex; */
     align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-lg);
+    /* justify-content: space-between; */
+    /* gap: var(--spacing-lg); */
 }
 
 h1,
