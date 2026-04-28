@@ -1,5 +1,5 @@
 .books-page {
-    padding-top: 130px;
+    padding-top: var(--page-padding-top-large);
     padding-bottom: 96px;
 
     &__inner {
@@ -11,11 +11,11 @@
         align-items: center;
         justify-content: space-between;
         gap: 40px;
-        margin-bottom: 48px;
+        margin-bottom: var(--section-gap-lg);
     }
 
     &__title {
-        font-size: 36px;
+        font-size: var(--font-size-page-title-xl);
         line-height: 1.2;
         font-weight: 400;
     }

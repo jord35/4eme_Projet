@@ -22,8 +22,8 @@
         min-height: var(--header-height);
         flex: 1;
         justify-content: space-between;
-        padding-left: 150px;
-        padding-right: 150px;
+        padding-left: var(--layout-content-inset);
+        padding-right: var(--layout-content-inset);
     }
 
     &__left,

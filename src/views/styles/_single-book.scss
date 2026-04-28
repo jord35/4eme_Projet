@@ -5,7 +5,7 @@
     &__breadcrumb {
         width: min(100%, var(--layout-max-width));
         margin: 0 auto;
-        padding: 0px 0px 16px 150px;
+        padding: 0 0 16px var(--layout-content-inset);
         color: var(--color-gray-text);
         font-size: 10px;
         font-weight: 300;
@@ -67,16 +67,16 @@
     }
 
     &__description {
-        margin-bottom: 32px;
+        margin-bottom: var(--section-gap-md);
     }
 
     &__section-title {
         margin-bottom: 16px;
         font-family: var(--font-family-base);
-        font-size: 8px;
+        font-size: var(--font-size-section-label);
         font-weight: 600;
         line-height: 1;
-        letter-spacing: 0.08em;
+        letter-spacing: var(--letter-spacing-section-label);
         text-transform: uppercase;
         color: var(--color-gray-dark);
     }

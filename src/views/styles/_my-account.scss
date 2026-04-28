@@ -1,5 +1,5 @@
 .account-page {
-    padding-top: 90px;
+    padding-top: var(--page-padding-top-medium);
     padding-bottom: var(--page-padding-bottom);
 
     &__inner {
@@ -7,8 +7,8 @@
     }
 
     &__title {
-        margin-bottom: 48px;
-        font-size: 26px;
+        margin-bottom: var(--section-gap-lg);
+        font-size: var(--font-size-page-title-lg);
         line-height: 1.2;
         font-weight: 400;
     }
@@ -94,11 +94,11 @@
     &__library-title {
         margin-bottom: 6px;
         font-family: var(--font-family-base);
-        font-size: 8px;
+        font-size: var(--font-size-section-label);
         font-weight: 600;
         line-height: 1;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: var(--letter-spacing-section-label);
         text-align: center;
         color: var(--color-gray-text);
     }
@@ -134,7 +134,7 @@
     }
 
     &__field {
-        margin-bottom: 32px;
+        margin-bottom: var(--section-gap-md);
     }
 
     &__label {

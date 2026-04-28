@@ -22,6 +22,8 @@ body {
     --layout-section-gap: 0px;
     --layout-content-inset: 150px;
     --page-padding-top: 72px;
+    --page-padding-top-medium: 90px;
+    --page-padding-top-large: 130px;
     --page-padding-bottom: 96px;
     --header-height: 80px;
     --footer-padding-block: 23px;
@@ -29,8 +31,12 @@ body {
     --font-family-base: 'Inter', sans-serif;
     --font-family-title: 'Playfair Display', serif;
     --font-size-body: 16px;
+    --font-size-page-title-lg: 26px;
+    --font-size-page-title-xl: 36px;
+    --font-size-section-label: 8px;
     --font-weight-body: 400;
     --line-height-body: 1.5;
+    --letter-spacing-section-label: 0.08em;
     --radius-xs: 3px;
     --radius-sm: 8px;
     --radius-md: 10px;
@@ -55,6 +61,8 @@ body {
     --space-lg: 48px;
     --space-xl: 80px;
     --space-2xl: 128px;
+    --section-gap-md: 32px;
+    --section-gap-lg: 48px;
     --spacing-xs: var(--space-xs);
     --spacing-sm: var(--space-sm);
     --spacing-md: var(--space-md);

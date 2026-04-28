@@ -28,7 +28,7 @@
 
     &__title {
         margin-bottom: 23px;
-        font-size: 26px;
+        font-size: var(--font-size-page-title-lg);
         line-height: 1.15;
         font-weight: 400;
     }
@@ -97,10 +97,10 @@
     }
 
     &__field {
-        margin-bottom: 32px;
+        margin-bottom: var(--section-gap-md);
 
         &--availability {
-            margin-bottom: 32px;
+            margin-bottom: var(--section-gap-md);
             min-width: 0;
         }
     }
