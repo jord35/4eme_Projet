@@ -1,6 +1,8 @@
 .messages-page {
     min-height: calc(100vh - var(--header-height));
     background-color: var(--color-gray-light);
+    padding-left: 150px;
+    padding-right: 150px;
 
     &__layout {
         display: grid;
@@ -15,16 +17,17 @@
         display: flex;
         flex-direction: column;
         min-height: 0;
-        padding: 40px 0 32px;
+        padding: 55px 43px 0 34px;
         background-color: var(--color-white);
         border-right: 1px solid #f0ece6;
+        min-width: 308px;
     }
 
     &__title {
-        padding-inline: 28px;
-        margin-bottom: 24px;
-        font-size: 36px;
+        margin-bottom: 27px;
+        font-size: 26px;
         line-height: 1.15;
+        font-weight: 400;
     }
 
     &__empty-sidebar {
@@ -33,6 +36,9 @@
     }
 
     &__conversation-list {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
         flex: 1;
         min-height: 0;
         margin: 0;
@@ -53,7 +59,6 @@
         grid-template-columns: 56px 1fr auto;
         align-items: center;
         gap: 14px;
-        padding: 14px 28px;
         text-decoration: none;
     }
 
