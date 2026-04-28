@@ -97,7 +97,7 @@
     }
 
     &__field {
-        margin-bottom: 24px;
+        margin-bottom: 32px;
 
         &--availability {
             margin-bottom: 32px;
@@ -106,7 +106,8 @@
     }
 
     &__input,
-    &__textarea {
+    &__textarea,
+    &__select {
         border: 0;
         background-color: var(--color-surface-field);
         color: var(--color-gray-dark);
@@ -121,32 +122,38 @@
         resize: vertical;
     }
 
-    &__availability-options {
-        display: flex;
-        gap: 24px;
-        flex-wrap: wrap;
+    &__select-wrap {
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            width: 15px;
+            height: 9px;
+            background: url("/assets/Vector%203.svg") center / contain no-repeat;
+            pointer-events: none;
+            transform: translateY(-50%);
+            transition: transform 0.2s ease;
+        }
+
+        &:focus-within::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
     }
 
-    &__availability-option {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--color-gray-dark);
-        font-size: 14px;
+    &__select {
+        min-height: 52px;
+        padding: 0 44px 0 14px;
+        appearance: none;
+        width: 100%;
         cursor: pointer;
     }
 
-    &__radio {
-        accent-color: var(--color-green-primary);
-    }
-
-    &__availability-text {
-        display: inline-block;
-    }
-
     &__submit {
-        min-width: 188px;
-        min-height: var(--control-height-default);
+        min-width: 322px;
+        min-height: 63px;
     }
 }
 

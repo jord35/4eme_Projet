@@ -270,7 +270,7 @@ a {
   background: #edf2f6;
   border: 0;
   border-radius: 6px;
-  color: var(--color-gray-text);
+  color: var(--color-gray-dark);
 }
 
 #login-form .auth-form__input,
@@ -280,7 +280,7 @@ a {
 
 .book-form textarea,
 .form-field textarea {
-  min-height: 180px;
+  min-height: 383px;
   resize: vertical;
 }
 
@@ -1262,13 +1262,13 @@ a {
   padding-top: 2px;
 }
 .book-edit-form__field {
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 .book-edit-form__field--availability {
   margin-bottom: 32px;
   min-width: 0;
 }
-.book-edit-form__input, .book-edit-form__textarea {
+.book-edit-form__input, .book-edit-form__textarea, .book-edit-form__select {
   border: 0;
   background-color: var(--color-surface-field);
   color: var(--color-gray-dark);
@@ -1280,28 +1280,34 @@ a {
   min-height: 204px;
   resize: vertical;
 }
-.book-edit-form__availability-options {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
+.book-edit-form__select-wrap {
+  position: relative;
 }
-.book-edit-form__availability-option {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--color-gray-dark);
-  font-size: 14px;
+.book-edit-form__select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 15px;
+  height: 9px;
+  background: url("/assets/Vector%203.svg") center/contain no-repeat;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+.book-edit-form__select-wrap:focus-within::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+.book-edit-form__select {
+  min-height: 52px;
+  padding: 0 44px 0 14px;
+  appearance: none;
+  width: 100%;
   cursor: pointer;
 }
-.book-edit-form__radio {
-  accent-color: var(--color-green-primary);
-}
-.book-edit-form__availability-text {
-  display: inline-block;
-}
 .book-edit-form__submit {
-  min-width: 188px;
-  min-height: var(--control-height-default);
+  min-width: 322px;
+  min-height: 63px;
 }
 
 @media (max-width: 768px) {

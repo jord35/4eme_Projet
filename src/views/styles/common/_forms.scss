@@ -57,7 +57,7 @@
     background: #edf2f6;
     border: 0;
     border-radius: 6px;
-    color: var(--color-gray-text);
+    color: var(--color-gray-dark);
 }
 
 #login-form .auth-form__input,
@@ -67,7 +67,7 @@
 
 .book-form textarea,
 .form-field textarea {
-    min-height: 180px;
+    min-height: 383px;
     resize: vertical;
 }
 

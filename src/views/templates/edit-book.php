@@ -114,33 +114,18 @@
                                 placeholder="Écris un commentaire détaillé..."><?= htmlspecialchars((string) ($book->getDescription() ?? ''), ENT_QUOTES, 'UTF-8') ?></textarea>
                         </div>
 
-                        <fieldset class="book-edit-form__field book-edit-form__field--availability form-fieldset">
-                            <legend class="book-edit-form__label">Disponibilité</legend>
-
-                            <div class="book-edit-form__availability-options">
-                                <label class="book-edit-form__availability-option" for="available-true">
-                                    <input
-                                        class="book-edit-form__radio"
-                                        type="radio"
-                                        id="available-true"
-                                        name="is_available"
-                                        value="1"
-                                        <?= $book->getIsAvailable() ? 'checked' : '' ?>>
-                                    <span class="book-edit-form__availability-text">Disponible</span>
-                                </label>
-
-                                <label class="book-edit-form__availability-option" for="available-false">
-                                    <input
-                                        class="book-edit-form__radio"
-                                        type="radio"
-                                        id="available-false"
-                                        name="is_available"
-                                        value="0"
-                                        <?= !$book->getIsAvailable() ? 'checked' : '' ?>>
-                                    <span class="book-edit-form__availability-text">Non disponible</span>
-                                </label>
+                        <div class="book-edit-form__field book-edit-form__field--availability form-field">
+                            <label class="book-edit-form__label" for="is_available">Disponibilité</label>
+                            <div class="book-edit-form__select-wrap">
+                                <select
+                                    class="book-edit-form__select"
+                                    id="is_available"
+                                    name="is_available">
+                                    <option value="1" <?= $book->getIsAvailable() ? 'selected' : '' ?>>Disponible</option>
+                                    <option value="0" <?= !$book->getIsAvailable() ? 'selected' : '' ?>>Non disponible</option>
+                                </select>
                             </div>
-                        </fieldset>
+                        </div>
 
                         <button class="book-edit-form__submit button button--primary" type="submit">
                             Valider
