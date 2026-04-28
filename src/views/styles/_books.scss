@@ -1,0 +1,66 @@
+.books-page {
+    padding-top: var(--page-padding-top-large);
+    padding-bottom: 96px;
+
+    &__inner {
+        padding-inline: 16.4375rem;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2.5rem;
+        margin-bottom: var(--section-gap-lg);
+    }
+
+    &__title {
+        font-size: var(--font-size-page-title-xl);
+        line-height: 1.2;
+        font-weight: 400;
+    }
+
+    &__search-form {
+        flex-shrink: 0;
+    }
+
+    &__search-field {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        width: 20.125rem;
+        height: var(--control-height-compact);
+        padding-inline: 1rem;
+        background-color: var(--color-white);
+        border: var(--border-width) solid transparent;
+    }
+
+    &__search-icon {
+        width: 1rem;
+        height: 1rem;
+        flex-shrink: 0;
+        opacity: 0.5;
+    }
+
+    &__search-input {
+        width: 100%;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: var(--color-gray-dark);
+        font-size: 0.875rem;
+
+        &::placeholder {
+            color: var(--color-gray-text);
+            opacity: 1;
+        }
+    }
+
+    &__grid {
+        justify-content: center;
+    }
+
+    &__empty {
+        color: var(--color-gray-text);
+    }
+}

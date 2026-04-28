@@ -1,0 +1,19 @@
+.owner-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    padding: 10px 18px 10px 10px;
+    border-radius: 999px;
+    background-color: var(--color-white);
+    text-decoration: none;
+
+    &__avatar {
+        flex-shrink: 0;
+    }
+
+    &__name {
+        font-size: 14px;
+        color: var(--color-gray-dark);
+    }
+}

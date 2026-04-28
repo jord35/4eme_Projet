@@ -1,0 +1,119 @@
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 200px);
+    gap: 38px;
+    justify-content: center;
+}
+
+.book-card {
+    width: 200px;
+    height: 324px;
+    min-width: 160px;
+    background-color: var(--color-white);
+
+    &__link {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        color: inherit;
+        text-decoration: none;
+        background-color: var(--color-white);
+        transition: opacity 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+            opacity: 0.92;
+        }
+    }
+
+    &__cover {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        background-color: var(--color-surface-muted);
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    &__image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &__placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: var(--color-gray-text);
+        font-size: 12px;
+    }
+
+    &__status {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 72px;
+        height: 19px;
+        border-radius: 30px;
+        background-color: #9f4444;
+        font-size: 10px;
+        color: var(--color-white);
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 20px 14px 23px 14px;
+        background-color: var(--color-white);
+    }
+
+    &__title {
+        margin: 0 0 10px;
+        font-family: var(--font-family-base);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.25;
+        color: var(--color-gray-dark);
+    }
+
+    &__author {
+        margin: 0 0 18px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: var(--color-gray-muted-accessible);
+    }
+
+    &__owner {
+        margin: 0;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 1.4;
+        font-style: italic;
+        color: var(--color-gray-muted-accessible);
+    }
+}
+
+@media (max-width: 768px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fit, 160px);
+    }
+
+    .book-card {
+        width: 160px;
+        height: 284px;
+
+        &__cover {
+            height: 160px;
+        }
+    }
+}

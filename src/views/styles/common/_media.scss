@@ -1,0 +1,60 @@
+.editable-media,
+.book-form-media,
+.my-account-profile-media,
+.public-account-profile-media {
+    display: flex;
+    flex-direction: column;
+}
+
+.editable-media__preview,
+.book-form-media img,
+.my-account-profile-media img,
+.public-account-profile-media img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    object-fit: cover;
+}
+
+.editable-media--avatar .editable-media__preview {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    background-color: var(--color-gray-text);
+}
+
+.editable-media__edit,
+.book-form-media-edit,
+.my-account-profile-edit {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.avatar,
+.avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 999px;
+    object-fit: cover;
+}
+
+.avatar--sm,
+.avatar--sm img {
+    width: 40px;
+    height: 40px;
+}
+
+.avatar--md,
+.avatar--md img {
+    width: 56px;
+    height: 56px;
+}
+
+.avatar--xs,
+.avatar--xs img {
+    width: 28px;
+    height: 28px;
+}

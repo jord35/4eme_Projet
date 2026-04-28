@@ -1,0 +1,155 @@
+.book-form,
+#login-form,
+#signup-form,
+.form-shell {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.25rem;
+}
+
+.book-form-layout,
+.form-layout {
+    display: grid;
+    grid-template-columns: minmax(17.5rem, 22.5rem) minmax(0, 1fr);
+    gap: 7.375rem;
+    align-items: start;
+}
+
+.book-form-infos,
+.my-account-infos,
+.form-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-md);
+}
+
+.book-form-field,
+.my-account-field,
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-form-field label,
+.my-account-field label,
+.form-field label,
+.book-form-field legend,
+.form-field legend {
+    font-size: 0.8125rem;
+    color: var(--color-gray-dark);
+    margin-bottom: 0.625rem;
+    opacity: 0.5;
+}
+
+.book-form input[type='text'],
+.book-form textarea,
+#login-form input,
+#signup-form input,
+.form-field input,
+.form-field textarea,
+.form-field select {
+    width: 100%;
+    min-height: 3.25rem;
+    background: #edf2f6;
+    border: 0;
+    border-radius: 0.375rem;
+    color: var(--color-gray-dark);
+}
+
+#login-form .auth-form__input,
+#signup-form .auth-form__input {
+    border: 0;
+}
+
+.book-form textarea,
+.form-field textarea {
+    min-height: 23.9375rem;
+    resize: vertical;
+}
+
+.book-form input::placeholder,
+.book-form textarea::placeholder,
+#login-form input::placeholder,
+#signup-form input::placeholder,
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: var(--color-gray-text);
+}
+
+.book-form input:focus-visible,
+.book-form textarea:focus-visible,
+#login-form input:focus-visible,
+#signup-form input:focus-visible,
+.form-field input:focus-visible,
+.form-field textarea:focus-visible,
+.form-field select:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-green-secondary);
+    outline-offset: 2px;
+    border-color: var(--color-green-secondary);
+}
+
+.book-form-fieldset,
+.form-fieldset {
+    padding: var(--space-sm);
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-sm);
+}
+
+.book-form-fieldset label,
+.form-fieldset label {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-weight: 400;
+}
+
+.book-form-fieldset input[type='radio'],
+.form-fieldset input[type='radio'] {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    accent-color: var(--color-green-primary);
+}
+
+.form-message {
+    padding: 0.875rem 1rem;
+    border: var(--border-width) solid var(--color-gray-text);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    color: var(--color-gray-dark);
+}
+
+.form-message[data-state='success'],
+.form-message--success {
+    border-color: var(--color-green-primary);
+}
+
+.form-message[data-state='error'],
+.form-message--error {
+    border-color: var(--color-red);
+    color: var(--color-red);
+}
+
+.form-field-message {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-gray-text);
+}
+
+.form-field-message[data-state='success'] {
+    color: var(--color-green-secondary);
+}
+
+.form-field-message[data-state='error'] {
+    color: var(--color-red);
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}

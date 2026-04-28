@@ -1,0 +1,23 @@
+.section-header {
+    text-align: center;
+
+    &--left {
+        text-align: left;
+    }
+
+    &__title {
+        margin-bottom: 12px;
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    &__text {
+        max-width: 520px;
+        margin: 0 auto;
+        color: var(--color-gray-text);
+    }
+
+    &--left &__text {
+        margin: 0;
+    }
+}
