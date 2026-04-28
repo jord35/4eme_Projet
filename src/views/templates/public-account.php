@@ -26,10 +26,10 @@ $currentUserId = (int) ($_SESSION['user_id'] ?? 0);
         <div class="public-account-page__inner site-frame">
             <div class="public-account-page__top">
                 <div class="public-account-page__panel public-account-page__panel--profile">
-                    <div class="public-account-profile-card profile-card">
-                        <div class="public-account-profile-media editable-media editable-media--avatar">
+                    <div class="public-account-profile-card account-profile-card profile-card">
+                        <div class="public-account-profile-media account-profile-card__media editable-media editable-media--avatar">
                             <img
-                                class="public-account-profile-card__image editable-media__preview"
+                                class="public-account-profile-card__image account-profile-card__image editable-media__preview"
                                 id="profile-image-preview"
                                 src="<?= htmlspecialchars($profileImageSrc, ENT_QUOTES, 'UTF-8') ?>"
                                 <?php if (!empty($profilePicture['srcset']) && $profileImageSrc !== $fallbackProfilePicture): ?>
@@ -44,23 +44,23 @@ $currentUserId = (int) ($_SESSION['user_id'] ?? 0);
                                 onerror="this.onerror=null;this.removeAttribute('srcset');this.removeAttribute('sizes');this.src='<?= htmlspecialchars($fallbackProfilePicture, ENT_QUOTES, 'UTF-8') ?>';">
                         </div>
 
-                        <div class="public-account-profile-card__content">
-                            <h2 class="public-account-profile-card__name"><?= htmlspecialchars($profileUsername, ENT_QUOTES, 'UTF-8') ?></h2>
+                        <div class="public-account-profile-card__content account-profile-card__content">
+                            <h2 class="public-account-profile-card__name account-profile-card__name"><?= htmlspecialchars($profileUsername, ENT_QUOTES, 'UTF-8') ?></h2>
 
-                            <p class="public-account-profile-card__meta">
+                            <p class="public-account-profile-card__meta account-profile-card__meta">
                                 Membre depuis
                                 <?= htmlspecialchars($memberSince !== '' ? $memberSince : 'peu de temps', ENT_QUOTES, 'UTF-8') ?>
                             </p>
 
-                            <h3 class="public-account-profile-card__library-title">Bibliothèque</h3>
+                            <h3 class="public-account-profile-card__library-title account-profile-card__library-title">Bibliothèque</h3>
 
-                            <div class="public-account-profile-card__library library-summary">
+                            <div class="public-account-profile-card__library account-profile-card__library library-summary">
                                 <img
-                                    class="public-account-profile-card__library-icon"
+                                    class="public-account-profile-card__library-icon account-profile-card__library-icon"
                                     src="/assets/icon-book.svg"
                                     alt=""
                                     aria-hidden="true">
-                                <p class="public-account-profile-card__library-count">
+                                <p class="public-account-profile-card__library-count account-profile-card__library-count">
                                     <?= $booksCount ?>
                                     <?= $booksCount > 1 ? 'livres' : 'livre' ?>
                                 </p>

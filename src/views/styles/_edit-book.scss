@@ -1,5 +1,5 @@
 .book-edit-page {
-    padding-top: var(--page-padding-top);
+    padding-top: 40px;
     padding-bottom: var(--page-padding-bottom);
 
     &__inner {
@@ -9,11 +9,11 @@
     &__back-link {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        margin-bottom: 24px;
+        gap: 5px;
+        margin-bottom: 23px;
         color: var(--color-gray-text);
         text-decoration: none;
-        font-size: 12px;
+        font-size: 17px;
     }
 
     &__back-icon {
@@ -27,9 +27,10 @@
     }
 
     &__title {
-        margin-bottom: 32px;
-        font-size: 38px;
+        margin-bottom: 23px;
+        font-size: 26px;
         line-height: 1.15;
+        font-weight: 400;
     }
 
     &__message {
@@ -39,7 +40,7 @@
 
 .book-edit-form {
     &__panel {
-        padding: 44px 32px 40px;
+        padding: 56px 50px 68px 50px;
         border: 0;
         border-radius: 20px;
     }
@@ -81,6 +82,7 @@
     &__media-action {
         margin-top: 10px;
         text-align: right;
+        align-self: flex-end;
     }
 
     &__media-link {

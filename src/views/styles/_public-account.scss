@@ -53,7 +53,6 @@
 		width: 100%;
 		max-width: 180px;
 		padding-top: 24px;
-		border-top: var(--border-width) solid var(--color-surface-muted);
 	}
 
 	&__image {
@@ -117,4 +116,5 @@
 
 .message-link {
 	align-self: center;
+	background: #f5f3ef;
 }

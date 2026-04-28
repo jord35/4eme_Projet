@@ -63,7 +63,6 @@ body {
 }
 
 .site-shell {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -218,13 +217,14 @@ a {
 .form-shell {
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .book-form-layout,
 .form-layout {
   display: grid;
   grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
-  gap: var(--space-lg);
+  gap: 118px;
   align-items: start;
 }
 
@@ -1181,7 +1181,7 @@ a {
 }
 
 .book-edit-page {
-  padding-top: var(--page-padding-top);
+  padding-top: 40px;
   padding-bottom: var(--page-padding-bottom);
 }
 .book-edit-page__inner {
@@ -1190,11 +1190,11 @@ a {
 .book-edit-page__back-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 24px;
+  gap: 5px;
+  margin-bottom: 23px;
   color: var(--color-gray-text);
   text-decoration: none;
-  font-size: 12px;
+  font-size: 17px;
 }
 .book-edit-page__back-icon {
   width: 12px;
@@ -1205,16 +1205,17 @@ a {
   display: inline-block;
 }
 .book-edit-page__title {
-  margin-bottom: 32px;
-  font-size: 38px;
+  margin-bottom: 23px;
+  font-size: 26px;
   line-height: 1.15;
+  font-weight: 400;
 }
 .book-edit-page__message {
   margin-bottom: 24px;
 }
 
 .book-edit-form__panel {
-  padding: 44px 32px 40px;
+  padding: 56px 50px 68px 50px;
   border: 0;
   border-radius: 20px;
 }
@@ -1249,6 +1250,7 @@ a {
 .book-edit-form__media-action {
   margin-top: 10px;
   text-align: right;
+  align-self: flex-end;
 }
 .book-edit-form__media-link {
   color: var(--color-gray-dark);
@@ -1804,7 +1806,6 @@ a {
   width: 100%;
   max-width: 180px;
   padding-top: 24px;
-  border-top: var(--border-width) solid var(--color-surface-muted);
 }
 .public-account-profile-card__image {
   display: block;
@@ -1860,6 +1861,7 @@ a {
 
 .message-link {
   align-self: center;
+  background: #f5f3ef;
 }
 
 .book-detail {

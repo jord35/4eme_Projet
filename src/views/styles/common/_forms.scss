@@ -4,13 +4,14 @@
 .form-shell {
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
 }
 
 .book-form-layout,
 .form-layout {
     display: grid;
     grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
-    gap: var(--space-lg);
+    gap: 118px;
     align-items: start;
 }
 
