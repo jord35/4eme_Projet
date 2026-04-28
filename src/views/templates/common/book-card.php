@@ -50,7 +50,7 @@ $bookCardUnavailableText = (string) ($bookCardUnavailableText ?? 'non dispo.');
         </div>
 
         <div class="book-card__body">
-            <h3 class="book-card__title"><?= htmlspecialchars($bookCardTitle, ENT_QUOTES, 'UTF-8') ?></h3>
+            <p class="book-card__title"><?= htmlspecialchars($bookCardTitle, ENT_QUOTES, 'UTF-8') ?></p>
             <p class="book-card__author"><?= htmlspecialchars($bookCardAuthor, ENT_QUOTES, 'UTF-8') ?></p>
             <p class="book-card__owner">
                 <?= htmlspecialchars($bookCardOwnerLabelPrefix, ENT_QUOTES, 'UTF-8') ?>

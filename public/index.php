@@ -211,4 +211,5 @@ if ($action === 'messages') {
 }
 
 http_response_code(404);
-echo 'Page non trouvee.';
+$view = new View('404');
+$view->render('404');

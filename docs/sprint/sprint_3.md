@@ -9,7 +9,7 @@
 - [x] Amélioration de l'accessibilité._     
 - [x] Vérifications Lighthouse.
 - [x] Micro-optimisations
-- [ ] QA finale
+- [x] QA finale
 
 Suivi commits :
 - Debug du rechargement des images sur edit book et my account.

@@ -59,6 +59,8 @@
         align-items: center;
         gap: 0.5rem;
         min-height: var(--header-height);
+        min-width: 3rem;
+        padding-inline: 0.5rem;
         color: var(--color-gray-dark);
         font-size: 0.8125rem;
         font-weight: 400;
@@ -78,7 +80,7 @@
         }
 
         &--icon {
-            gap: 6px;
+            gap: 0.375rem;
         }
     }
 

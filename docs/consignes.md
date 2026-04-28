@@ -12,22 +12,22 @@ Livrable : Site web.
 
 ### Conformité des interfaces graphiques
 
-- [ ] Les pages correspondent aux maquettes Figma fournies.
+- [x] Les pages correspondent aux maquettes Figma fournies.
 - [x] Toutes les pages demandées sont présentes.
-- [ ] Il n’y a aucune règle CSS directement dans le code HTML/PHP, seulement l’utilisation de classes.
+- [x] Il n’y a aucune règle CSS directement dans le code HTML/PHP, seulement l’utilisation de classes.
 
 ### Qualité des interfaces graphiques
 
-- [ ] Le site passe le test W3C sans erreur (warnings autorisés).
-- [ ] Le site passe le test WCAG niveau 2 (warnings autorisés).
-- [ ] Les images, logos, icônes, polices, couleurs et textes sont exactement les bons et disposés aux mêmes endroits que sur la maquette.
-- [ ] Les tailles et distances entre les éléments sont les mêmes que sur la maquette, avec une tolérance de +/-10%.
+- [x] Le site passe le test W3C sans erreur (warnings autorisés).
+- [x] Le site passe le test WCAG niveau 2 (warnings autorisés).
+- [x] Les images, logos, icônes, polices, couleurs et textes sont exactement les bons et disposés aux mêmes endroits que sur la maquette.
+- [x] Les tailles et distances entre les éléments sont les mêmes que sur la maquette, avec une tolérance de +/-10%.
 
 ### Opérationnalité des interfaces
 
-- [ ] Tous les liens présents sur le site sont fonctionnels.
-- [ ] Accéder à une page qui n’existe pas amène sur une page d’erreur 404.
-- [ ] Aucune page ne génère d’erreurs PHP.
+- [x] Tous les liens présents sur le site sont fonctionnels.
+- [x] Accéder à une page qui n’existe pas amène sur une page d’erreur 404.
+- [x] Aucune page ne génère d’erreurs PHP.
 - [x] La partie admin n’est pas accessible aux utilisateurs lambda.
 
 ### Ne peut pas faire l’objet d’un refus de soutenance
