@@ -3,14 +3,14 @@
     padding-bottom: 96px;
 
     &__inner {
-        padding-inline: 263px;
+        padding-inline: 16.4375rem;
     }
 
     &__header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 40px;
+        gap: 2.5rem;
         margin-bottom: var(--section-gap-lg);
     }
 
@@ -27,17 +27,17 @@
     &__search-field {
         display: flex;
         align-items: center;
-        gap: 10px;
-        width: 322px;
+        gap: 0.625rem;
+        width: 20.125rem;
         height: var(--control-height-compact);
-        padding-inline: 16px;
+        padding-inline: 1rem;
         background-color: var(--color-white);
         border: var(--border-width) solid transparent;
     }
 
     &__search-icon {
-        width: 16px;
-        height: 16px;
+        width: 1rem;
+        height: 1rem;
         flex-shrink: 0;
         opacity: 0.5;
     }
@@ -48,7 +48,7 @@
         outline: 0;
         background: transparent;
         color: var(--color-gray-dark);
-        font-size: 14px;
+        font-size: 0.875rem;
 
         &::placeholder {
             color: var(--color-gray-text);

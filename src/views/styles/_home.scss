@@ -1,26 +1,26 @@
 .home-hero {
-    padding-block: 80px 128px;
+    padding-block: 5rem 8rem;
 
     &__inner {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 102px;
-        min-height: 520px;
+        gap: 6.375rem;
+        min-height: 32.5rem;
     }
 
     &__content {
-        max-width: 310px;
+        max-width: 19.375rem;
     }
 
     &__title {
-        margin-bottom: 24px;
+        margin-bottom: 1.5rem;
         font-size: var(--font-size-page-title-xl);
         line-height: 1.15;
     }
 
     &__text {
-        margin-bottom: 40px;
+        margin-bottom: 2.5rem;
         color: var(--color-gray-dark);
         font-size: var(--font-size-body);
         line-height: var(--line-height-body);
@@ -30,9 +30,9 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 152px;
-        min-height: 63px;
-        padding: 0 24px;
+        min-width: 9.5rem;
+        min-height: 3.9375rem;
+        padding: 0 1.5rem;
         border-radius: var(--radius-sm);
         background-color: var(--color-green-primary);
         color: var(--color-white);
@@ -49,7 +49,7 @@
         display: flex;
         justify-content: flex-end;
         flex-direction: column;
-        gap: 12px;
+        gap: 0.75rem;
     }
 
     &__credit {
@@ -59,14 +59,14 @@
 
     &__image {
         display: block;
-        width: 404px;
-        height: 565px;
+        width: 25.25rem;
+        height: 35.3125rem;
         object-fit: cover;
     }
 }
 
 .home-latest-books {
-    padding-block: 80px 64px;
+    padding-block: 5rem 4rem;
     background-color: #faf9f7;
 
     &__inner {
@@ -74,7 +74,7 @@
     }
 
     &__header {
-        margin-bottom: 80px;
+        margin-bottom: 5rem;
     }
 
     &__empty {
@@ -93,9 +93,9 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 210px;
-        height: 63px;
-        padding: 0 24px;
+        min-width: 13.125rem;
+        height: 3.9375rem;
+        padding: 0 1.5rem;
         border-radius: var(--radius-sm);
         background-color: var(--color-green-primary);
         color: var(--color-white);
@@ -110,13 +110,13 @@
 }
 
 .home-how-it-works {
-    padding-block: 80px 96px;
+    padding-block: 5rem 6rem;
 
     &__inner {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-inline: 236px;
+        padding-inline: 14.75rem;
     }
 
     &__header {
@@ -139,11 +139,11 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 210px;
-        min-height: 48px;
-        padding: 0 24px;
+        min-width: 13.125rem;
+        min-height: 3rem;
+        padding: 0 1.5rem;
         border: 2px solid #00ac66;
-        border-radius: 10px;
+        border-radius: 0.625rem;
         color: #00ac66;
         text-decoration: none;
         background-color: transparent;
@@ -153,12 +153,12 @@
 .steps-list {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 24px;
+    gap: 1.5rem;
 }
 
 .step-card {
-    min-height: 139px;
-    padding: 24px 20px;
+    min-height: 8.6875rem;
+    padding: 1.5rem 1.25rem;
     background-color: var(--color-white);
     display: flex;
     align-items: center;
@@ -167,7 +167,7 @@
 
     &__text {
         color: var(--color-gray-text);
-        font-size: 13px;
+        font-size: 0.8125rem;
         line-height: 1.5;
     }
 }

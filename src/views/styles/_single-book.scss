@@ -1,13 +1,13 @@
 .book-detail {
     background-color: var(--color-gray-light);
-    padding-top: 28px;
+    padding-top: 1.75rem;
 
     &__breadcrumb {
         width: min(100%, var(--layout-max-width));
         margin: 0 auto;
-        padding: 0 0 16px var(--layout-content-inset);
+        padding: 0 0 1rem var(--layout-content-inset);
         color: var(--color-gray-text);
-        font-size: 10px;
+        font-size: 0.625rem;
         font-weight: 300;
         opacity: 0.5;
     }
@@ -21,7 +21,7 @@
 
     &__media {
         min-width: 0;
-        height: 863px;
+        height: 53.9375rem;
         background-color: var(--color-surface-muted);
     }
 
@@ -36,13 +36,13 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        padding: 59px 150px 80px 85px;
+        padding: 3.6875rem 9.375rem 5rem 5.3125rem;
     }
 
     &__intro {
         position: relative;
-        margin-bottom: 34px;
-        padding-bottom: 32px;
+        margin-bottom: 2.125rem;
+        padding-bottom: 2rem;
 
         &::after {
             content: "";
@@ -56,14 +56,14 @@
     }
 
     &__title {
-        margin-bottom: 16px;
-        font-size: 48px;
+        margin-bottom: 1rem;
+        font-size: 3rem;
         line-height: 1.1;
     }
 
     &__author {
         color: var(--color-gray-text);
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     &__description {
@@ -71,7 +71,7 @@
     }
 
     &__section-title {
-        margin-bottom: 16px;
+        margin-bottom: 1rem;
         font-family: var(--font-family-base);
         font-size: var(--font-size-section-label);
         font-weight: 600;
@@ -82,15 +82,15 @@
     }
 
     &__description-text {
-        max-width: 390px;
+        max-width: 24.375rem;
         color: var(--color-gray-dark);
-        font-size: 14px;
+        font-size: 0.875rem;
         line-height: 1.7;
 
         p {
             margin: 0;
             font-family: var(--font-family-base);
-            font-size: 14px;
+            font-size: 0.875rem;
             font-weight: 400;
             line-height: 1;
             letter-spacing: 0;
@@ -98,7 +98,7 @@
     }
 
     &__owner {
-        margin-bottom: 80px;
+        margin-bottom: 5rem;
     }
 
     &__owner-card {
@@ -107,17 +107,17 @@
 
     &__message-link {
         width: 100%;
-        font-size: 16px;
+        font-size: 1rem;
         text-decoration: none;
-        height: 63px;
-        border-radius: 10px;
+        height: 3.9375rem;
+        border-radius: 0.625rem;
     }
 }
 
 @media (max-width: 768px) {
     .book-detail {
         &__breadcrumb {
-            padding: 24px 24px 0;
+            padding: 1.5rem 1.5rem 0;
         }
 
         &__inner {
@@ -125,11 +125,11 @@
         }
 
         &__media {
-            height: 449.48px;
+            height: 28.0925rem;
         }
 
         &__content {
-            padding: 40px 24px 32px;
+            padding: 2.5rem 1.5rem 2rem;
         }
     }
 }

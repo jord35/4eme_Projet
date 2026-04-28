@@ -5,10 +5,10 @@
 - [x] Remplacement des fausses données par des données crédibles de démonstration.
 - [x] Vérification point par point, sur les différentes pages, de ce qui relève réellement du layout commun parmi les éléments notés comme `layout potentiel`, et de ce qui doit rester spécifique à chaque page._
 - [x] Passe layout pour coller finement à la maquette avec les vraies données._
-- [ ] Derniers correctifs ciblés page par page.__________
+- [x] Derniers correctifs ciblés page par page.
 - [x] Amélioration de l'accessibilité._     
 - [x] Vérifications Lighthouse.
-- [] Micro-optimisations
+- [x] Micro-optimisations
 - [ ] QA finale
 
 Suivi commits :
