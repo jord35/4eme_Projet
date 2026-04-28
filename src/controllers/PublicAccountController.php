@@ -17,6 +17,7 @@ class PublicAccountController extends AbstractController
 
     public function execute(): void
     {
+        // Le profil public est consultable uniquement en lecture.
         if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             http_response_code(405);
 
@@ -32,6 +33,8 @@ class PublicAccountController extends AbstractController
             return;
         }
 
+        // Ici on cherche un profil à partir du pseudo visible dans l'URL.
+        // Si le pseudo est vide ou inconnu, on renvoie une page 404 simple.
         $username = trim($_GET['username'] ?? '');
 
         $userNotFound = false;
@@ -70,6 +73,8 @@ class PublicAccountController extends AbstractController
             return;
         }
 
+        // On hydrate ensuite les visuels et la bibliothèque du profil
+        // pour garder la vue la plus simple possible.
         if (!empty($profile['profile_picture_id'])) {
             $pictureResult = $this->pictureHelper->getPicturePackage(
                 (int) $profile['profile_picture_id'],

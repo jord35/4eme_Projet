@@ -17,6 +17,8 @@ class MessagePageService
 
     public function getPageData(?int $conversationId = null, ?int $otherUserId = null): array
     {
+        // Toute la messagerie est réservée à un utilisateur connecté.
+        // On récupère donc d'abord l'id stocké en session avant d'aller plus loin.
         $authResult = $this->authenticationService->requireUserId();
 
         if ($authResult['success'] === false) {
@@ -37,6 +39,8 @@ class MessagePageService
         $activeConversationId = null;
         $messages = [];
 
+        // Si on arrive depuis le profil d'un autre utilisateur, on ouvre
+        // la conversation existante ou on la crée si elle n'existe pas encore.
         if ($otherUserId !== null && $otherUserId > 0) {
             $conversationResult = $this->messagingService->getOrCreateConversationBetweenUsers(
                 $currentUserId,
@@ -54,6 +58,8 @@ class MessagePageService
             $activeConversationId = (int) $conversationSummaries[0]['conversation_id'];
         }
 
+        // Une fois la conversation choisie, on charge les messages puis on marque
+        // la conversation comme lue pour garder des badges cohérents côté interface.
         if ($activeConversationId !== null && $activeConversationId > 0) {
             $messagesResult = $this->messagingService->getConversationMessages(
                 $activeConversationId,
@@ -108,6 +114,8 @@ class MessagePageService
 
     public function getConversationUpdates(int $conversationId, int $afterId): array
     {
+        // Ce point est utilisé par le rafraîchissement AJAX de la messagerie.
+        // Il renvoie uniquement les nouveaux messages après le dernier id connu.
         $authResult = $this->authenticationService->requireUserId();
 
         if ($authResult['success'] === false) {
@@ -154,6 +162,8 @@ class MessagePageService
 
     public function sendMessage(array $post): array
     {
+        // Le service relit la session avant l'envoi pour éviter qu'un appel direct
+        // au endpoint contourne la vérification faite plus haut dans l'interface.
         $authResult = $this->authenticationService->requireUserId();
 
         if ($authResult['success'] === false) {
@@ -193,6 +203,8 @@ class MessagePageService
 
     public function getUnreadBadgeData(): array
     {
+        // Le badge global ne doit jamais casser le layout.
+        // Si personne n'est connecté, on renvoie simplement 0.
         $authResult = $this->authenticationService->requireUserId();
 
         if ($authResult['success'] === false) {
@@ -211,6 +223,8 @@ class MessagePageService
     }
     private function getUnreadCounters(int $currentUserId): array
     {
+        // On distingue le nombre de conversations non lues
+        // et le nombre total de messages non lus.
         $unreadConversationCountResult = $this->messagingService->getUnreadConversationCount($currentUserId);
 
         if ($unreadConversationCountResult['success'] === false) {
@@ -234,6 +248,8 @@ class MessagePageService
     }
     public function getConversationSummariesData(): array
     {
+        // Cette méthode sert à recharger uniquement la colonne de gauche
+        // sans reconstruire toute la page de messagerie.
         $authResult = $this->authenticationService->requireUserId();
 
         if ($authResult['success'] === false) {

@@ -11,6 +11,8 @@ class LoginController extends AbstractController
 
     public function execute(): void
     {
+        // En GET on affiche simplement le formulaire,
+        // en POST on tente la connexion via le service d'authentification.
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $view = new View('Connexion');
             $view->render('login');
@@ -26,6 +28,8 @@ class LoginController extends AbstractController
             return;
         }
 
+        // Le contrôleur reste léger : la vérification des identifiants
+        // et la création de session sont gérées dans AuthenticationService.
         $result = $this->authenticationService->login($_POST);
 
         if ($result['success'] === true) {

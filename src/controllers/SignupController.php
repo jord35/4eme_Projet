@@ -11,6 +11,8 @@ class SignupController extends AbstractController
 
     public function execute(): void
     {
+        // La page d'inscription est affichée en GET.
+        // Les vérifications dynamiques et l'enregistrement passent par des actions AJAX séparées.
         if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             http_response_code(405);
 
@@ -31,6 +33,7 @@ class SignupController extends AbstractController
 
     public function checkUsername(): void
     {
+        // Cette action sert à vérifier en direct si un pseudo est déjà utilisé.
         if (!$this->isAjaxRequest()) {
             http_response_code(400);
             $this->renderJson([
@@ -48,6 +51,8 @@ class SignupController extends AbstractController
 
     public function checkEmail(): void
     {
+        // Même principe pour l'email :
+        // on laisse le front contrôler la disponibilité sans recharger la page.
         if (!$this->isAjaxRequest()) {
             http_response_code(400);
             $this->renderJson([
@@ -65,6 +70,8 @@ class SignupController extends AbstractController
 
     public function register(): void
     {
+        // L'inscription complète passe ici en AJAX.
+        // Le service renvoie à la fois l'état global et les erreurs champ par champ.
         if (!$this->isAjaxRequest()) {
             http_response_code(400);
             $this->renderJson([

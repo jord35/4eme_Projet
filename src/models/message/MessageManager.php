@@ -4,6 +4,8 @@ class MessageManager extends AbstractEntityManager
 {
     private function mapMessageRow(array $row): array
     {
+        // On normalise ici le format des messages renvoyés au service
+        // pour garder une structure stable partout dans l'application.
         return [
             'id' => (int) $row['id'],
             'conversation_id' => (int) $row['conversation_id'],
@@ -93,6 +95,8 @@ class MessageManager extends AbstractEntityManager
 
     public function insertMessage(int $conversationId, int $senderUserId, string $content): int
     {
+        // Le manager ne connaît pas la session ni les droits d'accès.
+        // Il exécute uniquement l'insertion si les données minimales sont valides.
         $content = trim($content);
 
         if ($conversationId <= 0 || $senderUserId <= 0 || $content === '') {

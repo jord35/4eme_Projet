@@ -13,6 +13,8 @@ class MessagingService
 
     public function getUserConversationSummaries(int $userId): array
     {
+        // Ici on reste côté logique métier : on valide d'abord l'id,
+        // puis on délègue la lecture SQL au manager.
         $error = $this->validateUserId($userId);
         if ($error !== null) {
             return $error;
@@ -25,6 +27,8 @@ class MessagingService
 
     public function getOrCreateConversationBetweenUsers(int $currentUserId, int $otherUserId): array
     {
+        // On interdit une conversation avec soi-même et on évite les doublons.
+        // Si une conversation existe déjà entre les deux utilisateurs, on la réutilise.
         $error = $this->validateDistinctUsers($currentUserId, $otherUserId);
         if ($error !== null) {
             return $error;
@@ -81,6 +85,8 @@ class MessagingService
     {
         $content = trim($content);
 
+        // Cette vérification est importante : même si l'utilisateur est connecté,
+        // il ne peut envoyer un message que dans une conversation où il participe.
         $accessError = $this->validateConversationAccess($conversationId, $senderUserId);
         if ($accessError !== null) {
             return $accessError;
@@ -96,6 +102,8 @@ class MessagingService
             return $this->errorResponse('Message send failed.');
         }
 
+        // On met à jour la date de la conversation pour que le tri
+        // fasse remonter la discussion en tête de liste.
         $this->conversationManager->touchConversation($conversationId);
 
         $lastMessage = $this->messageManager->findLastMessageByConversationId($conversationId);
@@ -109,6 +117,8 @@ class MessagingService
 
     public function markConversationAsRead(int $conversationId, int $userId): array
     {
+        // Même pour marquer une conversation comme lue,
+        // on revérifie que l'utilisateur a bien le droit d'y accéder.
         $accessError = $this->validateConversationAccess($conversationId, $userId);
         if ($accessError !== null) {
             return $accessError;
@@ -151,6 +161,8 @@ class MessagingService
 
     private function fetchConversationMessages(int $conversationId, int $userId, ?int $afterId): array
     {
+        // Toute lecture de messages passe par ce garde-fou.
+        // Cela évite d'exposer le contenu d'une conversation à un autre utilisateur.
         $accessError = $this->validateConversationAccess($conversationId, $userId);
         if ($accessError !== null) {
             return $accessError;
@@ -196,6 +208,8 @@ class MessagingService
 
     private function validateConversationAccess(int $conversationId, int $userId): ?array
     {
+        // On sépare la notion "connecté" de la notion "autorisé".
+        // Ici, on vérifie que l'id est valide et que l'utilisateur fait bien partie de la conversation.
         $conversationError = $this->validateConversationId($conversationId);
         if ($conversationError !== null) {
             return $conversationError;

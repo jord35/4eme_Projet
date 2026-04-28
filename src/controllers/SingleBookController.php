@@ -13,6 +13,8 @@ class SingleBookController extends AbstractController
 
     public function execute(): void
     {
+        // La page détail d'un livre est une page de consultation.
+        // Elle charge le livre demandé, puis ses images éventuelles.
         if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             http_response_code(405);
 
@@ -30,6 +32,8 @@ class SingleBookController extends AbstractController
 
         $bookId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
+        // Le helper centralise la validation de l'id et la récupération
+        // des informations utiles sur le livre et son propriétaire.
         $bookResult = $this->bookHelper->getBookDetails($bookId);
 
         if ($bookResult['success'] === false) {
@@ -52,6 +56,8 @@ class SingleBookController extends AbstractController
         $coverPicture = null;
         $ownerAvatar = null;
 
+        // On charge séparément la couverture du livre et l'avatar du propriétaire,
+        // car ces deux images n'utilisent pas les mêmes variantes.
         if (!empty($book['cover_picture_id'])) {
             $pictureResult = $this->pictureHelper->getPicturePackage(
                 (int) $book['cover_picture_id'],

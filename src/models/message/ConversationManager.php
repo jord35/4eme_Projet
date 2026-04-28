@@ -28,6 +28,8 @@ class ConversationManager extends AbstractEntityManager
 
     public function findConversationBetweenUsers(int $firstUserId, int $secondUserId): ?array
     {
+        // Cette recherche évite de créer plusieurs conversations privées
+        // pour le même duo d'utilisateurs.
         if ($firstUserId <= 0 || $secondUserId <= 0 || $firstUserId === $secondUserId) {
             return null;
         }
@@ -128,6 +130,8 @@ class ConversationManager extends AbstractEntityManager
 
     public function isUserParticipant(int $conversationId, int $userId): bool
     {
+        // C'est la vérification SQL utilisée par le service métier
+        // pour savoir si un utilisateur peut lire ou écrire dans la conversation.
         if ($conversationId <= 0 || $userId <= 0) {
             return false;
         }
@@ -150,6 +154,8 @@ class ConversationManager extends AbstractEntityManager
 
     public function markConversationAsRead(int $conversationId, int $userId): bool
     {
+        // On mémorise la dernière lecture par participant.
+        // Les compteurs non lus reposent ensuite sur cette date.
         if ($conversationId <= 0 || $userId <= 0) {
             return false;
         }
@@ -246,6 +252,8 @@ class ConversationManager extends AbstractEntityManager
 
     public function findConversationSummariesByUserId(int $userId): array
     {
+        // Cette requête prépare directement les données utiles à la liste :
+        // autre utilisateur, dernier message et nombre de messages non lus.
         if ($userId <= 0) {
             return [];
         }
