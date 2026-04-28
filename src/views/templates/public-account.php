@@ -81,14 +81,14 @@ $currentUserId = (int) ($_SESSION['user_id'] ?? 0);
                     <?php if (empty($libraryBooks)): ?>
                         <p class="public-account-page__empty">L'utilisateur n'a pas encore ajouté de livre.</p>
                     <?php else: ?>
-                        <div class="public-books-table-wrapper library-table-wrapper">
-                            <table class="public-books-table library-table">
+                        <div class="public-books-table-wrapper library-table-wrapper account-library__table-wrapper">
+                            <table class="public-books-table library-table account-library__table">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Photo</th>
-                                        <th scope="col">Titre</th>
-                                        <th scope="col">Auteur</th>
-                                        <th scope="col">Description</th>
+                                    <tr class="account-library__row account-library__row--head">
+                                        <th class="account-library__cell account-library__cell--head account-library__cell--cover" scope="col">Photo</th>
+                                        <th class="account-library__cell account-library__cell--head account-library__cell--title" scope="col">Titre</th>
+                                        <th class="account-library__cell account-library__cell--head account-library__cell--author" scope="col">Auteur</th>
+                                        <th class="account-library__cell account-library__cell--head account-library__cell--description" scope="col">Description</th>
                                     </tr>
                                 </thead>
 
@@ -103,10 +103,10 @@ $currentUserId = (int) ($_SESSION['user_id'] ?? 0);
                                             ? (string) $book['cover']['alt']
                                             : 'Couverture non disponible pour ' . (string) $book['title'];
                                         ?>
-                                        <tr>
-                                            <td>
+                                        <tr class="account-library__row">
+                                            <td class="account-library__cell account-library__cell--cover">
                                                 <img
-                                                    class="library-table__cover"
+                                                    class="account-library__cover library-table__cover"
                                                     src="<?= htmlspecialchars($bookCoverSrc, ENT_QUOTES, 'UTF-8') ?>"
                                                     <?php if (!empty($book['cover']['srcset']) && $bookCoverSrc !== $fallbackBookCover): ?>
                                                     srcset="<?= htmlspecialchars((string) $book['cover']['srcset'], ENT_QUOTES, 'UTF-8') ?>"
@@ -120,17 +120,18 @@ $currentUserId = (int) ($_SESSION['user_id'] ?? 0);
                                                     onerror="this.onerror=null;this.src='<?= htmlspecialchars($fallbackBookCover, ENT_QUOTES, 'UTF-8') ?>';">
                                             </td>
 
-                                            <td>
+                                            <td class="account-library__cell account-library__cell--title">
                                                 <?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?>
                                             </td>
 
-                                            <td>
+                                            <td class="account-library__cell account-library__cell--author">
                                                 <?= htmlspecialchars((string) $book['author_name'], ENT_QUOTES, 'UTF-8') ?>
                                             </td>
 
-                                            <td>
-                                                <?= htmlspecialchars((string) mb_strimwidth((string) ($book['description'] ?? ''), 0, 120, '...'), ENT_QUOTES, 'UTF-8') ?>
+                                            <td class="account-library__cell account-library__cell--description">
+                                                <?= htmlspecialchars((string) mb_strimwidth((string) ($book['description'] ?? ''), 0, 85, '...'), ENT_QUOTES, 'UTF-8') ?>
                                             </td>
+
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

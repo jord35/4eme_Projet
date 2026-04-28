@@ -95,9 +95,7 @@ $profileImageAlt = $username !== ''
                             class="account-details-form__input"
                             type="email"
                             id="email"
-                            name="email"
-                            value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>"
-                            placeholder="Votre adresse email">
+                            name="email">
                     </div>
 
                     <div class="account-details-form__field form-field">
@@ -106,8 +104,7 @@ $profileImageAlt = $username !== ''
                             class="account-details-form__input"
                             type="password"
                             id="password"
-                            name="password"
-                            placeholder="Nouveau mot de passe">
+                            name="password">
                     </div>
 
                     <div class="account-details-form__field form-field">
@@ -116,9 +113,7 @@ $profileImageAlt = $username !== ''
                             class="account-details-form__input"
                             type="text"
                             id="username"
-                            name="username"
-                            value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>"
-                            placeholder="Votre pseudo">
+                            name="username">
                     </div>
 
                     <button class="account-details-form__submit button button--outline" type="submit">Enregistrer</button>
@@ -134,12 +129,12 @@ $profileImageAlt = $username !== ''
                     <table class="account-library__table library-table">
                         <thead class="account-library__head">
                             <tr class="account-library__row account-library__row--head">
-                                <th class="account-library__cell account-library__cell--head" scope="col">Photo</th>
-                                <th class="account-library__cell account-library__cell--head" scope="col">Titre</th>
-                                <th class="account-library__cell account-library__cell--head" scope="col">Auteur</th>
-                                <th class="account-library__cell account-library__cell--head" scope="col">Description</th>
-                                <th class="account-library__cell account-library__cell--head" scope="col">Disponibilité</th>
-                                <th class="account-library__cell account-library__cell--head" scope="col">Action</th>
+                                <th class="account-library__cell account-library__cell--head account-library__cell--cover" scope="col">Photo</th>
+                                <th class="account-library__cell account-library__cell--head account-library__cell--title" scope="col">Titre</th>
+                                <th class="account-library__cell account-library__cell--head account-library__cell--author" scope="col">Auteur</th>
+                                <th class="account-library__cell account-library__cell--head account-library__cell--description" scope="col">Description</th>
+                                <th class="account-library__cell account-library__cell--head account-library__cell--status" scope="col">Disponibilité</th>
+                                <th class="account-library__cell account-library__cell--head account-library__cell--actions" scope="col">Action</th>
                             </tr>
                         </thead>
 
@@ -155,7 +150,7 @@ $profileImageAlt = $username !== ''
                                     : 'Couverture non disponible pour ' . (string) $book['title'];
                                 ?>
                                 <tr class="account-library__row">
-                                    <td class="account-library__cell">
+                                    <td class="account-library__cell account-library__cell--cover">
                                         <img
                                             class="account-library__cover library-table__cover"
                                             src="<?= htmlspecialchars($bookCoverSrc, ENT_QUOTES, 'UTF-8') ?>"
@@ -171,19 +166,19 @@ $profileImageAlt = $username !== ''
                                             onerror="this.onerror=null;this.src='<?= htmlspecialchars($fallbackBookCover, ENT_QUOTES, 'UTF-8') ?>';">
                                     </td>
 
-                                    <td class="account-library__cell">
+                                    <td class="account-library__cell account-library__cell--title">
                                         <?= htmlspecialchars((string) $book['title'], ENT_QUOTES, 'UTF-8') ?>
                                     </td>
 
-                                    <td class="account-library__cell">
+                                    <td class="account-library__cell account-library__cell--author">
                                         <?= htmlspecialchars((string) $book['author_name'], ENT_QUOTES, 'UTF-8') ?>
                                     </td>
 
-                                    <td class="account-library__cell">
-                                        <?= htmlspecialchars((string) mb_strimwidth((string) ($book['description'] ?? ''), 0, 120, '...'), ENT_QUOTES, 'UTF-8') ?>
+                                    <td class="account-library__cell account-library__cell--description">
+                                        <?= htmlspecialchars((string) mb_strimwidth((string) ($book['description'] ?? ''), 0, 85, '...'), ENT_QUOTES, 'UTF-8') ?>
                                     </td>
 
-                                    <td class="account-library__cell">
+                                    <td class="account-library__cell account-library__cell--status">
                                         <?php if (!empty($book['is_available'])): ?>
                                             <span class="status status--available">Disponible</span>
                                         <?php else: ?>
@@ -191,7 +186,7 @@ $profileImageAlt = $username !== ''
                                         <?php endif; ?>
                                     </td>
 
-                                    <td class="account-library__cell">
+                                    <td class="account-library__cell account-library__cell--actions">
                                         <div class="account-library__actions book-actions">
                                             <a
                                                 class="account-library__action-link link-action"

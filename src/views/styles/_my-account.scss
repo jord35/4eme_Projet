@@ -1,5 +1,5 @@
 .account-page {
-    padding-top: var(--page-padding-top);
+    padding-top: 90px;
     padding-bottom: var(--page-padding-bottom);
 
     &__inner {
@@ -7,9 +7,10 @@
     }
 
     &__title {
-        margin-bottom: 40px;
-        font-size: 36px;
+        margin-bottom: 48px;
+        font-size: 26px;
         line-height: 1.2;
+        font-weight: 400;
     }
 
     &__message {
@@ -19,22 +20,23 @@
     &__top {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: var(--space-xs);
+        gap: 33px;
         margin-bottom: var(--space-md);
     }
 
     &__panel {
         min-height: 365px;
-        padding: var(--panel-padding);
         background-color: var(--color-white);
         border-radius: var(--radius-lg);
 
         &--profile {
             display: flex;
+            padding: 48px 205px 96px 206px;
         }
 
         &--details {
             display: flex;
+            padding: 36px 116px 36px 106px;
         }
     }
 }
@@ -51,7 +53,7 @@
 
     &__media {
         position: relative;
-        margin-bottom: 28px;
+        margin-bottom: 96px;
     }
 
     &__image {
@@ -60,7 +62,7 @@
     }
 
     &__edit {
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     &__edit-button {
@@ -71,31 +73,33 @@
     &__content {
         width: 100%;
         max-width: 180px;
-        padding-top: 24px;
-        border-top: var(--border-width) solid var(--color-surface-muted);
     }
 
     &__name {
-        margin-bottom: 8px;
-        font-family: var(--font-family-base);
+        margin-bottom: 11px;
+        font-family: var(--font-family-title);
         font-size: 24px;
         font-weight: 400;
-        line-height: 1.2;
+        line-height: 1;
+        letter-spacing: 0;
+        text-align: center;
     }
 
     &__meta {
-        margin-bottom: 18px;
+        margin-bottom: 21px;
         color: var(--color-gray-text);
         font-size: 13px;
     }
 
     &__library-title {
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         font-family: var(--font-family-base);
-        font-size: 12px;
-        font-weight: 400;
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 1;
         text-transform: uppercase;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.08em;
+        text-align: center;
         color: var(--color-gray-text);
     }
 
@@ -123,15 +127,14 @@
     border: 0;
 
     &__title {
-        margin-bottom: 24px;
+        margin-bottom: 26px;
         font-family: var(--font-family-base);
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 400;
-        line-height: 1.3;
     }
 
     &__field {
-        margin-bottom: 20px;
+        margin-bottom: 32px;
     }
 
     &__label {
@@ -160,7 +163,7 @@
     }
 
     &__submit {
-        min-width: 153px;
+        min-width: 150px;
         align-self: flex-start;
     }
 }
@@ -180,14 +183,19 @@
     &__table {
         width: 100%;
         border-collapse: collapse;
+        table-layout: fixed;
     }
 
     &__row--head {
         background-color: var(--color-white);
     }
 
+    &__row:not(.account-library__row--head) {
+        background-color: var(--color-white);
+    }
+
     &__row:not(.account-library__row--head):nth-child(even) {
-        background-color: var(--color-gray-light);
+        background-color: #edf2f6;
     }
 
     &__cell {
@@ -196,6 +204,45 @@
         vertical-align: middle;
         font-size: 12px;
         color: var(--color-gray-dark);
+
+        &--cover {
+            width: 126px;
+            max-width: 126px;
+        }
+
+        &--title,
+        &--author,
+        &--description {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &--title {
+            width: 126px;
+            max-width: 126px;
+        }
+
+        &--author {
+            width: 126px;
+            max-width: 126px;
+        }
+
+        &--description {
+            width: 126px;
+            max-width: 126px;
+        }
+
+        &--status {
+            width: 126px;
+            max-width: 126px;
+        }
+
+        &--actions {
+            width: 126px;
+            max-width: 126px;
+            white-space: nowrap;
+        }
 
         &--head {
             padding-top: 16px;
@@ -218,5 +265,19 @@
 
     &__actions {
         justify-content: flex-start;
+    }
+
+    &__action-link {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--color-gray-dark);
+        text-decoration: underline;
+        text-underline-offset: 0.14em;
+        cursor: pointer;
+
+        &--danger {
+            color: var(--color-red);
+        }
     }
 }

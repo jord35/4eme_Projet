@@ -1,12 +1,10 @@
 .auth-page {
-    min-height: calc(100vh - var(--header-height));
     padding-top: 0;
     padding-bottom: 0;
 
     &__inner {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        min-height: calc(100vh - var(--header-height));
         width: min(100%, var(--layout-max-width));
         margin: 0 auto;
     }

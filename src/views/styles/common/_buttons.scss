@@ -1,7 +1,6 @@
 .book-form button[type='submit'],
 #login-form button[type='submit'],
 #signup-form button[type='submit'],
-#my-account-form button[type='submit'],
 .button,
 .button-link {
     display: inline-flex;
@@ -23,7 +22,6 @@
 .book-form button[type='submit'],
 #login-form button[type='submit'],
 #signup-form button[type='submit'],
-#my-account-form button[type='submit'],
 .button--primary {
     background: var(--color-green-primary);
     color: var(--color-white);
@@ -32,7 +30,6 @@
 .book-form button[type='submit']:hover,
 #login-form button[type='submit']:hover,
 #signup-form button[type='submit']:hover,
-#my-account-form button[type='submit']:hover,
 .button--primary:hover {
     background: var(--color-green-secondary);
 }
@@ -40,7 +37,6 @@
 .book-form button[type='submit']:focus-visible,
 #login-form button[type='submit']:focus-visible,
 #signup-form button[type='submit']:focus-visible,
-#my-account-form button[type='submit']:focus-visible,
 .button:focus-visible,
 .button-link:focus-visible {
     outline: var(--focus-ring-width) solid var(--color-green-secondary);
@@ -66,12 +62,12 @@
 }
 
 .button--outline {
-    min-height: var(--control-height-compact);
-    border: var(--border-width) solid var(--color-green-primary);
-    background: transparent;
-    color: var(--color-green-secondary);
+    min-height: 63px;
+    border: 2px solid #00ac66;
+    color: #00ac66;
+    border-radius: 10px;
 }
 
 .button--outline:hover {
-    background: var(--color-gray-light);
+    background: transparent;
 }

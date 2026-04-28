@@ -21,7 +21,6 @@
 .public-books-table td,
 .library-table th,
 .library-table td {
-    padding: 16px;
     text-align: left;
     border-bottom: var(--border-width) solid var(--color-gray-light);
     vertical-align: middle;
@@ -57,7 +56,6 @@
 }
 
 .book-actions a {
-    color: var(--color-green-secondary);
     text-decoration: underline;
     text-underline-offset: 0.14em;
 }
