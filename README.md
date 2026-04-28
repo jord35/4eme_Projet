@@ -100,31 +100,26 @@ Créez une base de données nommée `tomtroc` dans MySQL.
 
 ### 3. Importer la structure SQL
 
-Importez le fichier [docs/sql.sql](docs/sql.sql) dans la base `tomtroc`.
+Importez le fichier [sql.sql](sql.sql) dans la base `tomtroc`.
 
 Avec phpMyAdmin :
 
 1. créez la base `tomtroc` ;
 2. ouvrez la base ;
 3. utilisez l'onglet Importer ;
-4. sélectionnez le fichier [docs/sql.sql](docs/sql.sql) ;
+4. sélectionnez le fichier [sql.sql](sql.sql) ;
 5. lancez l'import.
 
 ### 4. Configurer l'accès à la base de données
 
-Modifiez les constantes dans [src/config/config.php](src/config/config.php) selon votre environnement :
+Créez un fichier local [src/config/config.local.example.php](src/config/config.local.example.php) sur le modèle proposé, puis renommez-le en `src/config/config.local.php`.
+
+Définissez ensuite selon votre environnement :
 
 - `DB_HOST`
 - `DB_NAME`
 - `DB_USER`
 - `DB_PASS`
-
-Valeurs actuelles du projet :
-
-- `DB_HOST=localhost`
-- `DB_NAME=tomtroc`
-- `DB_USER=root`
-- `DB_PASS=`
 
 ### 5. Vérifier le point d'entrée du site
 
@@ -150,7 +145,7 @@ Ces dossiers doivent être accessibles en écriture par le serveur web.
 
 - le routeur passe par le paramètre `action` dans [public/index.php](public/index.php) ;
 - si les images ne se génèrent pas, vérifiez que l'extension GD est bien activée ;
-- si la connexion à la base échoue, vérifiez les identifiants définis dans [src/config/config.php](src/config/config.php).
+- si la connexion à la base échoue, vérifiez les identifiants définis dans votre fichier local `src/config/config.local.php`.
 
 ---
 

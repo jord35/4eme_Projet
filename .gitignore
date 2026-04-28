@@ -5,7 +5,14 @@ Thumbs.db
 # Editor
 .vscode/settings.json
 .vscode/launch.json
+.vscode/tasks.json
 
 # Logs / temp
 *.log
 *.tmp
+
+# Local project documentation not meant for main
+docs/
+
+# Local database overrides
+src/config/config.local.php
