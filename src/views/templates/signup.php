@@ -60,7 +60,8 @@
                     hidden></p>
 
                 <p class="auth-page__secondary">
-                    <a class="auth-page__secondary-link" href="/?action=login">Déjà inscrit ? Connectez-vous</a>
+                    Déjà inscrit ?
+                    <a class="auth-page__secondary-link" href="/?action=login">Connectez-vous</a>
                 </p>
             </div>
         </div>

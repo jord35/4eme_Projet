@@ -15,9 +15,9 @@
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
-        padding-top: 84px;
-        padding-left: 90px;
-        padding-right: 48px;
+        padding-top: 130px;
+        padding-left: 150px;
+        padding-right: 248px;
     }
 
     &__panel {
@@ -27,8 +27,11 @@
 
     &__title {
         margin-bottom: 56px;
-        font-size: 48px;
-        line-height: 1.1;
+        font-family: var(--font-family-title);
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0;
     }
 
     &__message {
@@ -36,13 +39,13 @@
     }
 
     &__secondary {
-        margin-top: 18px;
+        margin-top: 40px;
         font-size: 14px;
         color: var(--color-gray-dark);
     }
 
     &__secondary-link {
-        text-decoration: none;
+        text-decoration: underline;
 
         &:hover,
         &:focus-visible {
@@ -52,7 +55,7 @@
 
     &__media {
         min-width: 0;
-        height: 100%;
+        height: 886px;
     }
 
     &__image {
@@ -67,17 +70,29 @@
     gap: 0;
 
     &__field {
-        margin-bottom: 24px;
+        margin-bottom: 32px;
     }
 
     &__label {
+        font-size: 13px;
+        font-weight: 600;
         color: var(--color-gray-text);
+        opacity: 0.5;
+        line-height: 1;
     }
 
     &__input {
-        border: 0;
+        width: 322px;
+        max-width: 100%;
+
+        border-radius: 6px;
         background-color: var(--color-white);
-        min-height: var(--control-height-default);
+        min-height: 50px;
+
+        &::placeholder {
+            color: transparent;
+            opacity: 0;
+        }
     }
 
     &__submit {

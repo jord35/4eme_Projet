@@ -4,7 +4,6 @@
 .form-shell {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
 }
 
 .book-form-layout,
@@ -32,7 +31,6 @@
 .form-field {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .book-form-field label,
@@ -43,6 +41,7 @@
     font-size: 13px;
     font-weight: 600;
     color: var(--color-gray-dark);
+    margin-bottom: 10px;
 }
 
 .book-form input[type='text'],
@@ -54,11 +53,15 @@
 .form-field select {
     width: 100%;
     min-height: 52px;
-    padding: 14px 16px;
     background: var(--color-white);
     border: var(--border-width) solid var(--color-gray-text);
     border-radius: var(--radius-sm);
     color: var(--color-gray-dark);
+}
+
+#login-form .auth-form__input,
+#signup-form .auth-form__input {
+    border: 0;
 }
 
 .book-form textarea,
@@ -132,7 +135,6 @@
 
 .form-field-message {
     display: block;
-    margin-top: 8px;
     font-size: 12px;
     color: var(--color-gray-text);
 }
