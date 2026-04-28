@@ -16,6 +16,7 @@ $ownerAvatar = !empty($book['owner_avatar'])
 ?>
 
 <section class="book-detail">
+    <p class="book-detail__breadcrumb">Nos livres > <?= $book['title'] ?> </p>
     <div class="book-detail__inner">
         <div class="book-detail__media">
             <img
