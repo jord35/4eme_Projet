@@ -1462,6 +1462,7 @@ a {
   display: flex;
   flex: 1;
   flex-direction: column;
+  justify-content: flex-end;
   gap: 20px;
   min-height: 0;
   padding-bottom: 32px;
@@ -1471,7 +1472,7 @@ a {
   color: var(--color-gray-text);
 }
 .messages-page__message {
-  max-width: 470px;
+  max-width: 500px;
 }
 .messages-page__message--own {
   align-self: flex-end;
@@ -1498,7 +1499,7 @@ a {
   line-height: 1.3;
 }
 .messages-page__message-bubble {
-  padding: 12px 14px;
+  padding: 10px 18px;
   background-color: var(--color-white);
   border-radius: var(--radius-sm);
 }
@@ -1509,19 +1510,23 @@ a {
 }
 .messages-page__composer {
   display: grid;
-  grid-template-columns: 1fr 128px;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) 128px;
+  gap: 21px;
   align-items: end;
   flex-shrink: 0;
 }
 .messages-page__composer-field {
   min-width: 0;
 }
-.messages-page__composer-textarea {
+.messages-page__composer-field .messages-page__composer-textarea {
+  width: 100%;
+  height: 56px;
   min-height: 56px;
-  max-height: 160px;
+  max-height: 56px;
+  padding: 18px 16px 18px 42px;
   border: 0;
   background-color: var(--color-white);
+  line-height: 1.25;
   resize: none;
 }
 .messages-page__composer-button {

@@ -137,6 +137,10 @@ document.addEventListener('DOMContentLoaded', () => {
         messagesList.scrollTop = messagesList.scrollHeight;
     }
 
+    function scrollMessagesToBottom() {
+        messagesList.scrollTop = messagesList.scrollHeight;
+    }
+
     function renderConversationSummaries(conversationSummaries) {
         if (!conversationList) {
             return;
@@ -291,6 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erreur lors de l’envoi du message :', error);
         }
     );
+
+    scrollMessagesToBottom();
 
     poller.start(3000);
     conversationSummariesPoller.start(3000);
