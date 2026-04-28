@@ -882,7 +882,7 @@ a {
 }
 
 .footer {
-  background-color: var(--color-gray-light);
+  background-color: var(--color-white);
   padding: 1rem 2rem;
 }
 .footer__container {
