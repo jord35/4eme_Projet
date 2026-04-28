@@ -215,3 +215,5 @@ $profileImageAlt = $username !== ''
                 </div>
             <?php endif; ?>
         </div>
+
+        <script src="/js/my-account.js" defer></script>

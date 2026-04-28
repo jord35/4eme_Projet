@@ -3,10 +3,10 @@
 - [x] Fix du flou des images et vérification de la logique de génération et sélection des variantes.
 - [x] Implémentation du tri par titre sur la page books.
 - [x] Remplacement des fausses données par des données crédibles de démonstration.
-- [ ] Vérification point par point, sur les différentes pages, de ce qui relève réellement du layout commun parmi les éléments notés comme `layout potentiel`, et de ce qui doit rester spécifique à chaque page._
+- [] Vérification point par point, sur les différentes pages, de ce qui relève réellement du layout commun parmi les éléments notés comme `layout potentiel`, et de ce qui doit rester spécifique à chaque page._
 - [ ] Passe layout pour coller finement à la maquette avec les vraies données._
 - [ ] Derniers correctifs ciblés page par page.__________
-- [ ] Amélioration de l'accessibilité.
+- [ ] Amélioration de l'accessibilité._     
 - [ ] Vérifications Lighthouse.
 - [ ] Micro-optimisations
 - [ ] QA finale
