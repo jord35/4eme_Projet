@@ -1,5 +1,4 @@
 .book-detail {
-    min-height: calc(100vh - var(--header-height));
     background-color: var(--color-gray-light);
     padding-top: 28px;
 
@@ -16,7 +15,6 @@
     &__inner {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        min-height: calc(100vh - var(--header-height));
         width: min(100%, var(--layout-max-width));
         margin: 0 auto;
     }
@@ -38,7 +36,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        padding: 59px 150px 0 85px;
+        padding: 59px 150px 80px 85px;
     }
 
     &__intro {
@@ -69,8 +67,7 @@
     }
 
     &__description {
-        margin-bottom: 40px;
-        min-height: 594px;
+        margin-bottom: 32px;
     }
 
     &__section-title {
@@ -101,22 +98,19 @@
     }
 
     &__owner {
-        margin-bottom: 56px;
+        margin-bottom: 80px;
     }
 
     &__owner-card {
         max-width: fit-content;
     }
 
-    &__actions {
-        margin-top: auto;
-        padding-top: 24px;
-    }
-
     &__message-link {
         width: 100%;
-        max-width: 392px;
+        font-size: 16px;
         text-decoration: none;
+        height: 63px;
+        border-radius: 10px;
     }
 }
 
