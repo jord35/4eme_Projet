@@ -1,4 +1,10 @@
 <?php
+/**
+ * Variables injected by View::render() via extract($params).
+ *
+ * @var array<string, mixed> $book
+ * @var array<string, mixed>|null $coverPicture
+ */
 $fallbackCover = '/assets/img-book-not-found.webp';
 
 $coverSrc = !empty($coverPicture['src'])

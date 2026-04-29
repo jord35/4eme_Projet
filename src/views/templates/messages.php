@@ -1,3 +1,14 @@
+<?php
+/**
+ * Variables injected by View::render() via extract($params).
+ *
+ * @var int $currentUserId
+ * @var int|null $activeConversationId
+ * @var array<int, array<string, mixed>> $conversationSummaries
+ * @var array<int, array<string, mixed>> $messages
+ */
+?>
+
 <section class="messages-page">
     <div
         class="messages-page__layout"

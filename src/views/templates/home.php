@@ -1,3 +1,11 @@
+<?php
+/**
+ * Variables injected by View::render() via extract($params).
+ *
+ * @var array<int, array<string, mixed>> $bookCards
+ */
+?>
+
 <section class="home-hero">
     <div class="home-hero__inner site-frame">
         <div class="home-hero__content">

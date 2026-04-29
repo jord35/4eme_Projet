@@ -1,3 +1,12 @@
+<?php
+/**
+ * Variables injected by View::render() via extract($params).
+ *
+ * @var string|null $search
+ * @var array<int, array<string, mixed>> $bookCards
+ */
+?>
+
 <section class="books-page">
     <div class="books-page__inner site-frame">
         <header class="books-page__header">
