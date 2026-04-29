@@ -89,6 +89,11 @@ class MyAccountController extends AbstractController
 
     private function handleError(string $error): void
     {
+        if ($error === 'Authentication required.' && !$this->isAjaxRequest()) {
+            header('Location: /?action=login');
+            exit;
+        }
+
         $statusCode = 500;
 
         if ($error === 'Authentication required.') {

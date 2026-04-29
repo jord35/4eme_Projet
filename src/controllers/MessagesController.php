@@ -143,6 +143,12 @@ class MessagesController extends AbstractController
     private function handleError(?string $error): void
     {
         $error = $error ?? 'Une erreur est survenue.';
+
+        if ($error === 'Authentication required.' && !$this->isAjaxRequest()) {
+            header('Location: /?action=login');
+            exit;
+        }
+
         $statusCode = 500;
 
         if ($error === 'Authentication required.') {
