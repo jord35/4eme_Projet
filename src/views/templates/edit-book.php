@@ -1,3 +1,12 @@
+<?php
+/**
+ * Variables injected by View::render() via extract($params).
+ *
+ * @var Book $book
+ * @var array<string, mixed>|null $coverPicture
+ */
+?>
+
 <section class="book-edit-page">
     <div class="book-edit-page__inner site-frame">
         <a class="book-edit-page__back-link" href="/?action=my-account">

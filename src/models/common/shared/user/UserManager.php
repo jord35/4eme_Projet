@@ -4,6 +4,8 @@ class UserManager extends AbstractEntityManager
 {
     public function usernameExists(string $username): bool
     {
+        // Ces verifications courtes sont utilisees par l'inscription et la mise a jour de profil
+        // pour refuser rapidement un identifiant deja pris.
         $username = trim($username);
 
         if ($username === '') {
@@ -126,6 +128,8 @@ class UserManager extends AbstractEntityManager
 
     public function updateProfile(int $userId, array $data): bool
     {
+        // Le manager construit un UPDATE dynamique pour ne modifier
+        // que les champs reellement fournis par le service appelant.
         if ($userId <= 0) {
             return false;
         }
@@ -178,6 +182,8 @@ class UserManager extends AbstractEntityManager
 
     public function findProfileByUserId(int $userId): ?array
     {
+        // Cette requete prepare directement les donnees affichees sur Mon compte,
+        // y compris le compteur de livres possedes par l'utilisateur.
         $sql = '
             SELECT
                 u.id,
@@ -220,6 +226,8 @@ class UserManager extends AbstractEntityManager
 
     public function findPublicProfileByUsername(string $username): ?array
     {
+        // Variante publique du profil : on expose moins d'informations,
+        // mais on garde le meme principe d'agregation avec le nombre de livres.
         $username = trim($username);
 
         if ($username === '') {

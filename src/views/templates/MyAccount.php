@@ -1,4 +1,16 @@
 <?php
+/**
+ * Variables injected by View::render() via extract($params).
+ *
+ * @var array<string, mixed> $profile
+ * @var array<string, mixed>|null $profilePicture
+ * @var array<int, array<string, mixed>> $libraryBooks
+ * @var string $username
+ * @var string $email
+ * @var string $createdAt
+ * @var int $booksCount
+ * @var string $memberSince
+ */
 $fallbackProfilePicture = '/assets/Icon-mon-compte.svg';
 $profileImageSrc = !empty($profilePicture['src'])
     ? (string) $profilePicture['src']
@@ -217,3 +229,5 @@ $profileImageAlt = $username !== ''
         </div>
 
         <script src="/js/my-account.js" defer></script>
+    </div>
+</section>

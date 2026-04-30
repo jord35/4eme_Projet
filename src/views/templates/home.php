@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * Variables injected by View::render() via extract($params).
+ *
+ * @var array<int, array<string, mixed>> $bookCards
+ */
+?>
+
 <section class="home-hero">
     <div class="home-hero__inner site-frame">
         <div class="home-hero__content">
@@ -39,7 +48,8 @@
                     <?php
                     $bookCardData = $bookCard;
                     $bookCardOwnerLabelPrefix = 'Proposé par';
-                    $bookCardShowStatusText = false;
+                    $bookCardShowStatusText = true;
+                    $bookCardUnavailableText = 'non dispo.';
                     require __DIR__ . '/common/book-card.php';
                     ?>
                 <?php endforeach; ?>

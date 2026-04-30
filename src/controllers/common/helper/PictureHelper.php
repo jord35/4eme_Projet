@@ -1,6 +1,6 @@
 <?php
 
-class PictureHelper 
+class PictureHelper
 {
     private PictureManager $pictureManager;
 
@@ -46,8 +46,8 @@ class PictureHelper
 
     public function savePicture(array $file, array $options = []): array
     {
-        // Le helper vérifie d'abord le fichier reçu,
-        // puis laisse le manager créer l'original et ses variantes.
+        // Le helper verifie d'abord le fichier recu,
+        // puis laisse le manager creer l'original et ses variantes.
         if (empty($file) || empty($file['tmp_name'])) {
             return [
                 'success' => false,
@@ -80,10 +80,11 @@ class PictureHelper
             'data' => $result['data'] ?? $result
         ];
     }
+
     public function deletePicturePackageIfUnused(int $pictureId): void
     {
-        // Le nettoyage est volontairement isolé ici pour garder
-        // la logique d'upload/suppression au même endroit.
+        // Le nettoyage est volontairement isole ici pour garder
+        // la logique d'upload/suppression au meme endroit.
         $this->pictureManager->deletePicturePackageIfUnused($pictureId);
     }
 }

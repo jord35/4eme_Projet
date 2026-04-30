@@ -23,8 +23,8 @@ class MyAccountController extends AbstractController
                 return;
             }
 
-            // Une partie des données est déjà prête dans le service,
-            // puis le contrôleur complète avec quelques valeurs de présentation.
+            // Une partie des donnees est deja prete dans le service,
+            // puis le controleur complete avec quelques valeurs de presentation.
             $profile = $pageResult['data']['profile'] ?? [];
             $profilePicture = $pageResult['data']['profilePicture'] ?? null;
             $libraryBooks = $pageResult['data']['libraryBooks'] ?? [];
@@ -65,7 +65,7 @@ class MyAccountController extends AbstractController
             return;
         }
 
-        // Le même endpoint POST gère plusieurs actions.
+        // Le meme endpoint POST gere plusieurs actions.
         // On se base sur form_action pour savoir si on modifie le profil ou si on supprime un livre.
         $formAction = trim((string) ($_POST['form_action'] ?? 'update_profile'));
 
@@ -95,6 +95,11 @@ class MyAccountController extends AbstractController
 
     private function handleError(string $error): void
     {
+        if ($error === 'Authentication required.' && !$this->isAjaxRequest()) {
+            header('Location: /?action=login');
+            exit;
+        }
+
         $statusCode = 500;
 
         if ($error === 'Authentication required.') {

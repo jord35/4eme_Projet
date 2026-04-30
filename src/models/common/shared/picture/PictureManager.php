@@ -21,6 +21,8 @@ class PictureManager extends AbstractEntityManager
      */
     public function getPicturePackage(int $pictureId, string $context): array
     {
+        // On repart toujours de l'image originale en base,
+        // puis on lui rattache les variantes adaptees au contexte d'affichage.
         $picture = $this->findById($pictureId);
 
         if (!$picture) {
@@ -71,6 +73,8 @@ class PictureManager extends AbstractEntityManager
      */
     public function savePicture(array $file, array $options = []): array
     {
+        // Le manager suit un ordre simple : validation du fichier,
+        // stockage de l'original, insertion en base, puis generation des variantes.
         $validation = $this->validateUploadedFile($file);
 
         if ($validation['success'] === false) {
@@ -157,6 +161,8 @@ class PictureManager extends AbstractEntityManager
     }
     public function deletePicturePackageIfUnused(int $pictureId): void
     {
+        // La suppression reste defensive : on ne retire rien tant que l'image
+        // est encore referencee par un profil, un livre ou une autre relation metier.
         if ($pictureId <= 0) {
             return;
         }
@@ -322,6 +328,8 @@ class PictureManager extends AbstractEntityManager
     }
     private function resolveVariantTypes(array $options): array
     {
+        // On accepte soit une seule variante demandee,
+        // soit une liste de contextes a produire en une seule operation.
         $variantTypes = $options['variant_types'] ?? null;
 
         if (!is_array($variantTypes) || empty($variantTypes)) {

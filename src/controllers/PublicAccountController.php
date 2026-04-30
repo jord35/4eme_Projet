@@ -33,7 +33,7 @@ class PublicAccountController extends AbstractController
             return;
         }
 
-        // Ici on cherche un profil à partir du pseudo visible dans l'URL.
+        // Ici on cherche un profil a partir du pseudo visible dans l'URL.
         // Si le pseudo est vide ou inconnu, on renvoie une page 404 simple.
         $username = trim($_GET['username'] ?? '');
 
@@ -73,7 +73,7 @@ class PublicAccountController extends AbstractController
             return;
         }
 
-        // On hydrate ensuite les visuels et la bibliothèque du profil
+        // On hydrate ensuite les visuels et la bibliotheque du profil
         // pour garder la vue la plus simple possible.
         if (!empty($profile['profile_picture_id'])) {
             $pictureResult = $this->pictureHelper->getPicturePackage(

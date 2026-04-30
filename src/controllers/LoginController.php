@@ -28,8 +28,8 @@ class LoginController extends AbstractController
             return;
         }
 
-        // Le contrôleur reste léger : la vérification des identifiants
-        // et la création de session sont gérées dans AuthenticationService.
+        // Le controleur reste leger : la verification des identifiants
+        // et la creation de session sont gerees dans AuthenticationService.
         $result = $this->authenticationService->login($_POST);
 
         if ($result['success'] === true) {

@@ -11,8 +11,8 @@ class AuthenticationService
 
     public function requireUserId(): array
     {
-        // Méthode utilisée partout où une action doit être réservée
-        // à un utilisateur connecté. La source de vérité reste la session.
+        // Methode utilisee partout ou une action doit etre reservee
+        // a un utilisateur connecte. La source de verite reste la session.
         if (empty($_SESSION['user_id'])) {
             return [
                 'success' => false,
@@ -32,7 +32,7 @@ class AuthenticationService
 
     public function login(array $data): array
     {
-        // Après vérification du mot de passe, on régénère l'id de session
+        // Apres verification du mot de passe, on regenere l'id de session
         // puis on stocke les infos minimum utiles pour les autres pages.
         $email = trim((string) ($data['email'] ?? ''));
         $password = (string) ($data['password'] ?? '');

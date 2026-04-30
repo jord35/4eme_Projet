@@ -1,5 +1,5 @@
 <?php
-$bookCardData = is_array($bookCardData ?? null) ? $bookCardData : [];
+$bookCardData = isset($bookCardData) && is_array($bookCardData) ? $bookCardData : [];
 $bookCardId = (int) ($bookCardData['id'] ?? 0);
 $bookCardTitle = (string) ($bookCardData['title'] ?? '');
 $bookCardAuthor = (string) ($bookCardData['author_name'] ?? '');
@@ -40,7 +40,7 @@ $bookCardUnavailableText = (string) ($bookCardUnavailableText ?? 'non dispo.');
 
             <?php if (empty($bookCardData['is_available'])): ?>
                 <?php if ($bookCardShowStatusText): ?>
-                    <p class="book-card__status" aria-label="<?= htmlspecialchars($bookCardStatusLabel, ENT_QUOTES, 'UTF-8') ?>">
+                    <p class="book-card__status">
                         <?= htmlspecialchars($bookCardUnavailableText, ENT_QUOTES, 'UTF-8') ?>
                     </p>
                 <?php else: ?>
@@ -50,7 +50,7 @@ $bookCardUnavailableText = (string) ($bookCardUnavailableText ?? 'non dispo.');
         </div>
 
         <div class="book-card__body">
-            <p class="book-card__title"><?= htmlspecialchars($bookCardTitle, ENT_QUOTES, 'UTF-8') ?></p>
+            <h2 class="book-card__title"><?= htmlspecialchars($bookCardTitle, ENT_QUOTES, 'UTF-8') ?></h2>
             <p class="book-card__author"><?= htmlspecialchars($bookCardAuthor, ENT_QUOTES, 'UTF-8') ?></p>
             <p class="book-card__owner">
                 <?= htmlspecialchars($bookCardOwnerLabelPrefix, ENT_QUOTES, 'UTF-8') ?>

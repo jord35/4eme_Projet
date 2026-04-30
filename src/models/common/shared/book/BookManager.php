@@ -4,6 +4,8 @@ class BookManager extends AbstractEntityManager
 {
     public function findOwnedBookById(int $bookId, int $ownerUserId): ?Book
     {
+        // Cette lecture sert de garde-fou d'autorisation :
+        // un livre n'est charge que s'il appartient bien au proprietaire attendu.
         $sql = '
             SELECT
                 id,
@@ -36,6 +38,8 @@ class BookManager extends AbstractEntityManager
     }
     private function findForGrid(?int $limit = null, ?string $search = null): array
     {
+        // La grille livres et la home reutilisent la meme base SQL.
+        // Seuls changent la recherche eventuelle et la limite de resultats.
         $sql = '
             SELECT
                 b.id,
@@ -96,6 +100,8 @@ class BookManager extends AbstractEntityManager
 
     public function insert(Book $book): int
     {
+        // Le manager persiste uniquement l'entite telle qu'elle a ete validee plus haut.
+        // Il ne refait pas les controles metier deja pris en charge par le helper/service.
         $sql = '
             INSERT INTO books (
                 title,
@@ -132,6 +138,8 @@ class BookManager extends AbstractEntityManager
 
     public function update(Book $book): bool
     {
+        // La clause owner_user_id protege aussi l'UPDATE,
+        // pour eviter qu'un utilisateur modifie le livre d'un autre.
         $sql = '
             UPDATE books
             SET
@@ -212,6 +220,8 @@ class BookManager extends AbstractEntityManager
     }
     public function findBookDetailsById(int $bookId): ?array
     {
+        // Cette requete rassemble en une seule lecture le livre et les donnees utiles du proprietaire,
+        // afin d'alleger ensuite le controleur de detail.
         if ($bookId <= 0) {
             return null;
         }

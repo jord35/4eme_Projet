@@ -17,7 +17,7 @@ class AccountService
 
     public function getPageData(): array
     {
-        // Mon compte est une zone privée.
+        // Mon compte est une zone privee.
         // On repart donc toujours de la session pour savoir quel profil charger.
         $authResult = $this->authenticationService->requireUserId();
 
@@ -37,8 +37,8 @@ class AccountService
             ];
         }
 
-        // Le service prépare à la fois les informations du profil
-        // et la liste des livres du user connecté.
+        // Le service prepare a la fois les informations du profil
+        // et la liste des livres du user connecte.
         $profilePicture = $this->getProfilePictureData($profileResult);
 
         $booksResult = $this->bookHelper->getOwnedBooksForLibrary($userId);
@@ -84,7 +84,7 @@ class AccountService
 
     public function updateProfile(array $post, array $files): array
     {
-        // Cette méthode centralise toute la mise à jour du profil :
+        // Cette methode centralise toute la mise a jour du profil :
         // pseudo, email, mot de passe et photo.
         $authResult = $this->authenticationService->requireUserId();
 
@@ -107,8 +107,8 @@ class AccountService
         $email = trim($post['email'] ?? '');
         $password = trim($post['password'] ?? '');
 
-        // On ne remplit le payload qu'avec les champs réellement envoyés,
-        // pour éviter d'écraser une valeur existante avec une chaîne vide.
+        // On ne remplit le payload qu'avec les champs reellement envoyes,
+        // pour eviter d'ecraser une valeur existante avec une chaine vide.
         $payload = [];
 
         if ($username !== '') {
@@ -130,8 +130,8 @@ class AccountService
         $newProfilePictureId = $oldProfilePictureId;
         $newUploadedPictureId = null;
 
-        // Si une nouvelle photo est envoyée, on la sauvegarde d'abord.
-        // Son id est ensuite injecté dans la mise à jour du profil.
+        // Si une nouvelle photo est envoyee, on la sauvegarde d'abord.
+        // Son id est ensuite injecte dans la mise a jour du profil.
         if (!empty($files['profile_image']) && !empty($files['profile_image']['tmp_name'])) {
             $pictureResult = $this->pictureHelper->savePicture($files['profile_image'], [
                 'variant_type' => 'profile'
@@ -150,8 +150,8 @@ class AccountService
 
         $updateResult = $this->userManager->updateProfile($userId, $payload);
 
-        // En cas d'échec après upload, on nettoie le nouveau fichier
-        // pour éviter de garder des images inutilisées sur le disque.
+        // En cas d'echec apres upload, on nettoie le nouveau fichier
+        // pour eviter de garder des images inutilisees sur le disque.
         if ($updateResult === false) {
             if ($newUploadedPictureId !== null) {
                 $this->pictureHelper->deletePicturePackageIfUnused($newUploadedPictureId);
@@ -164,8 +164,8 @@ class AccountService
             ];
         }
 
-        // Si l'utilisateur a changé sa photo, on peut tenter de supprimer l'ancienne
-        // seulement si elle n'est plus utilisée ailleurs.
+        // Si l'utilisateur a change sa photo, on peut tenter de supprimer l'ancienne
+        // seulement si elle n'est plus utilisee ailleurs.
         if (
             $oldProfilePictureId !== null &&
             $newProfilePictureId !== null &&
@@ -184,7 +184,7 @@ class AccountService
             ];
         }
 
-        // On remet aussi le pseudo à jour en session,
+        // On remet aussi le pseudo a jour en session,
         // car la navigation s'appuie dessus dans plusieurs vues.
         $_SESSION['username'] = (string) $updatedProfile['username'];
 
@@ -202,8 +202,8 @@ class AccountService
 
     public function deleteBook(int $bookId): array
     {
-        // La suppression d'un livre depuis Mon compte reste protégée :
-        // il faut être connecté et propriétaire du livre.
+        // La suppression d'un livre depuis Mon compte reste protegee :
+        // il faut etre connecte et proprietaire du livre.
         $authResult = $this->authenticationService->requireUserId();
 
         if ($authResult['success'] === false) {
@@ -220,8 +220,8 @@ class AccountService
 
         $userId = $authResult['data']['user_id'];
 
-        // On relit d'abord le livre pour vérifier la propriété
-        // et conserver l'id de couverture à nettoyer après suppression.
+        // On relit d'abord le livre pour verifier la propriete
+        // et conserver l'id de couverture a nettoyer apres suppression.
         $bookResult = $this->bookHelper->getOwnedBook($bookId, $userId);
 
         if ($bookResult['success'] === false) {
@@ -264,7 +264,7 @@ class AccountService
 
     private function getProfilePictureData(array $profileResult): ?array
     {
-        // Petite méthode utilitaire pour garder le reste du service lisible.
+        // Petite methode utilitaire pour garder le reste du service lisible.
         if (empty($profileResult['profile_picture_id'])) {
             return null;
         }

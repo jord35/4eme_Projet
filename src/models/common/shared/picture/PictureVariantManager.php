@@ -23,6 +23,8 @@ class PictureVariantManager extends AbstractEntityManager
      */
     public function findByPictureIdAndContext(int $pictureId, string $context): array
     {
+        // Cette lecture sert au rendu : on filtre directement par contexte
+        // pour ne remonter que les variantes utiles a la vue demandee.
         $sql = '
             SELECT *
             FROM picture_variant
@@ -83,6 +85,8 @@ class PictureVariantManager extends AbstractEntityManager
      */
     public function deleteByPictureId(int $pictureId): void
     {
+        // Le nettoyage se fait dans les deux couches : d'abord les fichiers sur disque,
+        // puis les lignes correspondantes en base.
         if ($pictureId <= 0) {
             return;
         }
@@ -113,6 +117,8 @@ class PictureVariantManager extends AbstractEntityManager
      */
     public function generateAndSaveVariants(int $pictureId, string $originalFullPath, string $variantType): array
     {
+        // Chaque contexte fournit une liste de definitions cible.
+        // On genere ensuite les fichiers un par un avant d'enregistrer leurs metadonnees.
         $definitions = $this->getVariantDefinitions($variantType);
         $savedVariants = [];
         $errors = [];
@@ -223,6 +229,8 @@ class PictureVariantManager extends AbstractEntityManager
      */
     private function getVariantDefinitions(string $variantType): array
     {
+        // Toute la strategie responsive est centralisee ici,
+        // ce qui evite de disperser les tailles dans plusieurs services ou vues.
         return match ($variantType) {
             'profile' => [
                 ['target_width' => 48, 'target_height' => 48, 'resize_mode' => 'cover_box', 'device' => 'mobile', 'format' => 'webp'],
@@ -260,6 +268,8 @@ class PictureVariantManager extends AbstractEntityManager
      */
     private function generateVariantFile(int $pictureId, string $originalFullPath, array $definition): array
     {
+        // Cette methode ne connait pas la base : elle ne fait que lire l'original,
+        // calculer la taille cible et ecrire la variante sur le disque.
         $sourceInfo = getimagesize($originalFullPath);
 
         if ($sourceInfo === false) {
