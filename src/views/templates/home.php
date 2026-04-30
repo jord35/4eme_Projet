@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Variables injected by View::render() via extract($params).
  *
@@ -47,7 +48,8 @@
                     <?php
                     $bookCardData = $bookCard;
                     $bookCardOwnerLabelPrefix = 'Proposé par';
-                    $bookCardShowStatusText = false;
+                    $bookCardShowStatusText = true;
+                    $bookCardUnavailableText = 'non dispo.';
                     require __DIR__ . '/common/book-card.php';
                     ?>
                 <?php endforeach; ?>

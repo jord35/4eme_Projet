@@ -1,3 +1,12 @@
+<?php
+/**
+ * Variables injected by View::render() before requiring this layout.
+ *
+ * @var string $title
+ * @var string $content
+ * @var int $globalUnreadMessageCount
+ */
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

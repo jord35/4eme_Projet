@@ -12,7 +12,7 @@
         <header class="books-page__header">
             <h1 class="books-page__title">Nos livres à l’échange</h1>
 
-            <form class="books-page__search-form" action="" method="get">
+            <form class="books-page__search-form" method="get">
                 <input type="hidden" name="action" value="books">
 
                 <label for="books-search" class="visually-hidden">Rechercher un livre</label>
