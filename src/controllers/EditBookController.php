@@ -11,6 +11,8 @@ class EditBookController extends AbstractController
 
     public function execute(): void
     {
+        // Cette page gere a la fois l'ajout et la modification d'un livre.
+        // La presence d'un id permet de savoir si on edite un livre existant.
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $bookId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
@@ -58,6 +60,8 @@ class EditBookController extends AbstractController
         /** @var Book $book */
         $book = $saveResult['data'];
 
+        // Apres sauvegarde, on recharge le livre pour recuperer les donnees finales,
+        // notamment l'image de couverture transformee pour l'affichage.
         $coverPicture = null;
         $formResult = $this->editBookService->getFormBook($book->getId());
 

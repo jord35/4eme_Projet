@@ -11,6 +11,8 @@ class BookHelper
 
     public function getOwnedBook(int $bookId, int $ownerUserId): array
     {
+        // Ce helper sert de garde-fou entre le controleur/service et le manager SQL.
+        // Ici, on confirme que le livre demande appartient bien au proprietaire attendu.
         if ($bookId <= 0) {
             return [
                 'success' => false,
@@ -98,6 +100,8 @@ class BookHelper
 
     public function createBook(Book $book): array
     {
+        // On valide l'entite avant l'insertion pour eviter d'envoyer au manager
+        // un objet incomplet ou incoherent.
         if ($book->getOwnerUserId() <= 0) {
             return [
                 'success' => false,
@@ -143,6 +147,8 @@ class BookHelper
 
     public function saveBook(Book $book): array
     {
+        // Meme principe en modification : on verifie d'abord les donnees metier,
+        // puis on delegue l'update au manager.
         if ($book->getId() <= 0) {
             return [
                 'success' => false,

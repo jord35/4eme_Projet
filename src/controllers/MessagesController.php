@@ -11,6 +11,9 @@ class MessagesController extends AbstractController
 
     public function execute(): void
     {
+        // Ce controleur sert de point d'entree unique pour la messagerie.
+        // Il redirige ensuite vers le bon traitement selon la methode HTTP
+        // et selon le type de requete AJAX demandee.
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($this->isConversationSummariesRequest()) {
                 $this->handleConversationSummariesRequest();
@@ -50,6 +53,8 @@ class MessagesController extends AbstractController
         $conversationId = isset($_GET['conversation_id']) ? (int) $_GET['conversation_id'] : null;
         $otherUserId = isset($_GET['user_id']) ? (int) $_GET['user_id'] : null;
 
+        // Le service prepare toutes les donnees de la page :
+        // liste des conversations, conversation active, messages et compteurs non lus.
         $pageResult = $this->messagePageService->getPageData($conversationId, $otherUserId);
 
         if ($pageResult['success'] === false) {
@@ -107,6 +112,8 @@ class MessagesController extends AbstractController
 
     private function handleSendMessageRequest(): void
     {
+        // L'envoi passe par le service pour centraliser les verifications :
+        // utilisateur connecte, acces a la conversation et contenu du message.
         $sendResult = $this->messagePageService->sendMessage($_POST);
 
         if ($sendResult['success'] === false) {

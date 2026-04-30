@@ -15,6 +15,8 @@ class EditBookService
 
     public function getFormBook(?int $bookId = null): array
     {
+        // On commence toujours par verifier la session.
+        // Sans utilisateur connecte, on ne doit ni creer ni modifier de livre.
         $authResult = $this->authenticationService->requireUserId();
 
         if ($authResult['success'] === false) {
@@ -24,6 +26,8 @@ class EditBookService
         $ownerUserId = $authResult['data']['user_id'];
         $coverPicture = null;
 
+        // En modification, on recharge uniquement un livre appartenant au user connecte.
+        // Cela evite qu'un utilisateur edite le livre d'un autre en changeant juste l'id dans l'URL.
         if ($bookId !== null && $bookId > 0) {
             $bookResult = $this->bookHelper->getOwnedBook($bookId, $ownerUserId);
 
@@ -45,6 +49,7 @@ class EditBookService
             ]);
         }
 
+        // L'image n'est chargee que si le livre possede deja une couverture.
         if ($book->getCoverPictureId() !== null) {
             $pictureResult = $this->pictureHelper->getPicturePackage(
                 $book->getCoverPictureId(),
@@ -68,6 +73,8 @@ class EditBookService
 
     public function saveBook(array $post, array $files): array
     {
+        // Meme logique ici : on s'appuie sur la session pour savoir
+        // quel utilisateur a le droit de creer ou modifier le livre.
         $authResult = $this->authenticationService->requireUserId();
 
         if ($authResult['success'] === false) {
@@ -77,6 +84,8 @@ class EditBookService
         $ownerUserId = $authResult['data']['user_id'];
         $bookId = isset($post['id']) ? (int) $post['id'] : 0;
 
+        // Si un id est fourni, on verifie que ce livre appartient bien au user connecte.
+        // Sinon on prepare un nouvel objet Book vide qui sera rempli avec le formulaire.
         if ($bookId > 0) {
             $bookResult = $this->bookHelper->getOwnedBook($bookId, $ownerUserId);
 
@@ -103,6 +112,7 @@ class EditBookService
         $description = trim($post['description'] ?? '');
         $isAvailable = isset($post['is_available']) ? (int) $post['is_available'] : 1;
 
+        // Titre et auteur sont les champs minimums pour enregistrer un livre.
         if ($title === '' || $authorName === '') {
             return [
                 'success' => false,
@@ -115,6 +125,8 @@ class EditBookService
         $newCoverPictureId = $oldCoverPictureId;
         $newUploadedPictureId = null;
 
+        // Si une nouvelle image est envoyee, on la sauvegarde avant le livre
+        // pour pouvoir rattacher son id directement a l'entite.
         if (!empty($files['picture']) && !empty($files['picture']['tmp_name'])) {
             $pictureResult = $this->pictureHelper->savePicture($files['picture'], [
                 'variant_types' => ['book_card', 'book_table', 'book_detail', 'cover']
@@ -129,6 +141,8 @@ class EditBookService
             $newCoverPictureId = $newUploadedPictureId ?? $newCoverPictureId;
         }
 
+        // L'entite Book est remplie a partir des donnees nettoyees du formulaire,
+        // puis envoyee au helper qui gere la persistance.
         $book->setOwnerUserId($ownerUserId);
         $book->setTitle($title);
         $book->setAuthorName($authorName);
@@ -142,6 +156,8 @@ class EditBookService
             $saveResult = $this->bookHelper->createBook($book);
         }
 
+        // Si la sauvegarde du livre echoue apres un upload,
+        // on supprime l'image fraichement creee pour eviter les fichiers orphelins.
         if ($saveResult['success'] === false) {
             if ($newUploadedPictureId !== null) {
                 $this->pictureHelper->deletePicturePackageIfUnused($newUploadedPictureId);
@@ -150,6 +166,8 @@ class EditBookService
             return $saveResult;
         }
 
+        // Si la couverture a change, on nettoie l'ancienne seulement
+        // lorsqu'elle n'est plus utilisee ailleurs.
         if (
             $oldCoverPictureId !== null &&
             $newCoverPictureId !== null &&
